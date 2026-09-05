@@ -52,8 +52,27 @@
         </hlm-dropdown-menu>
       </ng-template>
 
-      <!-- SIGN IN -->
-      <button hlmBtn variant="default" class="sign-in-button" routerLink="/sign-in">Sign in</button>
+      <!-- AUTHENTICATION -->
+@if (authService.isLoggedIn()) {
+  <button
+    hlmBtn
+    variant="outline"
+    class="logout-button"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+} @else {
+  <button
+    hlmBtn
+    variant="default"
+    class="sign-in-button"
+    routerLink="/sign-in"
+  >
+    Sign in
+  </button>
+  }
+
     </div>
   </nav>
 

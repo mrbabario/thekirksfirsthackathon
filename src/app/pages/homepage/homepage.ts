@@ -1,11 +1,12 @@
 import { Component, signal, afterNextRender } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router} from '@angular/router';
 
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
+import { AuthService } from '../../core/services/auth';
 
 type Language = 'en' | 'ms' | 'zh';
 
@@ -257,11 +258,20 @@ export class Homepage {
   // CONSTRUCTOR
   // -----------------------------
 
-  constructor() {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+  ) {
     afterNextRender(() => {
       this.loadArticles();
     });
   }
+
+  logout() {
+  this.authService.logout();
+
+  this.router.navigate(['/']);
+}
 
   // -----------------------------
   // TRANSLATION
