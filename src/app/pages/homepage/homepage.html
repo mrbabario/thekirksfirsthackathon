@@ -1,1 +1,271 @@
+<div class="page">
 
+  <!-- NAVBAR -->
+  <nav class="navbar">
+
+    <a href="#home" class="logo">
+      <span class="logo-icon">K</span>
+      <span class="logo-name">Kirkify</span>
+    </a>
+
+    <div class="nav-links">
+
+      <a href="#home" class="nav-link">
+        {{ t().home }}
+      </a>
+
+      <a href="#how-it-works" class="nav-link">
+        {{ t().howItWorks }}
+      </a>
+
+      <a href="#about" class="nav-link">
+        {{ t().about }}
+      </a>
+
+    </div>
+
+    <div class="nav-actions">
+
+      <!-- LANGUAGE -->
+      <button
+        hlmBtn
+        variant="outline"
+        [hlmDropdownMenuTrigger]="languageMenu"
+        class="language-button"
+      >
+        🌐 {{ t().language }}
+      </button>
+
+      <ng-template #languageMenu>
+
+        <hlm-dropdown-menu class="language-menu">
+
+          <hlm-dropdown-menu-group>
+
+            <hlm-dropdown-menu-label>
+              {{ t().language }}
+            </hlm-dropdown-menu-label>
+
+            <button
+              hlmDropdownMenuItem
+              (click)="setLanguage('en')"
+            >
+              🇬🇧 English
+            </button>
+
+            <button
+              hlmDropdownMenuItem
+              (click)="setLanguage('ms')"
+            >
+              🇲🇾 Bahasa Melayu
+            </button>
+
+            <button
+              hlmDropdownMenuItem
+              (click)="setLanguage('zh')"
+            >
+              🇨🇳 中文
+            </button>
+
+          </hlm-dropdown-menu-group>
+
+        </hlm-dropdown-menu>
+
+      </ng-template>
+
+    </div>
+
+  </nav>
+
+
+  <!-- HERO -->
+  <main id="home" class="main">
+
+    <section class="hero">
+
+      <div class="badge">
+        ✦ {{ t().badge }}
+      </div>
+
+      <h1>
+        {{ t().title }}
+        <br />
+
+        <span>
+          {{ t().titleHighlight }}
+        </span>
+      </h1>
+
+      <p class="description">
+        {{ t().description }}
+      </p>
+
+    </section>
+
+
+    <!-- REVIEW AREA -->
+    <section class="review-area">
+
+      <!-- ARTICLE TEXT -->
+      <div class="input-section">
+
+        <div class="input-header">
+
+          <div>
+            <h2>{{ t().textLabel }}</h2>
+
+            <p>
+              {{ t().textHint }}
+            </p>
+          </div>
+
+          <!-- REVIEW BUTTON -->
+          @if (hasText()) {
+
+            <button
+              hlmBtn
+              class="review-button"
+              [disabled]="reviewing()"
+              (click)="reviewText()"
+            >
+              {{ reviewing() ? t().reviewing : t().review }}
+            </button>
+
+          }
+
+        </div>
+
+        <textarea
+          hlmTextarea
+          [(ngModel)]="articleText"
+          [placeholder]="t().textPlaceholder"
+          class="article-textarea"
+        ></textarea>
+
+      </div>
+
+
+      <!-- URL -->
+      <div class="input-section">
+
+        <div class="input-header">
+
+          <div>
+            <h2>{{ t().urlLabel }}</h2>
+
+            <p>
+              {{ t().urlHint }}
+            </p>
+          </div>
+
+          <!-- REVIEW BUTTON -->
+          @if (hasUrl()) {
+
+            <button
+              hlmBtn
+              class="review-button"
+              [disabled]="reviewing()"
+              (click)="reviewUrl()"
+            >
+              {{ reviewing() ? t().reviewing : t().review }}
+            </button>
+
+          }
+
+        </div>
+
+        <input
+          hlmInput
+          type="url"
+          [(ngModel)]="articleUrl"
+          [placeholder]="t().urlPlaceholder"
+          class="url-input"
+        />
+
+      </div>
+
+
+      <!-- RESULT -->
+      <div class="result-section">
+
+        <div class="result-header">
+          <h2>{{ t().resultTitle }}</h2>
+        </div>
+
+        <div class="result-box">
+
+          @if (reviewing()) {
+
+            <div class="loading">
+              <div class="spinner"></div>
+
+              <span>
+                {{ t().reviewing }}
+              </span>
+            </div>
+
+          } @else if (reviewResult()) {
+
+            <p>
+              {{ reviewResult() }}
+            </p>
+
+          } @else {
+
+            <div class="empty-result">
+
+              <span class="result-icon">✦</span>
+
+              <p>
+                {{ t().resultPlaceholder }}
+              </p>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="info-section">
+
+      <div class="info-card">
+        <div class="info-number">01</div>
+
+        <h3>Provide an article</h3>
+
+        <p>
+          Paste the article directly or provide its URL.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-number">02</div>
+
+        <h3>Review</h3>
+
+        <p>
+          Kirkify examines the article's important information and claims.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-number">03</div>
+
+        <h3>Understand</h3>
+
+        <p>
+          Get a clearer picture of the article before relying on it.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
