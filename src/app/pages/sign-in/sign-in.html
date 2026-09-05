@@ -1,0 +1,80 @@
+<div class="flex min-h-screen items-center justify-center px-4">
+  <hlm-card class="w-full max-w-md">
+    <hlm-card-header>
+      <h3 hlmCardTitle>Sign in to your account</h3>
+      <p hlmCardDescription>
+        Enter your email and password to sign in.
+      </p>
+
+      <div hlmCardAction>
+        <button hlmBtn variant="link">
+          Create account
+        </button>
+      </div>
+    </hlm-card-header>
+
+    <div hlmCardContent>
+      <form
+        id="sign-in-form"
+        class="flex flex-col gap-6"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="grid gap-2">
+          <label hlmLabel for="email">Email</label>
+
+          <input
+            hlmInput
+            id="email"
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            [(ngModel)]="email"
+            required
+          />
+        </div>
+
+        <div class="grid gap-2">
+          <div class="flex items-center">
+            <label hlmLabel for="password">Password</label>
+
+            <a
+              href="#"
+              class="ml-auto text-sm underline-offset-4 hover:underline"
+            >
+              Forgot password?
+            </a>
+          </div>
+
+          <input
+            hlmInput
+            id="password"
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+        </div>
+      </form>
+    </div>
+
+    <hlm-card-footer class="flex-col gap-2">
+      <button
+        hlmBtn
+        type="submit"
+        form="sign-in-form"
+        class="w-full"
+      >
+        Sign In
+      </button>
+
+      <button
+        hlmBtn
+        variant="outline"
+        type="button"
+        class="w-full"
+      >
+        Sign in with Google
+      </button>
+    </hlm-card-footer>
+  </hlm-card>
+</div>

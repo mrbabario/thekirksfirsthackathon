@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
@@ -12,6 +13,7 @@ type Language = 'en' | 'ms' | 'zh';
   selector: 'app-homepage',
   standalone: true,
   imports: [
+    RouterLink,
     FormsModule,
     HlmButtonImports,
     HlmDropdownMenuImports,
