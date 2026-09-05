@@ -1,4 +1,5 @@
 import json
+import re
 
 from langdetect import detect
 from ollama import chat
@@ -25,23 +26,81 @@ LANGUAGE_NAMES = {
 def detect_language(text: str) -> str:
     code = detect(text)
 
-    return LANGUAGE_NAMES.get(code, code)
+    return LANGUAGE_NAMES.get(
+        code,
+        code,
+    )
 
 
 def extract_json(text: str) -> list[dict]:
+    text = text.strip()
+
+    # Remove Markdown code fences.
+    text = re.sub(
+        r"^```(?:json)?\s*",
+        "",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    text = re.sub(
+        r"\s*```$",
+        "",
+        text,
+    )
+
+    text = text.strip()
+
+    # Try parsing the entire response first.
+    try:
+        data = json.loads(text)
+
+        if not isinstance(data, list):
+            raise ValueError(
+                "Gemma returned JSON, but it was not a JSON array."
+            )
+
+        return data
+
+    except json.JSONDecodeError:
+        pass
+
+    # If Gemma added extra text, extract the JSON array.
     start = text.find("[")
     end = text.rfind("]")
 
-    if start == -1 or end == -1:
+    if start == -1 or end == -1 or end <= start:
         raise ValueError(
             f"Could not find JSON array in model output:\n{text}"
         )
 
-    return json.loads(text[start:end + 1])
+    json_text = text[start:end + 1]
+
+    try:
+        data = json.loads(
+            json_text
+        )
+
+    except json.JSONDecodeError as e:
+        raise ValueError(
+            f"Gemma returned invalid JSON:\n{text}"
+        ) from e
+
+    if not isinstance(data, list):
+        raise ValueError(
+            "Gemma returned JSON, but it was not a JSON array."
+        )
+
+    return data
 
 
-def extract_claims(article_text: str) -> list[Claim]:
-    language = detect_language(article_text)
+def extract_claims(
+    article_text: str,
+) -> list[Claim]:
+
+    language = detect_language(
+        article_text
+    )
 
     prompt = f"""
 You are a medical fact-checking assistant.
@@ -75,53 +134,154 @@ Return ONLY a JSON array.
 Each object must contain:
 
 claim:
-  A clear atomic factual claim written in {language}.
+    A clear atomic factual claim written in {language}.
 
 language:
-  "{language}"
+    "{language}"
 
 entities:
-  Important medical entities mentioned in the claim.
+    Important medical entities mentioned in the claim.
 
 subject:
-  Subject of the claim.
+    Subject of the claim.
 
 predicate:
-  Relationship or action.
+    Relationship or action.
 
 object:
-  Object of the relationship.
+    Object of the relationship.
 
 ARTICLE:
 
 {article_text}
 """
 
-    response = chat(
-        model="gemma4:12b",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-    )
+    for attempt in range(2):
 
-    output = response.message.content
-
-    if output is None:
-        raise ValueError("LLM returned no output")
-
-    data = extract_json(output)
-
-    claims = []
-
-    for item in data:
-        # Never trust the model's language field.
-        item["language"] = language
-
-        claims.append(
-            Claim(**item)
+        response = chat(
+            model="gemma4:12b",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            think=False,
+            stream=False,
+            options={
+                "temperature": 0,
+                "num_predict": 1024,
+            },
         )
 
-    return claims
+        output = response.message.content
+
+        if not output:
+
+            if attempt == 0:
+                continue
+
+            raise ValueError(
+                "Gemma returned an empty response "
+                "while extracting claims."
+            )
+
+        try:
+
+            data = extract_json(
+                output
+            )
+
+            claims = []
+
+            for item in data:
+
+                item["language"] = language
+
+                claims.append(
+                    Claim(
+                        **item
+                    )
+                )
+
+            # -------------------------------------------------
+            # CONSOLE OUTPUT
+            # -------------------------------------------------
+
+            print(
+                "\n"
+                + "=" * 60
+            )
+
+            print(
+                "CLAIM EXTRACTION"
+            )
+
+            print(
+                "=" * 60
+            )
+
+            print(
+                f"Detected language: {language}"
+            )
+
+            print(
+                f"Claims found: {len(claims)}"
+            )
+
+            for i, claim in enumerate(
+                claims,
+                1,
+            ):
+
+                print(
+                    f"\n[{i}] {claim.claim}"
+                )
+
+                print(
+                    f"    Language: "
+                    f"{claim.language}"
+                )
+
+                print(
+                    f"    Entities: "
+                    f"{', '.join(claim.entities)}"
+                )
+
+                print(
+                    f"    Subject: "
+                    f"{claim.subject}"
+                )
+
+                print(
+                    f"    Predicate: "
+                    f"{claim.predicate}"
+                )
+
+                print(
+                    f"    Object: "
+                    f"{claim.object}"
+                )
+
+            print(
+                "=" * 60
+            )
+
+            return claims
+
+        except (
+            json.JSONDecodeError,
+            ValueError,
+            TypeError,
+        ) as e:
+
+            if attempt == 0:
+                continue
+
+            raise ValueError(
+                f"Gemma returned invalid claim JSON:\n{output}"
+            ) from e
+
+    raise RuntimeError(
+        "Unexpected claim extraction failure."
+    )

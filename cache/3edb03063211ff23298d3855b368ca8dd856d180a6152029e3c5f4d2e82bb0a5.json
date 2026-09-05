@@ -1,0 +1,411 @@
+{
+  "version": 5,
+  "article_hash": "3edb03063211ff23298d3855b368ca8dd856d180a6152029e3c5f4d2e82bb0a5",
+  "claims": [
+    {
+      "claim": "mRNA COVID-19 vaccines are causing cancer rates to skyrocket.",
+      "language": "English",
+      "entities": [
+        "mRNA COVID-19 vaccines",
+        "cancer"
+      ],
+      "subject": "mRNA COVID-19 vaccines",
+      "predicate": "cause",
+      "object": "increased cancer rates"
+    },
+    {
+      "claim": "Vaccinated individuals developed pre-blood clot and crystalline formations in their bloodstream.",
+      "language": "English",
+      "entities": [
+        "vaccinated individuals",
+        "blood clots",
+        "crystalline formations"
+      ],
+      "subject": "Vaccinated individuals",
+      "predicate": "developed",
+      "object": "pre-blood clot and crystalline formations in bloodstream"
+    },
+    {
+      "claim": "Vaccinated children developed heart-related problems.",
+      "language": "English",
+      "entities": [
+        "vaccinated children",
+        "heart-related problems"
+      ],
+      "subject": "Vaccinated children",
+      "predicate": "developed",
+      "object": "heart-related problems"
+    },
+    {
+      "claim": "Individuals vaccinated against COVID-19 are 143,233 percent more likely to be diagnosed with cancer compared to people vaccinated against the flu.",
+      "language": "English",
+      "entities": [
+        "COVID-19 vaccine",
+        "flu vaccine",
+        "cancer"
+      ],
+      "subject": "Individuals vaccinated against COVID-19",
+      "predicate": "have higher likelihood of cancer diagnosis compared to",
+      "object": "individuals vaccinated against the flu"
+    },
+    {
+      "claim": "There were 2,579 cancer-related adverse events reported in VAERS from December 2020 to August 5, 2022.",
+      "language": "English",
+      "entities": [
+        "VAERS",
+        "cancer-related adverse events"
+      ],
+      "subject": "VAERS",
+      "predicate": "reported",
+      "object": "2,579 cancer-related adverse events"
+    },
+    {
+      "claim": "There were 791 cancer-related adverse events reported in VAERS for all other vaccines between 2008 and 2020.",
+      "language": "English",
+      "entities": [
+        "VAERS",
+        "other vaccines"
+      ],
+      "subject": "VAERS",
+      "predicate": "reported",
+      "object": "791 cancer-related adverse events for other vaccines"
+    },
+    {
+      "claim": "There were 64 cancer-related adverse reactions caused by the flu vaccine between 2008 and 2020.",
+      "language": "English",
+      "entities": [
+        "flu vaccine",
+        "cancer-related adverse reactions"
+      ],
+      "subject": "flu vaccine",
+      "predicate": "caused",
+      "object": "64 cancer-related adverse reactions"
+    }
+  ],
+  "references": [
+    [
+      {
+        "pmid": "35131133",
+        "title": "Efficacy and safety of the BNT162b2 mRNA COVID-19 vaccine in participants with a history of cancer: subgroup analysis of a global phase 3 randomized clinical trial.",
+        "abstract": "Individuals with an underlying malignancy have high risk of poor COVID-19 outcomes. In clinical trials, COVID-19 vaccines were safe and efficacious against infection, hospitalization, and death, but most trials excluded participants with cancer. We report results from participants with a history of past or active neoplasm (malignant or benign/unknown) and up to 6 months' follow-up post-dose 2 from the placebo-controlled, observer-blinded trial of the 2-dose BNT162b2 mRNA COVID-19 vaccine. Between July 2020-January 2021, 46,429 participants aged ≥ 12 years were randomized at 152 sites in 6 countries. Healthy participants with pre-existing stable neoplasm could participate; those receiving immunosuppressive therapy were excluded. Data are reported for participants, aged ≥ 16 years for safety and ≥ 12 years for efficacy, who had any history of neoplasm at baseline (data cut-off: March 13, 2021). Adverse-event (AE) data are controlled for follow-up time before unblinding and reported as incidence rates (IRs) per 100 person-years follow-up. At baseline, 3813 participants had a history of neoplasm; most common malignancies were breast (n = 460), prostate (n = 362), and melanoma (n = 223). Four BNT162b2 and 71 placebo recipients developed COVID-19 from 7 days post-dose 2; vaccine efficacy was 94.4% (95% CI: 85.2, 98.5) after up to 6 months' follow-up post-dose 2. This compares favorably with vaccine efficacy of 91.1% in the overall trial population after the same follow-up. AEs were reported at IRs of 95.4(BNT162b2) and 48.3 (placebo) per 100 person-years. Most common AEs were reactogenicity events (injection-site pain, fatigue, pyrexia). Three BNT162b2 and 1 placebo recipients withdrew because of vaccine-related AEs. No vaccine-related deaths were reported. In participants with past or active neoplasms, BNT162b2 vaccine has a similar efficacy and safety profile as in the overall trial population. These results can inform BNT162b2 use during the COVID-19 pandemic and future trials in participants with cancer. Clinical trial number: NCT04368728.",
+        "journal": "Vaccine",
+        "year": "2022",
+        "language": "eng",
+        "similarity": 0.6973937749862671
+      },
+      {
+        "pmid": "33534645",
+        "title": "Challenges and Opportunities for COVID-19 Vaccines in Patients with Cancer.",
+        "abstract": "Given the rapidly expanding global spread of the SARS-Co-V-2 virus and the expanding number of individuals with the serious and potentially fatal illness, COVID-19, there is an urgent need for safe and effective vaccines. Based on compelling evidence that patients with cancer are at increased risk for greater morbidity and mortality with COVID-19, several professional organizations have provided early guidance on the role of COVID-19 vaccines in patients with malignant disease. In this commentary we review the available data on the efficacy and safety of the approved and forthcoming vaccines in patients with cancer. Based on a review of the totality of available evidence, we recommend that most patients with cancer should receive the recommended dose and schedule of one of the COVID-19 vaccines when available. We encourage industry, regulators and professional research organizations to carefully track the efficacy and safety of COVID-19 vaccination in patients with cancer in the real world setting and routinely report unanticipated adverse events and signs of loss of efficacy. Particular attention is needed for patients on active cancer therapy to carefully evaluate efficacy and safety in relationship to the timing of vaccination relative to that of active cancer treatment and immunosuppression.",
+        "journal": "Cancer investigation",
+        "year": "2021",
+        "language": "eng",
+        "similarity": 0.7805896401405334
+      },
+      {
+        "pmid": "34830983",
+        "title": "Safety of COVID-19 mRNA Vaccines in Patients with Cancer Enrolled in Early-Phase Clinical Trials.",
+        "abstract": "Pivotal trials of COVID-19 vaccines did not include cancer patients, with questions remaining about their safety and efficacy in this population. Patients enrolled in early-phase clinical trials receive novel treatments with unknown efficacy and safety profiles. Studies on the safety of COVID-19 vaccines in these patients are urgently required. This is a retrospective, real-world, cohort study of patients receiving anticancer treatments and COVID-19 vaccines between 1 February and 25 June 2021 at the Division of New Drugs Development for Innovative Therapies of the European Institute of Oncology. One hundred thirteen patients were enrolled, 40 in early-phase clinical trials, and 20 under novel immunotherapy agents. Nearly three-quarters of the patients experienced at least one adverse event (AE) after the first dose (1D) (74.3%) and second dose (2D) (72.6%). Most of the AEs were local (67.3% 1D and 61.9% after 2D), while 31.8% (1D) and 38.1% (2D) of the patients had systemic AEs. No AEs above grade 2 were observed. Therefore, COVID-19 vaccines appear to be safe in patients enrolled in early-phase clinical trials, including patients receiving novel immunotherapy compounds. All cancer patients should be prioritized for COVID-19 vaccination, regardless of ongoing treatments or enrollment in early-phase trials.",
+        "journal": "Cancers",
+        "year": "2021",
+        "language": "eng",
+        "similarity": 0.7198079824447632
+      },
+      {
+        "pmid": "35061702",
+        "title": "Vaccines to prevent COVID-19: A living systematic review with Trial Sequential Analysis and network meta-analysis of randomized clinical trials.",
+        "abstract": "COVID-19 is rapidly spreading causing extensive burdens across the world. Effective vaccines to prevent COVID-19 are urgently needed. Our objective was to assess the effectiveness and safety of COVID-19 vaccines through analyses of all currently available randomized clinical trials. We searched the databases CENTRAL, MEDLINE, Embase, and other sources from inception to June 17, 2021 for randomized clinical trials assessing vaccines for COVID-19. At least two independent reviewers screened studies, extracted data, and assessed risks of bias. We conducted meta-analyses, network meta-analyses, and Trial Sequential Analyses (TSA). Our primary outcomes included all-cause mortality, vaccine efficacy, and serious adverse events. We assessed the certainty of evidence with GRADE. We identified 46 trials; 35 trials randomizing 219 864 participants could be included in our analyses. Our meta-analyses showed that mRNA vaccines (efficacy, 95% [95% confidence interval (CI), 92% to 97%]; 71 514 participants; 3 trials; moderate certainty); inactivated vaccines (efficacy, 61% [95% CI, 52% to 68%]; 48 029 participants; 3 trials; moderate certainty); protein subunit vaccines (efficacy, 77% [95% CI, -5% to 95%]; 17 737 participants; 2 trials; low certainty); and viral vector vaccines (efficacy 68% [95% CI, 61% to 74%]; 71 401 participants; 5 trials; low certainty) prevented COVID-19. Viral vector vaccines decreased mortality (risk ratio, 0.25 [95% CI 0.09 to 0.67]; 67 563 participants; 3 trials, low certainty), but comparable data on inactivated, mRNA, and protein subunit vaccines were imprecise. None of the vaccines showed evidence of a difference on serious adverse events, but observational evidence suggested rare serious adverse events. All the vaccines increased the risk of non-serious adverse events. The evidence suggests that all the included vaccines are effective in preventing COVID-19. The mRNA vaccines seem most effective in preventing COVID-19, but viral vector vaccines seem most effective in reducing mortality. Further trials and longer follow-up are necessary to provide better insight into the safety profile of these vaccines.",
+        "journal": "PloS one",
+        "year": "2022",
+        "language": "eng",
+        "similarity": 0.6984894871711731
+      },
+      {
+        "pmid": "38804384",
+        "title": "Prospects and Challenges in Developing mRNA Vaccines for Infectious Diseases and Oncogenic Viruses.",
+        "abstract": "mRNA vaccines have emerged as an optimistic technological platform for vaccine innovation in this new scientific era. mRNA vaccines have dramatically altered the domain of vaccinology by offering a versatile and rapid approach to combating infectious diseases and virus-induced cancers. Clinical trials have demonstrated efficacy rates of 94-95% in preventing COVID-19, and mRNA vaccines have been increasingly recognized as a powerful vaccine platform. Although mRNA vaccines have played an essential role in the COVID-19 pandemic, they still have several limitations; their instability and degradation affect their storage, delivery, and over-all efficiency. mRNA is typically enclosed in a transport mechanism to facilitate its entry into the target cell because it is an unstable and negatively charged molecule. For instance, mRNA that is given using lipid-nanoparticle-based vaccine delivery systems (LNPs) solely enters cells through endocytosis, establishing an endosome without damaging the cell membrane. The COVID-19 pandemic has accelerated the development of mRNA vaccine platforms used to treat and prevent several infectious diseases. This technology has the potential to change the future course of the disease by providing a safe and effective way to combat infectious diseases and cancer. A single-stranded genetic sequence found in mRNA vaccines instructs host cells to produce proteins inside ribosomes to elicit immunological responses and prepare the immune system to fight infections or cancer cells. The potential applications of mRNA vaccine technology are vast and can lead to the development of a preferred vaccine pattern. As a result, a new generation of vaccinations has gradually gained popularity and access to the general population. To adapt the design of an antigen, and even combine sequences from different variations in response to new changes in the viral genome, mRNA vaccines may be used. Current mRNA vaccines provide adequate safety and protection, but the duration of that protection can only be determined if further clinical research is conducted.",
+        "journal": "Medical sciences (Basel, Switzerland)",
+        "year": "2024",
+        "language": "eng",
+        "similarity": 0.6461241245269775
+      }
+    ],
+    [],
+    [
+      {
+        "pmid": "39960778",
+        "title": "Heart Disease in Children: Inflammatory Syndromes.",
+        "abstract": "Kawasaki disease is an acute vasculitis of unknown etiology that primarily affects children younger than 5 years, although it can affect older children. Cardiac complications are the major cause of morbidity and mortality in Kawasaki disease and can include myocarditis. Long-term sequelae include coronary artery dilation. Treatment is high-dose intravenous immunoglobulin and aspirin. Multisystem inflammatory syndrome in children (MIS-C) is a severe hyperinflammatory syndrome associated with COVID-19 disease. It shares clinical characteristics with Kawasaki disease but causes hyperinflammation and often results in cardiac dysfunction. Treatment for MIS-C is intravenous immunoglobulin and glucocorticoids. Myocarditis is inflammation of the myocardium and pericardium and has multiple causes. It is associated with COVID-19 infection and mRNA COVID-19 vaccines. The incidence and clinical significance of these associations remain uncertain and are a current topic of research and debate.",
+        "journal": "FP essentials",
+        "year": "2025",
+        "language": "eng",
+        "similarity": 0.6930768489837646
+      },
+      {
+        "pmid": "37200028",
+        "title": "Evaluation of Autoantibody Binding to Cardiac Tissue in Multisystem Inflammatory Syndrome in Children and COVID-19 Vaccination-Induced Myocarditis.",
+        "abstract": "Cardiac dysfunction and myocarditis have emerged as serious complications of multisystem inflammatory syndrome in children (MIS-C) and vaccines against SARS-CoV-2. Understanding the role of autoantibodies in these conditions is essential for guiding MIS-C management and vaccination strategies in children. To investigate the presence of anticardiac autoantibodies in MIS-C or COVID-19 vaccine-induced myocarditis. This diagnostic study included children with acute MIS-C or acute vaccine myocarditis, adults with myocarditis or inflammatory cardiomyopathy, healthy children prior to the COVID-19 pandemic, and healthy COVID-19 vaccinated adults. Participants were recruited into research studies in the US, United Kingdom, and Austria starting January 2021. Immunoglobulin G (IgG), IgM, and IgA anticardiac autoantibodies were identified with immunofluorescence staining of left ventricular myocardial tissue from 2 human donors treated with sera from patients and controls. Secondary antibodies were fluorescein isothiocyanate-conjugated antihuman IgG, IgM, and IgA. Images were taken for detection of specific IgG, IgM, and IgA deposits and measurement of fluorescein isothiocyanate fluorescence intensity. Data were analyzed through March 10, 2023. IgG, IgM and IgA antibody binding to cardiac tissue. By cohort, there were a total of 10 children with MIS-C (median [IQR] age, 10 [13-14] years; 6 male), 10 with vaccine myocarditis (median age, 15 [14-16] years; 10 male), 8 adults with myocarditis or inflammatory cardiomyopathy (median age, 55 [46-63] years; 6 male), 10 healthy pediatric controls (median age, 8 [13-14] years; 5 male), and 10 healthy vaccinated adults (all older than 21 years, 5 male). No antibody binding above background was observed in human cardiac tissue treated with sera from pediatric patients with MIS-C or vaccine myocarditis. One of the 8 adult patients with myocarditis or cardiomyopathy had positive IgG staining with raised fluorescence intensity (median [IQR] intensity, 11 060 [10 223-11 858] AU). There were no significant differences in median fluorescence intensity in all other patient cohorts compared with controls for IgG (MIS-C, 6033 [5834-6756] AU; vaccine myocarditis, 6392 [5710-6836] AU; adult myocarditis or inflammatory cardiomyopathy, 5688 [5277-5990] AU; healthy pediatric controls, 6235 [5924-6708] AU; healthy vaccinated adults, 7000 [6423-7739] AU), IgM (MIS-C, 3354 [3110-4043] AU; vaccine myocarditis, 3843 [3288-4748] AU; healthy pediatric controls, 3436 [3313-4237] AU; healthy vaccinated adults, 3543 [2997-4607] AU) and IgA (MIS-C, 3559 [2788-4466] AU; vaccine myocarditis, 4389 [2393-4780] AU; healthy pediatric controls, 3436 [2425-4077] AU; healthy vaccinated adults, 4561 [3164-6309] AU). This etiological diagnostic study found no evidence of antibodies from MIS-C and COVID-19 vaccine myocarditis serum binding cardiac tissue, suggesting that the cardiac pathology in both conditions is unlikely to be driven by direct anticardiac antibody-mediated mechanisms.",
+        "journal": "JAMA network open",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.6117664575576782
+      },
+      {
+        "pmid": "36597886",
+        "title": "Circulating Spike Protein Detected in Post-COVID-19 mRNA Vaccine Myocarditis.",
+        "abstract": "Cases of adolescents and young adults developing myocarditis after vaccination with severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2)-targeted mRNA vaccines have been reported globally, but the underlying immunoprofiles of these individuals have not been described in detail. From January 2021 through February 2022, we prospectively collected blood from 16 patients who were hospitalized at Massachusetts General for Children or Boston Children's Hospital for myocarditis, presenting with chest pain with elevated cardiac troponin T after SARS-CoV-2 vaccination. We performed extensive antibody profiling, including tests for SARS-CoV-2-specific humoral responses and assessment for autoantibodies or antibodies against the human-relevant virome, SARS-CoV-2-specific T-cell analysis, and cytokine and SARS-CoV-2 antigen profiling. Results were compared with those from 45 healthy, asymptomatic, age-matched vaccinated control subjects. Extensive antibody profiling and T-cell responses in the individuals who developed postvaccine myocarditis were essentially indistinguishable from those of vaccinated control subjects, despite a modest increase in cytokine production. A notable finding was that markedly elevated levels of full-length spike protein (33.9±22.4 pg/mL), unbound by antibodies, were detected in the plasma of individuals with postvaccine myocarditis, whereas no free spike was detected in asymptomatic vaccinated control subjects (unpaired t test; P<0.0001). Immunoprofiling of vaccinated adolescents and young adults revealed that the mRNA vaccine-induced immune responses did not differ between individuals who developed myocarditis and individuals who did not. However, free spike antigen was detected in the blood of adolescents and young adults who developed post-mRNA vaccine myocarditis, advancing insight into its potential underlying cause.",
+        "journal": "Circulation",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.5242299437522888
+      },
+      {
+        "pmid": "26645487",
+        "title": "Preventing pediatric cardiomyopathy: a 2015 outlook.",
+        "abstract": "Cardiomyopathies in children encompass a broad range of diseases, both genetic and acquired, which manifest as a primary cardiac disorder or as a cardiomyopathy secondary to systemic disease. The burden of this group of disorders is substantial, and growing on a global scale. The availability of disease altering treatments is limited, and therefore a focused review on the prevention of cardiomyopathies is justified. In this review, we address the prevention of cardiomyopathy in children by dealing with the root causes of disease at a molecular, clinical and population level. Recent years have yielded promising returns in basic research related to gene-targeted therapy, specific anti-viral therapies and modification of the effects of cardiotoxic drugs. Much work remains to be done in the fields of vaccine development, public health and adoption of available treatments. Effective research in this field will require that diagnostic methods are both refined, and made available more broadly, from imaging to gene testing. Much of our knowledge today is derived from the use of registries, which have successfully catalogued the detailed phenotype of affected patients, and provided long-term longitudinal follow up of affected individuals.",
+        "journal": "Expert review of cardiovascular therapy",
+        "year": "2016",
+        "language": "eng",
+        "similarity": 0.6453915238380432
+      },
+      {
+        "pmid": "34389692",
+        "title": "COVID-19 Vaccination-Associated Myocarditis in Adolescents.",
+        "abstract": "In this study, we aimed to characterize the clinical presentation, short-term prognosis, and myocardial tissue changes as noted on cardiovascular magnetic resonance (CMR) or cardiac MRI in pediatric patients with coronavirus disease 2019 vaccination-associated myocarditis (C-VAM). In this retrospective multicenter study across 16 US hospitals, patients <21 years of age with a diagnosis of C-VAM were included and compared with a cohort with multisystem inflammatory syndrome in children. Younger children with C-VAM were compared with older adolescents. Sixty-three patients with a mean age of 15.6 years were included; 92% were male. All had received a messenger RNA vaccine and, except for one, presented after the second dose. Four patients had significant dysrhythmia; 14% had mild left ventricular dysfunction on echocardiography, which resolved on discharge; 88% met the diagnostic CMR Lake Louise criteria for myocarditis. Myocardial injury as evidenced by late gadolinium enhancement on CMR was more prevalent in comparison with multisystem inflammatory syndrome in children. None of the patients required inotropic, mechanical, or circulatory support. There were no deaths. Follow-up data obtained in 86% of patients at a mean of 35 days revealed resolution of symptoms, arrhythmias, and ventricular dysfunction. Clinical characteristics and early outcomes are similar between the different pediatric age groups in C-VAM. The hospital course is mild, with quick clinical recovery and excellent short-term outcomes. Myocardial injury and edema are noted on CMR. Close follow-up and further studies are needed to understand the long-term implications and mechanism of these myocardial tissue changes.",
+        "journal": "Pediatrics",
+        "year": "2021",
+        "language": "eng",
+        "similarity": 0.6335844397544861
+      }
+    ],
+    [
+      {
+        "pmid": "40760361",
+        "title": "Impact of COVID-19 vaccination on cancer patients: safety, efficacy, and long-term effects.",
+        "abstract": "Coronavirus disease 2019 (COVID-19), caused by the severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2), led to a worldwide pandemic in 2020. Cancer patients represent a highly vulnerable group for COVID-19 infection and are associated with poor outcomes due to their immunosuppressive status, owing to malignancy itself or anticancer therapies. Several approved COVID-19 vaccines were assessed for their effectiveness in the general population. However, initially, cancer patients were excluded from large landmark trials, leading to a paucity of data. This article presents a narrative review that synthesizes findings from peer-reviewed clinical trials, real-world cohort studies, and expert guidelines to assess the current evidence. This review assesses the safety, efficacy, and long-term effectiveness of COVID-19 vaccination in patients with cancer. Accumulated evidence from multiple clinical trials and real-world data suggests that COVID-19 vaccines are generally well-tolerated, safe, and efficacious in patients with both solid and hematologic types of cancer, eliciting moderate adverse reactions and rare severe reactions, including immune-related adverse events, thrombotic events, and anaphylaxis. Vaccine-induced humoral response and cellular response are often weakened in cancer patients, especially those with hematologic malignancies, compared to those of non-cancerous individuals. However, the immunogenicity in cancer patients improves significantly with booster doses. Further, seroresponse against SARS-CoV-2 variants increases with additional booster doses, signifying the importance of personalized booster approaches. Despite this, vaccinated cancer patients develop breakthrough infections, which are associated with hospitalization and higher mortality compared to the general population. Moreover, long-term follow-up of vaccinated cancer patients suggests that they demonstrate durable immune responses, with rare reports of cancer recurrence or remission that require further evaluation. Collectively, COVID-19 vaccination is a practical and valuable approach for alleviating risk and improving outcomes in patients with cancer.",
+        "journal": "Supportive care in cancer : official journal of the Multinational Association of Supportive Care in Cancer",
+        "year": "2025",
+        "language": "eng",
+        "similarity": 0.8110388517379761
+      },
+      {
+        "pmid": "38400782",
+        "title": "COVID-19 vaccination, infection, and symptoms among cancer survivors in the United States.",
+        "abstract": "The experiences of cancer survivors with the COVID-19 pandemic in the United States during 2021 and 2022, when vaccinations became widely available, are largely undocumented. Using nationally representative survey data in 2021 and 2022, we found that compared with adults without a cancer history, cancer survivors were more likely to have at least 2 COVID-19 vaccines (2021: 66.6% vs 62.3%, P = .003; 2022: 77.0% vs 72.4%, P < .001) and as likely to have a COVID-19 infection history (2021: 14.1% vs 14.2%, P = .93; 2022: 39.9% vs 39.3%, P = .55) but, once infected, were more likely to develop moderate to severe symptoms (2021: 62.5% vs 54.2%, P = .02; 54.5% vs 61.3%; P = .13). Among cancer survivors, younger age, lower educational attainment, lack of health insurance, and more comorbidities were statistically significantly associated with lower vaccination rates (P < .001). Among infected cancer survivors, being female and younger were associated with higher likelihood of developing moderate to severe symptoms (P < .001). Our findings suggest tailored efforts to prevent and control COVID-19 infections for cancer survivors.",
+        "journal": "Journal of the National Cancer Institute",
+        "year": "2024",
+        "language": "eng",
+        "similarity": 0.8139808177947998
+      },
+      {
+        "pmid": "38063366",
+        "title": "COVID-19 in cancer patients: The impact of vaccination on outcomes early in the pandemic.",
+        "abstract": "With the rapid evolution of the severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) pandemic, the development of effective and safe vaccines was of utmost importance to protect vulnerable individuals, including cancer patients. Studies comparing the clinical outcomes of cancer patients with or without vaccination against coronavirus disease 2019 (COVID-19) have not demonstrated clear benefit. We aimed to determine the protective effects of COVID-19 vaccination by comparing vaccinated and unvaccinated cancer patients after the initial phase of vaccine roll-out and to identify risk factors associated with hospitalization, severe COVID-19, and 30-day COVID-19 attributable mortality. We performed a retrospective cohort study of cancer patients with COVID-19 diagnosed by polymerase chain reaction on nasal swabs between January 1, 2021 and July 30, 2021. Outcomes of interest included hospitalization, severe COVID-19, and 30-day COVID-19 attributable mortality. Univariate and multivariate analyses were performed to identify factors associated with clinical outcomes, using vaccination status as a variable of interest in all models. Key risk factors, such as age ≥ 60 years; comorbidities including diabetes mellitus, heart failure, and lung diseases; and specific cancer types (leukemia and lymphoma) were independently associated with hospital admission for COVID-19, severe COVID-19, and 30-day COVID-19 attributable mortality in cancer patients regardless of their vaccination status. Vaccinated patients were protected against severe COVID-19 but with no impact on hospitalization or mortality due to COVID-19. Our study highlights a significant benefit of COVID-19 vaccination for cancer patients-specifically its protection against severe COVID-19.",
+        "journal": "Cancer medicine",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.798213005065918
+      },
+      {
+        "pmid": "36580318",
+        "title": "Association of COVID-19 Vaccination With Breakthrough Infections and Complications in Patients With Cancer.",
+        "abstract": "Patients with cancer are known to have increased risk of COVID-19 complications, including death. To determine the association of COVID-19 vaccination with breakthrough infections and complications in patients with cancer compared to noncancer controls. Retrospective population-based cohort study using linked administrative databases in Ontario, Canada, in residents 18 years and older who received COVID-19 vaccination. Three matched groups were identified (based on age, sex, type of vaccine, date of vaccine): 1:4 match for patients with hematologic and solid cancer to noncancer controls (hematologic and solid cancers separately analyzed), 1:1 match between patients with hematologic and patients with solid cancer. Cancer diagnosis. Outcomes occurring 14 days after receipt of second COVID-19 vaccination dose: primary outcome was SARS-CoV-2 breakthrough infection; secondary outcomes were emergency department visit, hospitalization, and death within 4 weeks of SARS-CoV-2 infection (end of follow-up March 31, 2022). Multivariable cumulative incidence function models were used to obtain adjusted hazard ratio (aHR) and 95% CIs. A total of 289 400 vaccinated patients with cancer (39 880 hematologic; 249 520 solid) with 1 157 600 matched noncancer controls were identified; the cohort was 65.4% female, and mean (SD) age was 66 (14.0) years. SARS-CoV-2 breakthrough infection was higher in patients with hematologic cancer (aHR, 1.33; 95% CI, 1.20-1.46; P < .001) but not in patients with solid cancer (aHR, 1.00; 95% CI, 0.96-1.05; P = .87). COVID-19 severe outcomes (composite of hospitalization and death) were significantly higher in patients with cancer compared to patients without cancer (aHR, 1.52; 95% CI, 1.42-1.63; P < .001). Risk of severe outcomes was higher among patients with hematologic cancer (aHR, 2.51; 95% CI, 2.21-2.85; P < .001) than patients with solid cancer (aHR, 1.43; 95% CI, 1.24-1.64; P < .001). Patients receiving active treatment had a further heightened risk for COVID-19 severe outcomes, particularly those who received anti-CD20 therapy. Third vaccination dose was associated with lower infection and COVID-19 complications, except for patients receiving anti-CD20 therapy. In this large population-based cohort study, patients with cancer had greater risk of SARS-CoV-2 infection and worse outcomes than patients without cancer, and the risk was highest for patients with hematologic cancer and any patients with cancer receiving active treatment. Triple vaccination was associated with lower risk of poor outcomes.",
+        "journal": "JAMA oncology",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.8161412477493286
+      },
+      {
+        "pmid": "38060302",
+        "title": "Safety of COVID-19 Vaccination in Patients With Breast Cancer: Cross-Sectional Study in China.",
+        "abstract": "The widespread use of vaccines against the novel coronavirus disease (COVID-19) has become one of the most effective means to establish a population immune barrier. Patients with cancer are vulnerable to COVID-19 infection, adverse events, and high mortality, and should be the focus of epidemic prevention and treatment. However, real-world data on the safety of vaccines for patients with breast cancer are still scarce. This study aims to compare the safety of COVID-19 vaccines between patients vaccinated before or after being diagnosed with breast cancer. Patients with breast cancer who sought medical advice from October 2021 to December 2021 were screened. Those who received COVID-19 vaccines were enrolled in this study to analyze the safety of the vaccines. The primary outcome was patient-reported adverse events (AEs). All events after vaccine injection were retrospectively documented from the patients. A total of 15,455 patients with breast cancer from 41 hospitals in 20 provinces in China were screened, and 5766 patients who received COVID-19 vaccines were enrolled. Of those enrolled, 45.1% (n=2599) of patients received vaccines before breast cancer diagnosis, 41.3% (n=2379) were vaccinated after diagnosis, and 13.6% (n=784) did not known the accurate date of vaccination or cancer diagnosis. Among the patients vaccinated after diagnosis, 85.4% (n=2032) were vaccinated 1 year after cancer diagnosis and 95.4% (n=2270) were vaccinated during early-stage cancer. Of all 5766 vaccinated patients, 93.9% (n=5415) received an inactivated vaccine, 3.7% (n=213) received a recombinant subunit vaccine, and 2.4% (n=138) received other vaccines, including adenovirus and mRNA vaccines. In the first injection of vaccines, 24.4% (n=10, 95% CI 11.2-37.5) of patients who received an adenovirus vaccine reported AEs, compared to only 12.5% (n=677, 95% CI 11.6-13.4) of those who received an inactivated vaccine. Patients with metastatic breast cancer reported the highest incidence of AEs (n=18, 16.5%, 95% CI 9.5-23.5). Following the second injection, patients who received an inactivated vaccine (n=464, 8.7%, 95% CI 8.0-9.5) and those who received a recombinant vaccine (n=25, 8.7%, 95% CI 5.5-12.0) reported the same incidence of AEs. No significant differences in patient-reported AEs were found between the healthy population and patients with breast cancer (16.4% vs 16.9%, respectively); the most common AEs were local pain (11.1% vs 9.1%, respectively), fatigue (5.5% vs 6.3%, respectively), and muscle soreness (2.3% vs 3.6%, respectively). The type of vaccine and time window of vaccination had little impact on patient-reported AEs. Compared with patients vaccinated before breast cancer diagnosis, there were no significant differences in patient-reported AEs in the patients vaccinated after diagnosis. Thus, it is safe for patients with breast cancer, especially for those in the early stage, to receive COVID-19 vaccines. Chinese Clinical Trial Registry ChiCTR2200055509; https://tinyurl.com/33zzj882.",
+        "journal": "JMIR public health and surveillance",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.7434759140014648
+      }
+    ],
+    [
+      {
+        "pmid": "35449806",
+        "title": "Characteristics and Comparison of Adverse Events of Coronavirus Disease 2019 Vaccines Reported to the United States Vaccine Adverse Event Reporting System Between 14 December 2020 and 8 October 2021.",
+        "abstract": "This study assessed and compared the frequency and type of adverse events (AEs) of the Pfizer-BioNTech, Moderna, and Janssen coronavirus disease 2019 (COVID-19) vaccines reported in the Vaccine Adverse Event Reporting System (VAERS). A retrospective analysis examined VAERS reports between 14 December 2020 and 8 October 2021 and focused on AE reports related to COVID-19 vaccines and AE outcomes [e.g., emergency room (ER) visits after being vaccinated, hospitalization, prolongation of existing hospitalization, life-threatening events, disability, birth defect, and death]. Reporting odds ratios (RORs) and Breslow-Day statistics were used to compare AE reporting between COVID-19 and non-COVID vaccines and between individual COVID-19 vaccines. A total of 604,157 AEs of COVID-19 vaccines were reported, including 43.51% for the Pfizer-BioNTech vaccine, 47.13% for the Moderna vaccine, and 9.12% for the Janssen COVID-19 vaccine. About 12.56% of patients visited ER after being vaccinated, 5.96% reported hospitalization, and 1.52% reported life-threatening events. Among the number of death cases (n = 7,674; mean age = 73), 2,025 patients (26.39%) had hypertension and 1,237 (16.12%) patients had cancer. RORs between COVID-19 vaccines and non-COVID vaccines identified increased ROR in ER visits, hospitalization, and life-threatening events. The results of the Breslow-Day statistics indicated heterogeneities between the disproportionality of reports across the four serious AE outcomes (i.e., ER visits, hospitalization, life-threatening events, and disability) between individual COVID-19 vaccines. Most current VAERS reports showed that the most commonly reported AEs of COVID-19 vaccines were mild. Cases with a mortality outcome tended to occur in older adults with underneath conditions. Close ongoing surveillance in the safety of COVID-19 vaccines is critical and will inform the use of individual COVID-19 vaccines. Given the known limitations associated with the passive spontaneous reporting system, such as VAERS, our findings need to be further assessed and verified through longitudinal, large healthcare data systems.",
+        "journal": "Frontiers in medicine",
+        "year": "2022",
+        "language": "eng",
+        "similarity": 0.4996426999568939
+      },
+      {
+        "pmid": "20141382",
+        "title": "Invasive and in situ cervical cancer reported to the vaccine adverse event reporting system (VAERS).",
+        "abstract": "The quadrivalent human papillomavirus (HPV) vaccine was recommended in 2006 for routine vaccination of 11 or 12-year-old girls, with catchup through age 26 years, for the prevention of genital HPV-related diseases. The Vaccine Adverse Event Reporting System (VAERS) is a national spontaneous surveillance system of adverse events following vaccination in the United States. The objective of this study was to identify and review VAERS reports of invasive and in situ cervical cancer in women immunized with the quadrivalent HPV vaccine. A VAERS database search was performed to identify such cases reported in the United States from January 1, 2006, through April 9, 2009. Medical Dictionary for Regulatory Activities (MedDRA) search terms used were \"cervix carcinoma,\" \"cervix carcinoma stage 0,\" \"cervix carcinoma stage III,\" \"carcinoma in situ,\" and \"cervical dysplasia.\" Case inclusion required a report to contain a clear statement of a cervical carcinoma or carcinoma in situ diagnosis on any screening or diagnostic test after at least one dose of the HPV vaccine. All reports were reviewed by two investigators. Four VAERS reports for MedDRA term \"cervix carcinoma,\" one for \"cervix carcinoma stage 0,\" none for \"cervix carcinoma stage III,\" three for \"carcinoma in situ,\" and 53 for \"cervical dysplasia\" were identified. Of these, three cases of carcinoma in situ and one case of microinvasive cervical cancer met study inclusion criteria. Cases of cervical cancer and precancers are not unexpected in vaccinated women. Cervical cancer screening continues to be important, even for women who have received the HPV vaccine.",
+        "journal": "Journal of women's health (2002)",
+        "year": "2010",
+        "language": "eng",
+        "similarity": 0.5033629536628723
+      },
+      {
+        "pmid": "29061232",
+        "title": "Reports of Postural Orthostatic Tachycardia Syndrome After Human Papillomavirus Vaccination in the Vaccine Adverse Event Reporting System.",
+        "abstract": "Human papillomavirus (HPV) vaccination prevents infections with HPV strains that cause certain cancers. Reports of postural orthostatic tachycardia syndrome (POTS) following HPV vaccination have raised safety concerns. We reviewed POTS reports submitted to the Vaccine Adverse Event Reporting System (VAERS). We searched the VAERS database for reports of POTS following any type of HPV vaccination (bivalent, quadrivalent, or nonavalent) from June 2006 to August 2015. We reviewed reports and applied established POTS diagnostic criteria. We calculated unadjusted POTS case reporting rates based on HPV vaccine doses distributed and conducted empirical Bayesian data mining to screen for disproportional reporting of POTS following HPV vaccination. Among 40,735 VAERS reports following HPV vaccination, we identified 29 POTS reports that fully met diagnostic criteria. Of these, 27 (93.1%) were in females and mean age was 14 years (range 12-32). Median time from vaccination to start of symptoms was 43 days (range 0-407); most (18, 75.0%) had onset between 0 and 90 days. Symptoms frequently reported concomitantly included headache (22, 75.9%) and dizziness (21, 72.4%). Twenty (68.9%) reports documented a history of pre-existing medical conditions, of which chronic fatigue (5, 17.2%), asthma (4, 13.8%), and chronic headache (3, 10.3%) were most common. Approximately one POTS case is reported for every 6.5 million HPV vaccine doses distributed in the United States. No empirical Bayesian data mining safety signals for POTS and HPV vaccination were detected. POTS is rarely reported following HPV vaccination. Our review did not detect any unusual or unexpected reporting patterns that would suggest a safety problem.",
+        "journal": "The Journal of adolescent health : official publication of the Society for Adolescent Medicine",
+        "year": "2017",
+        "language": "eng",
+        "similarity": 0.4937801957130432
+      },
+      {
+        "pmid": "30569481",
+        "title": "Safety profile of human papilloma virus vaccines: an analysis of the US Vaccine Adverse Event Reporting System from 2007 to 2017.",
+        "abstract": "Human papilloma virus (HPV) is the cause of different types of carcinoma. Despite the remarkable effectiveness of the HPV vaccines, there have been many complaints about their risk-benefit profile due to adverse events following immunization (AEFI). The purpose of this study is to analyse the safety profile of the HPV vaccine basing on real-life data derived from reports of suspected AEFIs collected in the US Vaccine Adverse Events Reporting System (VAERS) and assess if the searches on Google overlap with spontaneous reporting. We collected all the reports in VAERS between January 2007 to December 2017 related to the HPV vaccines. A disproportionality analysis using reporting odds ratio (ROR) with 95% confidence interval was performed. Over the 10-year period, 55 356 reports of AEFI related to HPV vaccines were retrieved in VAERS, corresponding to 224 863 vaccine-event pairs. The highest number of reports was related to Gardasil (n = 42 244). The two events more frequently reported and statistically significant for HPV vaccines were dizziness (n = 6259; ROR = 2.60; 95% confidence interval 2.53-2.66) and syncope (n = 6004; ROR = 6.28; 95% confidence interval 6.12-6.44). The trends of spontaneous reporting and Google searches overlap. The AEFI analysis showed that the events most frequently reported were non-serious and listed in the corresponding summary of product characteristics. Potential safety signals arose regarding less frequent AEFIs that would deserve further investigation. It is extremely important to disseminate correct and evidence-based scientific information.",
+        "journal": "British journal of clinical pharmacology",
+        "year": "2019",
+        "language": "eng",
+        "similarity": 0.43171507120132446
+      },
+      {
+        "pmid": "41871050",
+        "title": "Global trends and forecasts of cervical cancer and a real-world safety assessment of human papillomavirus vaccines in women: A systematic analysis of the Global Burden of Disease study 2021 and the Vaccine Adverse Event Reporting System database.",
+        "abstract": "Cervical cancer (CCA) remains a major cause of morbidity and mortality among women globally, particularly in low- and middle-income countries. Although human papillomavirus (HPV) vaccination is central to prevention, safety concerns may affect vaccine acceptance. We integrated global disease-burden trends with real-world post-marketing safety data to provide complementary public health evidence for CCA prevention. Using Global Burden of Disease (GBD) 2021 data, we assessed global prevalence, incidence, death, and disability-adjusted life years (DALYs) for women with CCA from 1990-2021, and applied age-period-cohort (APC) models to characterize temporal patterns. Bayesian APC models were used to project future incidence and death, with retrospective validation. For vaccine safety, adverse event (AE) reports following HPV vaccination in females (Cervarix, Gardasil, Gardasil 9; 2006-2025) were extracted from the Vaccine Adverse Event Reporting System (VAERS). We performed disproportionality analyses using four algorithms to identify reporting signals, with designated medical event (DME) screening and subgroup analyses by age and vaccine type. Globally, the age-standardized incidence rate of CCA decreased from 18.1 to 15.3 cases per 100,000 women from 1990 to 2021, while new cases increased from 0.41 million to 0.67 million. The highest incidence and death rates were observed in sub-Saharan Africa and selected Pacific Island countries. Projections suggest continued declines in age-standardized incidence and death through 2050, although the absolute burden will likely remain substantial. In VAERS, 41,731 HPV vaccine-related reports were identified; most were non-serious (80.9%). Syncope (ROR = 5.81, 95%CI:5.64-5.99), loss of consciousness (ROR = 5.26, 95%CI: 5.06-5.47) and pallor (ROR = 6.39, 95%CI: 6.10-6.70) were the most frequently reported events, and six potential DME-related signals were detected. Despite declining age-standardized rates, CCA continues to impose a substantial global burden with marked regional disparities. Sustained HPV vaccine prevention efforts should be supported by epidemiological evidence and transparent, evidence-based safety communication.",
+        "journal": "PloS one",
+        "year": "2026",
+        "language": "eng",
+        "similarity": 0.4402497410774231
+      }
+    ],
+    [
+      {
+        "pmid": "26216756",
+        "title": "The safety of human papilloma virus-blockers and the risk of triggering autoimmune diseases.",
+        "abstract": "With the safety of human papilloma virus vaccine (HPVv) being questioned, this article aims to assess the risks and benefits of the commercially available HPVv. Within the last decade, two vaccines (Gardasil and Cervarix) have been put on the market to prevent infection with the most oncogenic HPV subtypes. Both vaccines contain aluminum adjuvants that are meant to cause a hyper stimulated immune response to prevent HPV infection. The purpose of this paper is to consider the safety of these two vaccines based on the data from the U.S. Vaccine Adverse Event Reporting System (VAERS) and case reports. The current HPVv are both effective and generally safe. However, it should be noted that autoimmune side effects have been reported in several studies. Further research should be done to understand the relationship between HPVv and autoimmunity.",
+        "journal": "Expert opinion on drug safety",
+        "year": "2015",
+        "language": "eng",
+        "similarity": 0.5076301097869873
+      },
+      {
+        "pmid": "40796844",
+        "title": "Acute transverse myelitis and associate vaccine complication in SARS-CoV-2 patients: a retrospective cohort analysis in real-world database.",
+        "abstract": "Acute transverse myelitis (ATM) is a rare neurological disorder often associated with infections, autoimmunity, and vaccination. During the COVID-19 pandemic, the incidence of ATM appeared to increase; however, the causal relationship remains uncertain due to limited follow-up and variability in case reporting. This study aims to evaluate the incidence of ATM in SARS-CoV-2 patients, identify associated risk factors, and explore potential links to vaccination using real-world data. A retrospective cohort analysis was conducted using electronic health records from the USA collaborative network within the TriNetX database. The study included SARS-CoV-2-infected patients and a matched non-COVID-19 cohort from 2020 to 2023. Propensity score matching (1:1) was applied to minimize baseline differences between the groups. Kaplan-Meier survival curves and Cox proportional hazards models were used to assess the risk of developing ATM within a one-year follow-up period. Patients with SARS-CoV-2 infection had a significantly higher risk of developing ATM compared to non-infected individuals (HR = 1.46, 95% CI = 1.21-1.74). Stratified analyses confirmed this increased risk across various subgroups, including patients younger and older than 65 years, both males and females, and those infected during the Alpha strain-dominant period. No statistical significance between patients with and without SARS-CoV-2 infection after received different SARS-CoV-2 Vaccines. SARS-CoV-2 infection appears to be more strongly associated with ATM than COVID-19 vaccination. Given the potential for lifelong disability and the need for long-term care in affected individuals, further studies are warranted to explore the underlying mechanisms and preventive strategies.",
+        "journal": "Virology journal",
+        "year": "2025",
+        "language": "eng",
+        "similarity": 0.5307247042655945
+      },
+      {
+        "pmid": "40868187",
+        "title": "Association Between COVID-19 Infection and Thyroid Cancer Development: A Retrospective Cohort Study Using the TriNetX Database.",
+        "abstract": "Background: Coronavirus Disease 2019 has been associated with dysfunction in multiple endocrine organs, including the thyroid gland. While evidence suggests SARS-CoV-2 may influence thyroid function and promote oncogenesis through inflammation and cytokine storms, its role in thyroid cancer remains unclear. This study investigates whether COVID-19 is associated with an increased risk of thyroid cancer development. Methods: We conducted a retrospective cohort study using the TriNetX global federated health research database, encompassing data from 151 healthcare organizations. Adult patients with confirmed COVID-19 between 1 December 2019 and 31 December 2023, were included and compared to a matched cohort without COVID-19. Patients with prior thyroid cancer history or who had received COVID-19 vaccination were excluded in both groups. Propensity score matching (1:1) was performed for age, gender, and overweight/obesity status. The primary outcome was that new-onset thyroid cancer was diagnosed at least one year after COVID-19 diagnosis. Hazard ratios were calculated using Cox proportional hazards models, and subgroup analyses were performed based on age, gender, thyroid function status and treatment modalities. Results: After matching, a significantly higher thyroid cancer incidence was observed between the post-COVID and non-COVID groups. Subgroup analysis revealed a significantly higher risk of thyroid cancer development following COVID-19 diagnosis in patients who developed hyperthyroidism (HR 2.14, 95% CI: 1.04-4.46) or hypothyroid-ism (HR 1.83, 95% CI: 1.12-2.97) compared with the non-COVID population. Male patients also exhibited a higher risk of thyroid cancer after COVID-19 (HR 1.22, 95% CI 1.02-1.46). For patients with hyperthyroidism or hypothyroidism, those who had prior COVID-19 exhibited a relatively higher risk of developing thyroid cancer than those without a history of COVID-19 (HR 4.387, 95% CI: 2.08-9.24 for hyperthyroidism; HR 2.58, 95% CI: 1.58-4.22 for hypothyroidism). Conclusions: Patients with COVID-19 exhibited an increase in thyroid cancer risk, with specific subgroups-male adults and those with post-infectious thyroid dysfunction-also exhibiting increased risk. These findings suggest a potential relationship between SARS-CoV-2 and thyroid oncogenesis, warranting further prospective research.",
+        "journal": "Biomedicines",
+        "year": "2025",
+        "language": "eng",
+        "similarity": 0.5509859323501587
+      },
+      {
+        "pmid": "38652194",
+        "title": "COVID-19 in patients with myasthenia gravis: a single-center retrospective study in China.",
+        "abstract": "Coronavirus disease 2019 (COVID-19) has been a great concern since 2019. Patients with myasthenia gravis (MG) may be at higher risk of COVID-19 and a more severe disease course. We examined the associations between COVID-19 and MG. This single-center retrospective cohort study involved 134 patients who were diagnosed with MG from June 2020 to November 2022 and followed up until April 2023. They were divided into a COVID-19 group and non-COVID-19 group. Logistic regression analysis was used to detect factors potentially associating COVID-19 with MG. Of the 134 patients with MG, 108 (80.6%) had COVID-19. A higher number of comorbidities was significantly associated with an increased risk of COVID-19 (p = 0.040). A total of 103 patients (95.4%) had mild/moderate COVID-19 symptoms, and 4 patients (3.7%) were severe/critical symptoms (including 2 deaths). Higher age (p = 0.036), use of rituximab (p = 0.037), tumors other than thymoma (p = 0.031), Hashimoto's thyroiditis (p = 0.011), more comorbidities (p = 0.002), and a higher baseline MG activities of daily living (MG-ADL) score (p = 0.006) were risk factors for severe COVID-19 symptoms. The MG-ADL score increased by ≥ 2 points in 16 (15.7%) patients. Dry cough and/or expectoration (p = 0.011), use of oral corticosteroids (p = 0.033), and use of more than one kind of immunosuppressant (p = 0.017) were associated with the increase of the post-COVID-19 MG-ADL score. Most patients with MG have a mild course of COVID-19. However, patients with older age, many comorbidities, a high MG-ADL score, and use of a variety of immunosuppressants during COVID-19 may be more prone to severe symptoms.",
+        "journal": "Neurological sciences : official journal of the Italian Neurological Society and of the Italian Society of Clinical Neurophysiology",
+        "year": "2024",
+        "language": "eng",
+        "similarity": 0.4800620377063751
+      },
+      {
+        "pmid": "38234925",
+        "title": "SARS-CoV-2 Vaccination and the Multi-Hit Hypothesis of Oncogenesis.",
+        "abstract": "Cancer is a complex and dynamic disease. The \"hallmarks of cancer\" were proposed by Hanahan and Weinberg (2000) as a group of biological competencies that human cells attain as they progress from normalcy to neoplastic transformation. These competencies include self-sufficiency in proliferative signaling, insensitivity to growth-suppressive signals and immune surveillance, the ability to evade cell death, enabling replicative immortality, reprogramming energy metabolism, inducing angiogenesis, and activating tissue invasion and metastasis. Underlying these competencies are genome instability, which expedites their acquisition, and inflammation, which fosters their function(s). Additionally, cancer exhibits another dimension of complexity: a heterogeneous repertoire of infiltrating and resident host cells, secreted factors, and extracellular matrix, known as the tumor microenvironment, that through a dynamic and reciprocal relationship with cancer cells supports immortality, local invasion, and metastatic dissemination. This staggering intricacy calls for caution when advising all people with cancer (or a previous history of cancer) to receive the COVID-19 primary vaccine series plus additional booster doses. Moreover, because these patients were not included in the pivotal clinical trials, considerable uncertainty remains regarding vaccine efficacy, safety, and the risk of interactions with anticancer therapies, which could reduce the value and innocuity of either medical treatment. After reviewing the available literature, we are particularly concerned that certain COVID-19 vaccines may generate a pro-tumorigenic milieu (i.e., a specific environment that could lead to neoplastic transformation) that predisposes some (stable) oncologic patients and survivors to cancer progression, recurrence, and/or metastasis. This hypothesis is based on biological plausibility and fulfillment of the multi-hit hypothesis of oncogenesis (i.e., induction of lymphopenia and inflammation, downregulation of angiotensin-converting enzyme 2 (ACE2) expression, activation of oncogenic cascades, sequestration of tumor suppressor proteins, dysregulation of the RNA-G quadruplex-protein binding system, alteration of type I interferon responses, unsilencing of retrotransposable elements, etc.) together with growing evidence and safety reports filed to Vaccine Adverse Effects Report System (VAERS) suggesting that some cancer patients experienced disease exacerbation or recurrence following COVID-19 vaccination. In light of the above and because some of these concerns (i.e., alteration of oncogenic pathways, promotion of inflammatory cascades, and dysregulation of the renin-angiotensin system) also apply to cancer patients infected with SARS-CoV-2, we encourage the scientific and medical community to urgently evaluate the impact of both COVID-19 and COVID-19 vaccination on cancer biology and tumor registries, adjusting public health recommendations accordingly.",
+        "journal": "Cureus",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.4517533779144287
+      }
+    ],
+    [
+      {
+        "pmid": "36016085",
+        "title": "Safety and Efficacy of Influenza Vaccination in Patients Receiving Immune Checkpoint Inhibitors. Systematic Review with Meta-Analysis.",
+        "abstract": "The potential increased risk of immune-related adverse events (irAEs) post-influenza vaccine is a concern in patients receiving immune checkpoint inhibitors (ICI). We conducted a systematic review with meta-analysis of studies reporting the effects of influenza vaccination in patients with cancer during ICI treatment. We searched five electronic databases until 01/2022. Two authors independently selected studies, appraised their quality, and collected data. The primary outcome was the determination of pooled irAE rates. Secondary outcomes included determination of immunogenicity and influenza infection rates and cancer-related outcomes. Nineteen studies (26 publications, n = 4705) were included; 89.5% were observational. Vaccinated patients reported slighter lower rates of irAEs compared to unvaccinated patients (32% versus 41%, respectively). Seroprotection for influenza type A was 78%-79%, and for type B was 75%. Influenza and irAE-related death rates were similar between groups. The pooled proportion of participants reporting a laboratory-confirmed infection was 2% (95% CI 0% to 6%), and influenza-like illness was 14% (95% CI 2% to 32%). No differences were reported on the rates of laboratory-confirmed infection between vaccinated and unvaccinated patients. Longer progression-free and overall survival was also observed in vaccinated compared with unvaccinated patients. Current evidence suggests that influenza vaccination is safe in patients receiving ICIs, does not increase the risk of irAEs, and may improve survival.",
+        "journal": "Vaccines",
+        "year": "2022",
+        "language": "eng",
+        "similarity": 0.6090144515037537
+      },
+      {
+        "pmid": "34709664",
+        "title": "Comparative safety of mRNA COVID-19 vaccines to influenza vaccines: A pharmacovigilance analysis using WHO international database.",
+        "abstract": "Two messenger RNA (mRNA) vaccines developed by Pfizer-BioNTech and Moderna are being rolled out. Despite the high volume of emerging evidence regarding adverse events (AEs) associated with the COVID-19 mRNA vaccines, previous studies have thus far been largely based on the comparison between vaccinated and unvaccinated control, possibly highlighting the AE risks with COVID-19 mRNA vaccination. Comparing the safety profile of mRNA vaccinated individuals with otherwise vaccinated individuals would enable a more relevant assessment for the safety of mRNA vaccination. We designed a comparative safety study between 18 755 and 27 895 individuals who reported to VigiBase for adverse events following immunization (AEFI) with mRNA COVID-19 and influenza vaccines, respectively, from January 1, 2020, to January 17, 2021. We employed disproportionality analysis to rapidly detect relevant safety signals and compared comparative risks of a diverse span of AEFIs for the vaccines. The safety profile of novel mRNA vaccines was divergent from that of influenza vaccines. The overall pattern suggested that systematic reactions like chill, myalgia, fatigue were more noticeable with the mRNA COVID-19 vaccine, while injection site reactogenicity events were more prevalent with the influenza vaccine. Compared to the influenza vaccine, mRNA COVID-19 vaccines demonstrated a significantly higher risk for a few manageable cardiovascular complications, such as hypertensive crisis (adjusted reporting odds ratio [ROR], 12.72; 95% confidence interval [CI], 2.47-65.54), and supraventricular tachycardia (adjusted ROR, 7.94; 95% CI, 2.62-24.00), but lower risk of neurological complications such as syncope, neuralgia, loss of consciousness, Guillain-Barre syndrome, gait disturbance, visual impairment, and dyskinesia. This study has not identified significant safety concerns regarding mRNA vaccination in real-world settings. The overall safety profile patterned a lower risk of serious AEFI following mRNA vaccines compared to influenza vaccines.",
+        "journal": "Journal of medical virology",
+        "year": "2022",
+        "language": "eng",
+        "similarity": 0.5155537128448486
+      },
+      {
+        "pmid": "41601020",
+        "title": "Vaccination Against Respiratory Infections in Adults with Cancer: A Concise Guide for Clinicians.",
+        "abstract": "Global cancer incidence reached 20 million new cases across 185 countries in 2022, with approximately 10 million cancer-related deaths annually. Among adults with solid tumors and hematological malignancies, infections are a major contributor to morbidity and mortality, with respiratory infections playing a particularly significant role. These infections not only reduce life expectancy but can also delay cancer therapy, negatively affect treatment outcomes, and increase healthcare costs. In recent years, the burden of respiratory infections in this population has been driven by influenza virus, SARS-CoV-2, respiratory syncytial virus, Streptococcus pneumoniae, and Bordetella pertussis. Effective vaccines are available for all these pathogens and are recommended for adults with cancer, yet vaccination uptake remains suboptimal despite their heightened vulnerability. This review provides practical guidance for healthcare professionals on vaccinating adults with cancer against respiratory infections, summarizing key information to help clinicians address vaccination-related complacency, confidence, and convenience. Evidence from studies in both the general population and cancer patients consistently shows that vaccination benefits outweigh potential risks, with adverse event rates comparable to those seen in individuals without cancer. Early vaccination is encouraged, as there is limited justification for delaying immunization even when immune responses may be reduced. Vaccine dosing aligns with recommendations for the general population, with important exceptions. Live attenuated vaccines should be avoided because of the risk of replication and disease in immunocompromised patients, and selected groups may require booster doses to achieve adequate protection. Notably, cancer immunotherapy does not appear to impair vaccine-induced immune responses.",
+        "journal": "Vaccines",
+        "year": "2026",
+        "language": "eng",
+        "similarity": 0.5741239190101624
+      },
+      {
+        "pmid": "22904335",
+        "title": "Influenza vaccination for immunocompromised patients: systematic review and meta-analysis by etiology.",
+        "abstract": "Many national guidelines recommend annual influenza vaccination of immunocompromised patients, although the decision to vaccinate is usually at clinical discretion. We conducted a systematic review and meta-analyses to assess the evidence for influenza vaccination in this group, and we report our results by etiology. Meta-analyses showed significantly lower odds of influenza-like illness after vaccination in patients with human immunodeficiency virus (HIV) infection, patients with cancer, and transplant recipients and of laboratory-confirmed influenza in HIV-positive patients, compared with patients receiving placebo or no vaccination. Pooled odds of seroconversion and seroprotection were typically lower in HIV-positive patients, patients with cancer, and transplant recipients, compared with immunocompetent controls. Vaccination was generally well tolerated, with variation in mild adverse events between etiological groups. Limited evidence of a transient increase in viremia and a decrease in the percentage of CD4(+) cells in HIV-positive patients was found although not accompanied by worsening of clinical symptoms. Clinical judgment remains important when discussing the benefits and safety profile with immunocompromised patients.",
+        "journal": "The Journal of infectious diseases",
+        "year": "2012",
+        "language": "eng",
+        "similarity": 0.5704730749130249
+      },
+      {
+        "pmid": "36706776",
+        "title": "Lessons learnt from influenza vaccination in immunocompromised children undergoing treatment for cancer.",
+        "abstract": "Influenza infection contributes substantially to global morbidity and mortality, with children undergoing treatment for cancer among the most vulnerable due to immunosuppression associated with disease and treatment. However, influenza remains one of the most common vaccine-preventable diseases. Despite international guidelines recommending inactivated influenza vaccination on the basis of data supporting efficacy and an excellent safety profile in this population, uptake has often been suboptimal due to persisting hesitancy among both patients and oncologists regarding the ability of the vaccine to mount a sufficient immune response, the optimal vaccine schedule and timing, and the best method to assess response in immunocompromised populations. In this Review, we discuss the evidence regarding influenza vaccination in children with cancer, factors that influence response, and highlight strategies to optimise vaccination. Host immune factors play a substantial role, thus principles learnt from influenza vaccination can be broadly applied for the use of inactivated vaccines in children with cancer.",
+        "journal": "The Lancet. Child & adolescent health",
+        "year": "2023",
+        "language": "eng",
+        "similarity": 0.6175745129585266
+      }
+    ]
+  ],
+  "verdicts": [
+    {
+      "verdict": "CONTRADICTED",
+      "explanation": "The provided studies do not support the claim that mRNA COVID-19 vaccines cause cancer. Instead, they indicate that mRNA vaccines are safe for individuals with a history of cancer (PMID: 35131133) and are being explored as a potential technology to treat and prevent cancer (PMID: 38804384). Clinical data show that mRNA vaccines have a safety profile similar to the general population in cancer patients (PMID: 35131133) and no evidence of increased serious adverse events was found in meta-analyses of the vaccines (PMID: 35061702).",
+      "references": [
+        "35131133",
+        "38804384",
+        "35061702"
+      ]
+    },
+    {
+      "verdict": "INSUFFICIENT",
+      "explanation": "No relevant scientific references were found to evaluate this claim.",
+      "references": []
+    },
+    {
+      "verdict": "SUPPORTED",
+      "explanation": "Several studies confirm that children and adolescents have developed heart-related problems, specifically myocarditis, following mRNA COVID-19 vaccination. These cases are characterized by myocardial injury, edema, and occasionally dysrhythmia, though they typically have a mild clinical course and good short-term outcomes.",
+      "references": []
+    },
+    {
+      "verdict": "INSUFFICIENT",
+      "explanation": "The provided references do not contain any data comparing the risk of cancer diagnosis between individuals vaccinated against COVID-19 and those vaccinated against the flu. The studies focus on the safety and efficacy of COVID-19 vaccines in cancer patients, the prevalence of COVID-19 among cancer survivors, and the incidence of COVID-19 complications in cancer patients, but they do not provide a comparative risk analysis for cancer diagnosis based on the type of vaccine received.",
+      "references": []
+    },
+    {
+      "verdict": "INSUFFICIENT",
+      "explanation": "The provided references do not contain data for the specific period of December 2020 to August 5, 2022, nor do they mention the specific count of 2,579 cancer-related adverse events. Reference 1 discusses COVID-19 vaccine adverse events between December 2020 and October 2021, noting that 1,237 patients with cancer were among the death cases, but this does not match the claim's specific count or timeframe. Other references discuss HPV vaccines over different time periods.",
+      "references": []
+    },
+    {
+      "verdict": "INSUFFICIENT",
+      "explanation": "The provided references do not contain the specific data point of 791 cancer-related adverse events in VAERS for all other vaccines between 2008 and 2020. While Reference 5 mentions that safety reports in VAERS suggest some cancer patients experienced disease exacerbation or recurrence following COVID-19 vaccination, it does not provide a specific count or a comprehensive tally for all other vaccines during the specified timeframe.",
+      "references": []
+    },
+    {
+      "verdict": "INSUFFICIENT",
+      "explanation": "The provided references discuss the safety and efficacy of the influenza vaccine in cancer patients and compare it to other vaccines, but none of the references mention a specific count of 64 cancer-related adverse reactions caused by the flu vaccine between 2008 and 2020.",
+      "references": []
+    }
+  ]
+}
