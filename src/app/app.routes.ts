@@ -4,6 +4,7 @@ import { Homepage } from './pages/homepage/homepage';
 import { SignIn } from './pages/sign-in/sign-in';
 import { CreateAccount } from './pages/create-account/create-account';
 import { Forum } from './pages/forum/forum';
+import { ForumPost } from './pages/forum-post/forum-post';
 
 export const routes: Routes = [
   {
@@ -21,5 +22,9 @@ export const routes: Routes = [
   {
     path: 'forum',
     component: Forum,
+  },
+  {
+    path: 'forum/:id',
+    component: ForumPost,
   },
 ];

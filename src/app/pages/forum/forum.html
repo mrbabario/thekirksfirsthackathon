@@ -132,7 +132,7 @@
 
       <div class="post-list">
         @for (post of posts; track post.id) {
-          <article class="post-card">
+          <article class="post-card" [routerLink]="['/forum', post.id]">
             <div class="post-main">
               <div class="post-icon">💬</div>
 
@@ -189,5 +189,4 @@
       </div>
     </section>
   </main>
-
-  
+</div>
