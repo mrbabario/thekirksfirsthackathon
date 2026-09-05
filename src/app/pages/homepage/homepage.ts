@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal, afterNextRender } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +9,9 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 type Language = 'en' | 'ms' | 'zh';
 
-type Article = {
+type ArticleFilter = 'Latest' | 'This week' | 'Interest' | 'Following';
+
+interface Article {
   id: number;
   title: string;
   category: string;
@@ -18,7 +20,7 @@ type Article = {
   filters: string[];
   featured: boolean;
   author: string;
-};
+}
 
 @Component({
   selector: 'app-homepage',
@@ -35,18 +37,38 @@ type Article = {
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
-export class Homepage implements OnInit {
+export class Homepage {
+  // -----------------------------
+  // LANGUAGE
+  // -----------------------------
+
   language = signal<Language>('en');
 
-  articleText = '';
-  articleUrl = '';
+  // -----------------------------
+  // REVIEW INPUT
+  // -----------------------------
 
-  reviewing = signal(false);
-  reviewResult = signal('');
+  articleText: string = '';
+  articleUrl: string = '';
 
-  activeFilter = signal<'Latest' | 'This week' | 'Interest' | 'Following'>('Latest');
+  reviewing = signal<boolean>(false);
+  reviewResult = signal<string>('');
+
+  // -----------------------------
+  // ARTICLE FILTER
+  // -----------------------------
+
+  activeFilter = signal<ArticleFilter>('Latest');
+
+  // -----------------------------
+  // ARTICLES
+  // -----------------------------
 
   articles = signal<Article[]>([]);
+
+  // -----------------------------
+  // TRANSLATIONS
+  // -----------------------------
 
   translations = {
     en: {
@@ -64,9 +86,11 @@ export class Homepage implements OnInit {
         'Kirkify helps you review articles for clarity, credibility, bias, and important claims.',
 
       textLabel: 'Paste your article',
+
       textPlaceholder: 'Paste the article text you want Kirkify to review...',
 
       urlLabel: 'Or review an article URL',
+
       urlPlaceholder: 'https://example.com/article',
 
       review: 'Review',
@@ -151,8 +175,7 @@ export class Homepage implements OnInit {
 
       readArticle: 'Baca artikel',
 
-      sampleResult:
-        'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar. Kirkify boleh menganalisis kejelasan, dakwaan, kemungkinan bias dan kredibiliti.',
+      sampleResult: 'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar.',
     },
 
     zh: {
@@ -204,75 +227,112 @@ export class Homepage implements OnInit {
 
       readArticle: '阅读文章',
 
-      sampleResult:
-        '这是一个示例审查结果。你的文章已经成功提交。Kirkify 可以分析文章的清晰度、论点、潜在偏见以及可信度。',
+      sampleResult: '这是一个示例审查结果。你的文章已经成功提交。',
     },
   };
+
+  // -----------------------------
+  // CONSTRUCTOR
+  // -----------------------------
+
+  constructor() {
+    afterNextRender(() => {
+      this.loadArticles();
+    });
+  }
+
+  // -----------------------------
+  // TRANSLATION
+  // -----------------------------
 
   t() {
     return this.translations[this.language()];
   }
 
-  ngOnInit() {
-    this.loadArticles();
+  // -----------------------------
+  // LANGUAGE
+  // -----------------------------
+
+  setLanguage(language: Language): void {
+    this.language.set(language);
   }
 
-  async loadArticles() {
+  // -----------------------------
+  // ARTICLE FILTER
+  // -----------------------------
+
+  setFilter(filter: ArticleFilter): void {
+    this.activeFilter.set(filter);
+  }
+
+  filteredArticles(): Article[] {
+    const filterMap: Record<ArticleFilter, string> = {
+      Latest: 'latest',
+
+      'This week': 'this-week',
+
+      Interest: 'interest',
+
+      Following: 'following',
+    };
+
+    const currentFilter: string = filterMap[this.activeFilter()];
+
+    return this.articles().filter((article: Article) => article.filters.includes(currentFilter));
+  }
+
+  // -----------------------------
+  // ARTICLE LOADING
+  // -----------------------------
+
+  async loadArticles(): Promise<void> {
     try {
-      const response = await fetch('/app/components/homepage/articles.txt');
+      const response: Response = await fetch('/articles.txt');
 
       if (!response.ok) {
-        throw new Error('Could not load articles.txt');
+        throw new Error(`Failed to load articles.txt: ${response.status}`);
       }
 
-      const text = await response.text();
+      const text: string = await response.text();
 
-      const articles = text
-        .split('\n')
-        .filter((line) => line.trim().length > 0)
-        .map((line) => this.parseArticle(line));
+      const articles: Article[] = text
+        .split(/\r?\n/)
+        .filter((line: string) => line.trim().length > 0)
+        .map((line: string) => this.parseArticle(line));
 
       this.articles.set(articles);
+
+      console.log('Articles loaded:', articles);
     } catch (error) {
-      console.error('Could not load articles.txt', error);
+      console.error('Could not load articles.txt:', error);
     }
   }
 
   parseArticle(line: string): Article {
-    const parts = line.split('|');
+    const parts: string[] = line.split('|');
 
     return {
       id: Number(parts[0]),
-      title: parts[1],
-      category: parts[2],
-      description: parts[3],
-      thumbnail: parts[4],
-      filters: parts[5].split(',').map((filter) => filter.trim()),
-      featured: parts[6] === 'true',
-      author: parts[7],
+
+      title: parts[1] ?? '',
+
+      category: parts[2] ?? '',
+
+      description: parts[3] ?? '',
+
+      thumbnail: parts[4] ?? '',
+
+      filters: (parts[5] ?? '').split(',').map((filter: string) => filter.trim()),
+
+      featured: parts[6]?.trim() === 'true',
+
+      author: parts[7] ?? '',
     };
   }
 
-  setLanguage(language: Language) {
-    this.language.set(language);
-  }
-
-  setFilter(filter: 'Latest' | 'This week' | 'Interest' | 'Following') {
-    this.activeFilter.set(filter);
-  }
-
-  filteredArticles() {
-    const filterMap = {
-      Latest: 'latest',
-      'This week': 'this-week',
-      Interest: 'interest',
-      Following: 'following',
-    };
-
-    const currentFilter = filterMap[this.activeFilter()];
-
-    return this.articles().filter((article) => article.filters.includes(currentFilter));
-  }
+  // -----------------------------
+  // REVIEW
+  // -----------------------------
 
   hasText(): boolean {
     return this.articleText.trim().length > 0;
@@ -282,12 +342,13 @@ export class Homepage implements OnInit {
     return this.articleUrl.trim().length > 0;
   }
 
-  reviewText() {
+  reviewText(): void {
     if (!this.hasText()) {
       return;
     }
 
     this.reviewing.set(true);
+
     this.reviewResult.set('');
 
     setTimeout(() => {
@@ -297,12 +358,13 @@ export class Homepage implements OnInit {
     }, 800);
   }
 
-  reviewUrl() {
+  reviewUrl(): void {
     if (!this.hasUrl()) {
       return;
     }
 
     this.reviewing.set(true);
+
     this.reviewResult.set('');
 
     setTimeout(() => {

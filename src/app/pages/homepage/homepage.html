@@ -1,27 +1,48 @@
 <div class="page">
-  <!-- NAVBAR -->
+
+  <!-- ==========================================
+       NAVBAR
+  =========================================== -->
   <nav class="navbar">
+
+    <!-- LOGO -->
     <a href="#home" class="logo">
       <span class="logo-icon">K</span>
       <span class="logo-name">Kirkify</span>
     </a>
 
+
+    <!-- NAVIGATION LINKS -->
     <div class="nav-links">
-      <a href="#home" class="nav-link">
+
+      <a
+        href="#home"
+        class="nav-link"
+      >
         {{ t().home }}
       </a>
 
-      <a href="#how-it-works" class="nav-link">
+      <a
+        href="#how-it-works"
+        class="nav-link"
+      >
         {{ t().howItWorks }}
       </a>
 
-      <a href="#about" class="nav-link">
+      <a
+        href="#about"
+        class="nav-link"
+      >
         {{ t().about }}
       </a>
+
     </div>
 
+
+    <!-- NAVBAR RIGHT -->
     <div class="nav-actions">
-      <!-- LANGUAGE -->
+
+      <!-- LANGUAGE DROPDOWN -->
       <button
         hlmBtn
         variant="outline"
@@ -31,63 +52,147 @@
         🌐 {{ t().language }}
       </button>
 
+
       <ng-template #languageMenu>
-        <hlm-dropdown-menu class="language-menu">
+
+        <hlm-dropdown-menu>
+
           <hlm-dropdown-menu-group>
+
             <hlm-dropdown-menu-label>
               {{ t().language }}
             </hlm-dropdown-menu-label>
 
-            <button hlmDropdownMenuItem (click)="setLanguage('en')">🇬🇧 English</button>
 
-            <button hlmDropdownMenuItem (click)="setLanguage('ms')">🇲🇾 Bahasa Melayu</button>
+            <!-- ENGLISH -->
+            <button
+              hlmDropdownMenuItem
+              (click)="setLanguage('en')"
+            >
+              🇬🇧 English
+            </button>
 
-            <button hlmDropdownMenuItem (click)="setLanguage('zh')">🇨🇳 中文</button>
+
+            <!-- MALAY -->
+            <button
+              hlmDropdownMenuItem
+              (click)="setLanguage('ms')"
+            >
+              🇲🇾 Bahasa Melayu
+            </button>
+
+
+            <!-- CHINESE -->
+            <button
+              hlmDropdownMenuItem
+              (click)="setLanguage('zh')"
+            >
+              🇨🇳 中文
+            </button>
+
           </hlm-dropdown-menu-group>
+
         </hlm-dropdown-menu>
+
       </ng-template>
+
     </div>
+
   </nav>
 
-  <!-- HERO -->
-  <main id="home" class="main">
+
+
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
+  <main
+    id="home"
+    class="main"
+  >
+
+
+    <!-- ========================================
+         HERO
+    ========================================= -->
     <section class="hero">
-      <div class="badge">✦ {{ t().badge }}</div>
+
+      <div class="badge">
+        ✦ {{ t().badge }}
+      </div>
+
 
       <h1>
+
         {{ t().title }}
-        <br />
+
+        <br>
 
         <span>
           {{ t().titleHighlight }}
         </span>
+
       </h1>
+
 
       <p class="description">
         {{ t().description }}
       </p>
+
     </section>
 
-    <!-- REVIEW AREA -->
+
+
+    <!-- ========================================
+         ARTICLE REVIEWER
+    ========================================= -->
     <section class="review-area">
-      <!-- ARTICLE TEXT -->
+
+
+      <!-- ======================================
+           ARTICLE TEXT INPUT
+      ======================================= -->
       <div class="input-section">
+
         <div class="input-header">
+
           <div>
-            <h2>{{ t().textLabel }}</h2>
+
+            <h2>
+              {{ t().textLabel }}
+            </h2>
 
             <p>
               {{ t().textHint }}
             </p>
+
           </div>
 
+
           <!-- REVIEW BUTTON -->
+
           @if (hasText()) {
-            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewText()">
-              {{ reviewing() ? t().reviewing : t().review }}
+
+            <button
+              hlmBtn
+              class="review-button"
+              [disabled]="reviewing()"
+              (click)="reviewText()"
+            >
+
+              @if (reviewing()) {
+                {{ t().reviewing }}
+              } @else {
+                {{ t().review }}
+              }
+
             </button>
+
           }
+
         </div>
+
+
+        <!-- TEXTAREA -->
 
         <textarea
           hlmTextarea
@@ -95,26 +200,56 @@
           [placeholder]="t().textPlaceholder"
           class="article-textarea"
         ></textarea>
+
       </div>
 
-      <!-- URL -->
+
+
+      <!-- ======================================
+           URL INPUT
+      ======================================= -->
       <div class="input-section">
+
         <div class="input-header">
+
           <div>
-            <h2>{{ t().urlLabel }}</h2>
+
+            <h2>
+              {{ t().urlLabel }}
+            </h2>
 
             <p>
               {{ t().urlHint }}
             </p>
+
           </div>
 
+
           <!-- REVIEW BUTTON -->
+
           @if (hasUrl()) {
-            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewUrl()">
-              {{ reviewing() ? t().reviewing : t().review }}
+
+            <button
+              hlmBtn
+              class="review-button"
+              [disabled]="reviewing()"
+              (click)="reviewUrl()"
+            >
+
+              @if (reviewing()) {
+                {{ t().reviewing }}
+              } @else {
+                {{ t().review }}
+              }
+
             </button>
+
           }
+
         </div>
+
+
+        <!-- URL INPUT -->
 
         <input
           hlmInput
@@ -123,221 +258,422 @@
           [placeholder]="t().urlPlaceholder"
           class="url-input"
         />
+
       </div>
 
-      <!-- RESULT -->
+
+
+      <!-- ======================================
+           REVIEW RESULT
+      ======================================= -->
       <div class="result-section">
+
+
         <div class="result-header">
-          <h2>{{ t().resultTitle }}</h2>
+
+          <h2>
+            {{ t().resultTitle }}
+          </h2>
+
         </div>
 
+
         <div class="result-box">
+
+
+          <!-- LOADING -->
+
           @if (reviewing()) {
+
             <div class="loading">
+
               <div class="spinner"></div>
 
               <span>
                 {{ t().reviewing }}
               </span>
+
             </div>
-          } @else if (reviewResult()) {
+
+          }
+
+
+          <!-- RESULT -->
+
+          @else if (reviewResult()) {
+
             <p>
               {{ reviewResult() }}
             </p>
-          } @else {
+
+          }
+
+
+          <!-- EMPTY RESULT -->
+
+          @else {
+
             <div class="empty-result">
-              <span class="result-icon">✦</span>
+
+              <span class="result-icon">
+                ✦
+              </span>
 
               <p>
                 {{ t().resultPlaceholder }}
               </p>
+
             </div>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section id="how-it-works" class="info-section">
-      <div class="info-card">
-        <div class="info-number">01</div>
-
-        <h3>Provide an article</h3>
-
-        <p>Paste the article directly or provide its URL.</p>
-      </div>
-
-      <div class="info-card">
-        <div class="info-number">02</div>
-
-        <h3>Review</h3>
-
-        <p>Kirkify examines the article's important information and claims.</p>
-      </div>
-
-      <div class="info-card">
-        <div class="info-number">03</div>
-
-        <h3>Understand</h3>
-
-        <p>Get a clearer picture of the article before relying on it.</p>
-      </div>
-    </section>
-    <!-- ARTICLE DISCOVERY -->
-<section class="articles-section">
-
-  <div class="articles-heading">
-
-    <div>
-      <div class="section-label">
-        Kirkify
-      </div>
-
-      <h2>
-        {{ t().articlesTitle }}
-      </h2>
-
-      <p>
-        {{ t().articlesDescription }}
-      </p>
-    </div>
-
-  </div>
-
-
-  <!-- FILTER BUTTONS -->
-
-  <div class="article-filters">
-
-    <button
-      hlmBtn
-      [variant]="activeFilter() === 'Latest'
-        ? 'default'
-        : 'outline'"
-      (click)="setFilter('Latest')"
-    >
-      {{ t().latest }}
-    </button>
-
-    <button
-      hlmBtn
-      [variant]="activeFilter() === 'This week'
-        ? 'default'
-        : 'outline'"
-      (click)="setFilter('This week')"
-    >
-      {{ t().thisWeek }}
-    </button>
-
-    <button
-      hlmBtn
-      [variant]="activeFilter() === 'Interest'
-        ? 'default'
-        : 'outline'"
-      (click)="setFilter('Interest')"
-    >
-      {{ t().interest }}
-    </button>
-
-    <button
-      hlmBtn
-      [variant]="activeFilter() === 'Following'
-        ? 'default'
-        : 'outline'"
-      (click)="setFilter('Following')"
-    >
-      {{ t().following }}
-    </button>
-
-  </div>
-
-
-  <!-- PADLET GRID -->
-
-  <div class="article-grid">
-
-    @for (article of filteredArticles(); track article.id) {
-
-      <article
-        class="article-card"
-        [class.featured-card]="article.featured"
-      >
-
-        <!-- Thumbnail -->
-
-        <div
-          class="article-thumbnail"
-          [style.background-image]="'url(' + article.thumbnail + ')'"
-        >
-
-          @if (
-            article.featured &&
-            activeFilter() === 'Latest'
-          ) {
-
-            <span class="featured-tag">
-              ✦ {{ t().featured }}
-            </span>
 
           }
 
-          <span class="category-tag">
-            {{ article.category }}
-          </span>
-
         </div>
 
+      </div>
 
-        <!-- Content -->
+    </section>
 
-        <div class="article-content">
 
-          <h3>
-            {{ article.title }}
-          </h3>
+
+    <!-- ==========================================
+         ARTICLES
+    =========================================== -->
+    <section
+      id="articles"
+      class="articles-section"
+    >
+
+
+      <!-- ARTICLES HEADER -->
+
+      <div class="articles-heading">
+
+        <div>
+
+          <div class="section-label">
+            KIRKIFY
+          </div>
+
+          <h2>
+            {{ t().articlesTitle }}
+          </h2>
 
           <p>
-            {{ article.description }}
+            {{ t().articlesDescription }}
           </p>
 
+        </div>
 
-          <div class="article-footer">
+      </div>
 
-            <div class="author">
-              {{ article.author }}
+
+
+      <!-- ========================================
+           FILTER BUTTONS
+      ========================================= -->
+
+      <div class="article-filters">
+
+
+        <!-- LATEST -->
+
+        <button
+          hlmBtn
+          [variant]="
+            activeFilter() === 'Latest'
+              ? 'default'
+              : 'outline'
+          "
+          (click)="setFilter('Latest')"
+        >
+          {{ t().latest }}
+        </button>
+
+
+        <!-- THIS WEEK -->
+
+        <button
+          hlmBtn
+          [variant]="
+            activeFilter() === 'This week'
+              ? 'default'
+              : 'outline'
+          "
+          (click)="setFilter('This week')"
+        >
+          {{ t().thisWeek }}
+        </button>
+
+
+        <!-- INTEREST -->
+
+        <button
+          hlmBtn
+          [variant]="
+            activeFilter() === 'Interest'
+              ? 'default'
+              : 'outline'
+          "
+          (click)="setFilter('Interest')"
+        >
+          {{ t().interest }}
+        </button>
+
+
+        <!-- FOLLOWING -->
+
+        <button
+          hlmBtn
+          [variant]="
+            activeFilter() === 'Following'
+              ? 'default'
+              : 'outline'
+          "
+          (click)="setFilter('Following')"
+        >
+          {{ t().following }}
+        </button>
+
+      </div>
+
+
+
+      <!-- ========================================
+           ARTICLE PADLET GRID
+      ========================================= -->
+
+      <div class="article-grid">
+
+
+        @for (
+          article of filteredArticles();
+          track article.id
+        ) {
+
+
+          <!-- ARTICLE CARD -->
+
+          <article
+            class="article-card"
+            [class.featured-card]="article.featured"
+          >
+
+
+            <!-- THUMBNAIL -->
+
+            <div
+              class="article-thumbnail"
+              [style.background-image]="
+                'url(' + article.thumbnail + ')'
+              "
+            >
+
+
+              <!-- FEATURED TAG -->
+
+              @if (
+                article.featured &&
+                activeFilter() === 'Latest'
+              ) {
+
+                <span class="featured-tag">
+                  ✦ {{ t().featured }}
+                </span>
+
+              }
+
+
+              <!-- CATEGORY -->
+
+              <span class="category-tag">
+                {{ article.category }}
+              </span>
+
             </div>
 
-            <button
-              hlmBtn
-              variant="ghost"
-              class="read-button"
-            >
-              {{ t().readArticle }}
-              →
-            </button>
+
+
+            <!-- ARTICLE CONTENT -->
+
+            <div class="article-content">
+
+
+              <!-- TITLE -->
+
+              <h3>
+                {{ article.title }}
+              </h3>
+
+
+              <!-- DESCRIPTION -->
+
+              <p>
+                {{ article.description }}
+              </p>
+
+
+
+              <!-- FOOTER -->
+
+              <div class="article-footer">
+
+
+                <!-- AUTHOR -->
+
+                <div class="author">
+                  {{ article.author }}
+                </div>
+
+
+                <!-- READ BUTTON -->
+
+                <button
+                  hlmBtn
+                  variant="ghost"
+                  class="read-button"
+                >
+                  {{ t().readArticle }}
+                  →
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+
+        <!-- NO ARTICLES -->
+
+        @empty {
+
+          <div class="no-articles">
+
+            <span>
+              ✦
+            </span>
+
+            <p>
+              No articles found.
+            </p>
 
           </div>
 
+        }
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         HOW IT WORKS
+    =========================================== -->
+    <section
+      id="how-it-works"
+      class="info-section"
+    >
+
+
+      <!-- STEP 1 -->
+
+      <div class="info-card">
+
+        <div class="info-number">
+          01
         </div>
 
-      </article>
-
-    } @empty {
-
-      <div class="no-articles">
-
-        <span>✦</span>
+        <h3>
+          Provide an article
+        </h3>
 
         <p>
-          No articles found.
+          Paste the article directly or provide its URL.
         </p>
 
       </div>
 
-    }
 
-  </div>
 
-</section>
+      <!-- STEP 2 -->
+
+      <div class="info-card">
+
+        <div class="info-number">
+          02
+        </div>
+
+        <h3>
+          Review
+        </h3>
+
+        <p>
+          Kirkify examines the article's important
+          information and claims.
+        </p>
+
+      </div>
+
+
+
+      <!-- STEP 3 -->
+
+      <div class="info-card">
+
+        <div class="info-number">
+          03
+        </div>
+
+        <h3>
+          Understand
+        </h3>
+
+        <p>
+          Get a clearer picture of the article
+          before relying on it.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         ABOUT
+    =========================================== -->
+
+    <section
+      id="about"
+      class="about-section"
+    >
+
+      <div class="about-content">
+
+        <div class="section-label">
+          KIRKIFY
+        </div>
+
+        <h2>
+          Read critically.
+          <br>
+          Think clearly.
+        </h2>
+
+        <p>
+          Kirkify is designed to help readers slow down,
+          examine information and make better-informed
+          decisions about the articles they read.
+        </p>
+
+      </div>
+
+    </section>
+
+
   </main>
+
 </div>
