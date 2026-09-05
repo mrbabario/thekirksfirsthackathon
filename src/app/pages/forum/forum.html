@@ -1,0 +1,193 @@
+<div class="forum-page">
+  <!-- ==========================================
+       NAVBAR
+  =========================================== -->
+  <nav class="forum-navbar">
+    <!-- LOGO -->
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">K</span>
+      <span class="logo-name">Dr.Kirk</span>
+    </a>
+
+    <!-- NAVIGATION -->
+    <div class="nav-links">
+      <a routerLink="/" class="nav-link"> Home </a>
+
+      <a routerLink="/" fragment="how-it-works" class="nav-link"> How It Works </a>
+
+      <a routerLink="/" fragment="articles" class="nav-link"> Explore articles </a>
+
+      <a routerLink="/forum" class="nav-link active"> Forum </a>
+    </div>
+
+    <!-- NAV ACTIONS -->
+    <div class="nav-actions">
+      <!-- LANGUAGE -->
+      <button
+        hlmBtn
+        variant="outline"
+        [hlmDropdownMenuTrigger]="languageMenu"
+        class="language-button"
+      >
+        🌐 {{ language }}
+      </button>
+
+      <ng-template #languageMenu>
+        <hlm-dropdown-menu>
+          <hlm-dropdown-menu-group>
+            <hlm-dropdown-menu-label> Language </hlm-dropdown-menu-label>
+
+            <button hlmDropdownMenuItem (click)="setLanguage('en')">🇬🇧 English</button>
+
+            <button hlmDropdownMenuItem (click)="setLanguage('ms')">🇲🇾 Bahasa Melayu</button>
+
+            <button hlmDropdownMenuItem (click)="setLanguage('zh')">🇨🇳 中文</button>
+          </hlm-dropdown-menu-group>
+        </hlm-dropdown-menu>
+      </ng-template>
+
+      <!-- SIGN IN -->
+      <button hlmBtn variant="default" class="sign-in-button" routerLink="/sign-in">Sign in</button>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
+  <main class="forum-main">
+    <!-- ========================================
+         HEADER
+    ========================================= -->
+    <section class="forum-hero">
+      <div class="forum-badge">✦ DR.KIRK COMMUNITY</div>
+
+      <h1>
+        Discuss.
+        <span>Question.</span>
+        Learn.
+      </h1>
+
+      <p>
+        Join the Dr.Kirk community to discuss articles, question claims, share ideas, and learn from
+        others.
+      </p>
+
+      <button class="create-post-button">+ Create a post</button>
+    </section>
+
+    <!-- ========================================
+         CATEGORIES
+    ========================================= -->
+    <section class="categories-section">
+      <div class="section-heading">
+        <div>
+          <span class="section-label"> COMMUNITY </span>
+
+          <h2>Browse discussions</h2>
+        </div>
+      </div>
+
+      <div class="category-grid">
+        @for (category of categories; track category.name) {
+          <button class="category-card">
+            <div class="category-icon">
+              {{ category.icon }}
+            </div>
+
+            <div class="category-content">
+              <h3>
+                {{ category.name }}
+              </h3>
+
+              <p>
+                {{ category.description }}
+              </p>
+
+              <span class="category-posts"> {{ category.posts }} discussions </span>
+            </div>
+
+            <span class="category-arrow"> → </span>
+          </button>
+        }
+      </div>
+    </section>
+
+    <!-- ========================================
+         POSTS
+    ========================================= -->
+    <section class="posts-section">
+      <div class="posts-header">
+        <div>
+          <span class="section-label"> DISCUSSIONS </span>
+
+          <h2>Recent discussions</h2>
+        </div>
+
+        <div class="post-filters">
+          <button class="filter-button active">Latest</button>
+
+          <button class="filter-button">Popular</button>
+        </div>
+      </div>
+
+      <div class="post-list">
+        @for (post of posts; track post.id) {
+          <article class="post-card">
+            <div class="post-main">
+              <div class="post-icon">💬</div>
+
+              <div class="post-content">
+                <div class="post-meta">
+                  @if (post.pinned) {
+                    <span class="pinned"> PINNED </span>
+                  }
+
+                  <span class="post-tag">
+                    {{ post.tag }}
+                  </span>
+
+                  <span class="post-category">
+                    {{ post.category }}
+                  </span>
+                </div>
+
+                <h3>
+                  {{ post.title }}
+                </h3>
+
+                <p>
+                  {{ post.description }}
+                </p>
+
+                <div class="post-author">
+                  <span>
+                    Started by <strong>{{ post.author }}</strong>
+                  </span>
+
+                  <span>
+                    {{ post.time }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-stats">
+              <div>
+                <strong>{{ post.replies }}</strong>
+                <span>Replies</span>
+              </div>
+
+              <div>
+                <strong>{{ post.views }}</strong>
+                <span>Views</span>
+              </div>
+
+              <span class="post-arrow"> → </span>
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  </main>
+
+  
