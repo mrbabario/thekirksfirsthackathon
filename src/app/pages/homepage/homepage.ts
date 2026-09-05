@@ -83,6 +83,15 @@ export class Homepage {
   language = signal<Language>('en');
 
   // -----------------------------
+  // TYPING ANIMATION
+  // -----------------------------
+
+  displayedTitle = signal('');
+  displayedTitleHighlight = signal('');
+
+  private typingRunId = 0;
+
+  // -----------------------------
   // REVIEW INPUT
   // -----------------------------
 
@@ -189,8 +198,7 @@ export class Homepage {
       reviewing: 'Sedang menyemak...',
 
       resultTitle: 'Keputusan Semakan',
-      resultPlaceholder:
-        'Semakan artikel anda akan muncul di sini.',
+      resultPlaceholder: 'Semakan artikel anda akan muncul di sini.',
 
       sampleResult:
         'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar. Dr.Kirk boleh menganalisis kejelasan, dakwaan, kemungkinan bias dan kredibiliti.',
@@ -211,8 +219,7 @@ export class Homepage {
       home: '首页',
       howItWorks: '使用方法',
       articlesTitle: '探索文章',
-      articlesDescription:
-        '发现值得阅读、质疑和思考的文章。',
+      articlesDescription: '发现值得阅读、质疑和思考的文章。',
       about: '关于',
       language: '语言',
 
@@ -237,8 +244,7 @@ export class Homepage {
       reviewing: '正在审查...',
 
       resultTitle: '审查结果',
-      resultPlaceholder:
-        '您的文章审查结果将在这里显示。',
+      resultPlaceholder: '您的文章审查结果将在这里显示。',
 
       sampleResult:
         '这是一个示例审查结果。您的文章已经成功提交。Dr.Kirk 可以分析文章的清晰度、论点、潜在偏见和可信度。',
@@ -259,6 +265,7 @@ export class Homepage {
 
   constructor() {
     afterNextRender(() => {
+      this.startTypingAnimation();
       this.loadArticles();
     });
   }
@@ -277,6 +284,70 @@ export class Homepage {
 
   setLanguage(language: Language): void {
     this.language.set(language);
+
+    this.startTypingAnimation();
+  }
+
+  // -----------------------------
+  // TYPING ANIMATION
+  // -----------------------------
+
+  private startTypingAnimation(): void {
+    const currentRun = ++this.typingRunId;
+
+    this.displayedTitle.set('');
+    this.displayedTitleHighlight.set('');
+
+    const title = this.t().title;
+    const titleHighlight = this.t().titleHighlight;
+
+    this.typeText(
+      title,
+      this.displayedTitle,
+      currentRun,
+      36
+    ).then(() => {
+      if (currentRun !== this.typingRunId) {
+        return;
+      }
+
+      return this.typeText(
+        titleHighlight,
+        this.displayedTitleHighlight,
+        currentRun,
+        36
+      );
+    });
+  }
+
+  private typeText(
+    text: string,
+    target: ReturnType<typeof signal<string>>,
+    runId: number,
+    speed: number
+  ): Promise<void> {
+    return new Promise((resolve) => {
+      let index = 0;
+
+      const typeNextCharacter = () => {
+        if (runId !== this.typingRunId) {
+          resolve();
+          return;
+        }
+
+        if (index >= text.length) {
+          resolve();
+          return;
+        }
+
+        target.set(text.slice(0, index + 1));
+        index++;
+
+        setTimeout(typeNextCharacter, speed);
+      };
+
+      typeNextCharacter();
+    });
   }
 
   // -----------------------------
@@ -297,8 +368,9 @@ export class Homepage {
 
     const currentFilter = filterMap[this.activeFilter()];
 
-    return this.articles().filter((article: Article) =>
-      article.filters.includes(currentFilter)
+    return this.articles().filter(
+      (article: Article) =>
+        article.filters.includes(currentFilter)
     );
   }
 
@@ -320,8 +392,14 @@ export class Homepage {
 
       const articles: Article[] = text
         .split(/\r?\n/)
-        .filter((line: string) => line.trim().length > 0)
-        .map((line: string) => this.parseArticle(line));
+        .filter(
+          (line: string) =>
+            line.trim().length > 0
+        )
+        .map(
+          (line: string) =>
+            this.parseArticle(line)
+        );
 
       this.articles.set(articles);
 
@@ -345,7 +423,10 @@ export class Homepage {
       thumbnail: parts[4] ?? '',
       filters: (parts[5] ?? '')
         .split(',')
-        .map((filter: string) => filter.trim()),
+        .map(
+          (filter: string) =>
+            filter.trim()
+        ),
       featured: parts[6]?.trim() === 'true',
       author: parts[7] ?? '',
     };
@@ -373,7 +454,9 @@ export class Homepage {
 
     setTimeout(() => {
       this.reviewing.set(false);
-      this.reviewResult.set(this.t().sampleResult);
+      this.reviewResult.set(
+        this.t().sampleResult
+      );
     }, 800);
   }
 
@@ -387,7 +470,9 @@ export class Homepage {
 
     setTimeout(() => {
       this.reviewing.set(false);
-      this.reviewResult.set(this.t().sampleResult);
+      this.reviewResult.set(
+        this.t().sampleResult
+      );
     }, 800);
   }
 }
