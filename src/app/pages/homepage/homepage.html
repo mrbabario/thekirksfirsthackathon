@@ -1,47 +1,31 @@
 <div class="page">
-
   <!-- ==========================================
        NAVBAR
   =========================================== -->
   <nav class="navbar">
-
     <!-- LOGO -->
     <a href="#home" class="logo">
       <span class="logo-icon">K</span>
       <span class="logo-name">Dr.Kirk</span>
     </a>
 
-
     <!-- NAVIGATION LINKS -->
     <div class="nav-links">
-
-      <a
-        href="#home"
-        class="nav-link"
-      >
+      <a href="#home" class="nav-link">
         {{ t().home }}
       </a>
 
-      <a
-        href="#how-it-works"
-        class="nav-link"
-      >
+      <a href="#how-it-works" class="nav-link">
         {{ t().howItWorks }}
       </a>
 
-      <a
-        href="#articles"
-        class="nav-link"
-      >
+      <a href="#articles" class="nav-link">
         {{ t().articlesTitle }}
       </a>
-
     </div>
-
 
     <!-- NAV ACTIONS -->
     <div class="nav-actions">
-
       <!-- LANGUAGE -->
       <button
         hlmBtn
@@ -53,78 +37,39 @@
       </button>
 
       <ng-template #languageMenu>
-
         <hlm-dropdown-menu>
-
           <hlm-dropdown-menu-group>
-
             <hlm-dropdown-menu-label>
               {{ t().language }}
             </hlm-dropdown-menu-label>
 
-            <button
-              hlmDropdownMenuItem
-              (click)="setLanguage('en')"
-            >
-              🇬🇧 English
-            </button>
+            <button hlmDropdownMenuItem (click)="setLanguage('en')">🇬🇧 English</button>
 
-            <button
-              hlmDropdownMenuItem
-              (click)="setLanguage('ms')"
-            >
-              🇲🇾 Bahasa Melayu
-            </button>
+            <button hlmDropdownMenuItem (click)="setLanguage('ms')">🇲🇾 Bahasa Melayu</button>
 
-            <button
-              hlmDropdownMenuItem
-              (click)="setLanguage('zh')"
-            >
-              🇨🇳 中文
-            </button>
-
+            <button hlmDropdownMenuItem (click)="setLanguage('zh')">🇨🇳 中文</button>
           </hlm-dropdown-menu-group>
-
         </hlm-dropdown-menu>
-
       </ng-template>
 
       <!-- SIGN IN -->
-      <button
-        hlmBtn
-        variant="default"
-        class="sign-in-button"
-        routerLink="/sign-in"
-      >
-        Sign in
-      </button>
-
+      <button hlmBtn variant="default" class="sign-in-button" routerLink="/sign-in">Sign in</button>
     </div>
-
   </nav>
-
 
   <!-- ==========================================
        MAIN
   =========================================== -->
   <main class="main">
-
-
     <!-- ========================================
          HERO
     ========================================= -->
-    <section
-      id="home"
-      class="hero"
-    >
-
-      <div class="badge">
-        ✦ {{ t().badge }}
-      </div>
+    <section id="home" class="hero">
+      <div class="badge">✦ {{ t().badge }}</div>
 
       <h1>
         {{ t().title }}
-        <br>
+        <br />
         <span>
           {{ t().titleHighlight }}
         </span>
@@ -133,25 +78,18 @@
       <p class="description">
         {{ t().description }}
       </p>
-
     </section>
-
 
     <!-- ========================================
          ARTICLE REVIEWER
     ========================================= -->
     <section class="review-area">
-
-
       <!-- ======================================
            TEXT REVIEW
       ======================================= -->
       <div class="input-section">
-
         <div class="input-header">
-
           <div>
-
             <h2>
               {{ t().textLabel }}
             </h2>
@@ -159,31 +97,18 @@
             <p>
               {{ t().textHint }}
             </p>
-
           </div>
 
-
           @if (hasText()) {
-
-            <button
-              hlmBtn
-              class="review-button"
-              [disabled]="reviewing()"
-              (click)="reviewText()"
-            >
-
+            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewText()">
               @if (reviewing()) {
                 {{ t().reviewing }}
               } @else {
                 {{ t().review }}
               }
-
             </button>
-
           }
-
         </div>
-
 
         <textarea
           hlmTextarea
@@ -191,19 +116,14 @@
           [placeholder]="t().textPlaceholder"
           class="article-textarea"
         ></textarea>
-
       </div>
-
 
       <!-- ======================================
            URL REVIEW
       ======================================= -->
       <div class="input-section">
-
         <div class="input-header">
-
           <div>
-
             <h2>
               {{ t().urlLabel }}
             </h2>
@@ -211,31 +131,18 @@
             <p>
               {{ t().urlHint }}
             </p>
-
           </div>
 
-
           @if (hasUrl()) {
-
-            <button
-              hlmBtn
-              class="review-button"
-              [disabled]="reviewing()"
-              (click)="reviewUrl()"
-            >
-
+            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewUrl()">
               @if (reviewing()) {
                 {{ t().reviewing }}
               } @else {
                 {{ t().review }}
               }
-
             </button>
-
           }
-
         </div>
-
 
         <input
           hlmInput
@@ -244,198 +151,115 @@
           [placeholder]="t().urlPlaceholder"
           class="url-input"
         />
-
       </div>
-
 
       <!-- ======================================
            REVIEW RESULT
       ======================================= -->
       <div class="result-section">
-
         <div class="result-header">
-
           <h2>
             {{ t().resultTitle }}
           </h2>
-
         </div>
 
-
         <div class="result-box">
-
           @if (reviewing()) {
-
             <div class="loading">
-
               <div class="spinner"></div>
 
               <span>
                 {{ t().reviewing }}
               </span>
-
             </div>
-
           } @else if (reviewResult()) {
-
             <p>
               {{ reviewResult() }}
             </p>
-
           } @else {
-
             <div class="empty-result">
-
-              <span class="result-icon">
-                ✦
-              </span>
+              <span class="result-icon"> ✦ </span>
 
               <p>
                 {{ t().resultPlaceholder }}
               </p>
-
             </div>
-
           }
-
         </div>
-
       </div>
-
     </section>
-
 
     <!-- ========================================
          HOW IT WORKS DIVIDER
     ========================================= -->
     <div class="section-divider">
-
       <span>
         {{ t().howItWorks }}
       </span>
-
     </div>
-
 
     <!-- ========================================
          HOW IT WORKS
     ========================================= -->
-    <section
-      id="how-it-works"
-      class="how-it-works-section"
-    >
-
+    <section id="how-it-works" class="how-it-works-section">
       <!-- STEP 1 -->
       <div class="info-card">
-
         <div class="info-top">
+          <span class="info-number"> 01 </span>
 
-          <span class="info-number">
-            01
-          </span>
-
-          <span class="info-icon">
-            📝
-          </span>
-
+          <span class="info-icon"> 📝 </span>
         </div>
 
-        <h3>
-          Provide an article
-        </h3>
+        <h3>Provide an article</h3>
 
-        <p>
-          Paste the article text directly or provide
-          its URL for review.
-        </p>
-
+        <p>Paste the article text directly or provide its URL for review.</p>
       </div>
-
 
       <!-- STEP 2 -->
       <div class="info-card">
-
         <div class="info-top">
+          <span class="info-number"> 02 </span>
 
-          <span class="info-number">
-            02
-          </span>
-
-          <span class="info-icon">
-            🔍
-          </span>
-
+          <span class="info-icon"> 🔍 </span>
         </div>
 
-        <h3>
-          Review
-        </h3>
+        <h3>Review</h3>
 
-        <p>
-          Dr.Kirk examines the article's important information and claims.
-        </p>
-
+        <p>Dr.Kirk examines the article's important information and claims.</p>
       </div>
-
 
       <!-- STEP 3 -->
       <div class="info-card">
-
         <div class="info-top">
+          <span class="info-number"> 03 </span>
 
-          <span class="info-number">
-            03
-          </span>
-
-          <span class="info-icon">
-            💡
-          </span>
-
+          <span class="info-icon"> 💡 </span>
         </div>
 
-        <h3>
-          Understand
-        </h3>
+        <h3>Understand</h3>
 
-        <p>
-          Get a clearer understanding before deciding
-          whether to trust the article.
-        </p>
-
+        <p>Get a clearer understanding before deciding whether to trust the article.</p>
       </div>
-
     </section>
-
 
     <!-- ========================================
          ARTICLES DIVIDER
     ========================================= -->
     <div class="section-divider articles-divider">
-
       <span>
         {{ t().articlesTitle }}
       </span>
-
     </div>
-
 
     <!-- ========================================
          ARTICLES
     ========================================= -->
-    <section
-      id="articles"
-      class="articles-section"
-    >
-
+    <section id="articles" class="articles-section">
       <!-- ARTICLE HEADER + FILTERS -->
       <div class="articles-toolbar">
-
         <!-- LEFT -->
         <div class="articles-heading">
-
-          <div class="section-label">
-            KIRKIFY
-          </div>
+          <div class="section-label">DR.KIRK</div>
 
           <h2>
             {{ t().articlesTitle }}
@@ -444,115 +268,68 @@
           <p>
             {{ t().articlesDescription }}
           </p>
-
         </div>
-
 
         <!-- RIGHT -->
         <div class="article-filters">
-
           <button
             hlmBtn
             size="sm"
-            [variant]="
-              activeFilter() === 'Latest'
-                ? 'default'
-                : 'outline'
-            "
+            [variant]="activeFilter() === 'Latest' ? 'default' : 'outline'"
             (click)="setFilter('Latest')"
           >
             {{ t().latest }}
           </button>
 
-
           <button
             hlmBtn
             size="sm"
-            [variant]="
-              activeFilter() === 'This week'
-                ? 'default'
-                : 'outline'
-            "
+            [variant]="activeFilter() === 'This week' ? 'default' : 'outline'"
             (click)="setFilter('This week')"
           >
             {{ t().thisWeek }}
           </button>
 
-
           <button
             hlmBtn
             size="sm"
-            [variant]="
-              activeFilter() === 'Interest'
-                ? 'default'
-                : 'outline'
-            "
+            [variant]="activeFilter() === 'Interest' ? 'default' : 'outline'"
             (click)="setFilter('Interest')"
           >
             {{ t().interest }}
           </button>
 
-
           <button
             hlmBtn
             size="sm"
-            [variant]="
-              activeFilter() === 'Following'
-                ? 'default'
-                : 'outline'
-            "
+            [variant]="activeFilter() === 'Following' ? 'default' : 'outline'"
             (click)="setFilter('Following')"
           >
             {{ t().following }}
           </button>
-
         </div>
-
       </div>
-
 
       <!-- ARTICLE GRID -->
       <div class="article-grid">
-
-        @for (
-          article of filteredArticles();
-          track article.id
-        ) {
-
-          <article
-            class="article-card"
-            [class.featured-card]="article.featured"
-          >
-
+        @for (article of filteredArticles(); track article.id) {
+          <article class="article-card" [class.featured-card]="article.featured">
             <!-- THUMBNAIL -->
             <div
               class="article-thumbnail"
-              [style.background-image]="
-                'url(' + article.thumbnail + ')'
-              "
+              [style.background-image]="'url(' + article.thumbnail + ')'"
             >
-
-              @if (
-                article.featured &&
-                activeFilter() === 'Latest'
-              ) {
-
-                <span class="featured-tag">
-                  ✦ {{ t().featured }}
-                </span>
-
+              @if (article.featured && activeFilter() === 'Latest') {
+                <span class="featured-tag"> ✦ {{ t().featured }} </span>
               }
 
               <span class="category-tag">
                 {{ article.category }}
               </span>
-
             </div>
-
 
             <!-- ARTICLE CONTENT -->
             <div class="article-content">
-
               <h3>
                 {{ article.title }}
               </h3>
@@ -561,165 +338,26 @@
                 {{ article.description }}
               </p>
 
-
               <div class="article-footer">
-
                 <div class="author">
                   {{ article.author }}
                 </div>
 
-                <button
-                  hlmBtn
-                  variant="ghost"
-                  class="read-button"
-                >
+                <button hlmBtn variant="ghost" class="read-button">
                   {{ t().readArticle }}
                   →
                 </button>
-
               </div>
-
             </div>
-
           </article>
-
         } @empty {
-
           <div class="no-articles">
+            <span> ✦ </span>
 
-            <span>
-              ✦
-            </span>
-
-            <p>
-              No articles found.
-            </p>
-
+            <p>No articles found.</p>
           </div>
-
         }
-
       </div>
-
     </section>
-
   </main>
-
-
-  <!-- ==========================================
-       FOOTER
-  =========================================== -->
-  <footer class="footer">
-
-    <div class="footer-inner">
-
-
-      <!-- BRAND -->
-      <div class="footer-brand">
-
-        <a
-          href="#home"
-          class="footer-logo"
-        >
-
-          <span class="logo-icon">
-            K
-          </span>
-
-          <span>
-            Kirkify
-          </span>
-
-        </a>
-
-        <p>
-          Review before you trust.
-        </p>
-
-      </div>
-
-
-      <!-- PRODUCT -->
-      <div class="footer-column">
-
-        <h4>
-          Product
-        </h4>
-
-        <a href="#home">
-          Article Review
-        </a>
-
-        <a href="#articles">
-          Explore Articles
-        </a>
-
-        <a href="#how-it-works">
-          How It Works
-        </a>
-
-      </div>
-
-
-      <!-- INFORMATION -->
-      <div class="footer-column">
-
-        <h4>
-          Information
-        </h4>
-
-        <a href="#">
-          About
-        </a>
-
-        <a href="#">
-          Privacy
-        </a>
-
-        <a href="#">
-          Terms
-        </a>
-
-      </div>
-
-
-      <!-- CONNECT -->
-      <div class="footer-column">
-
-        <h4>
-          Connect
-        </h4>
-
-        <a href="#">
-          GitHub
-        </a>
-
-        <a href="#">
-          Contact
-        </a>
-
-        <a href="#">
-          Feedback
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <!-- FOOTER BOTTOM -->
-    <div class="footer-bottom">
-
-      <span>
-        © 2026 Kirkify. All rights reserved.
-      </span>
-
-      <span>
-        Built for better reading.
-      </span>
-
-    </div>
-
-  </footer>
-
 </div>

@@ -1,5 +1,4 @@
 import { Component, signal, afterNextRender } from '@angular/core';
-
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -21,6 +20,43 @@ interface Article {
   filters: string[];
   featured: boolean;
   author: string;
+}
+
+interface Translation {
+  home: string;
+  howItWorks: string;
+  articlesTitle: string;
+  articlesDescription: string;
+  about: string;
+  language: string;
+
+  badge: string;
+  title: string;
+  titleHighlight: string;
+  description: string;
+
+  textLabel: string;
+  textHint: string;
+  textPlaceholder: string;
+
+  urlLabel: string;
+  urlHint: string;
+  urlPlaceholder: string;
+
+  review: string;
+  reviewing: string;
+
+  resultTitle: string;
+  resultPlaceholder: string;
+  sampleResult: string;
+
+  latest: string;
+  thisWeek: string;
+  interest: string;
+  following: string;
+
+  featured: string;
+  readArticle: string;
 }
 
 @Component({
@@ -50,8 +86,8 @@ export class Homepage {
   // REVIEW INPUT
   // -----------------------------
 
-  articleText: string = '';
-  articleUrl: string = '';
+  articleText = '';
+  articleUrl = '';
 
   reviewing = signal<boolean>(false);
   reviewResult = signal<string>('');
@@ -72,10 +108,16 @@ export class Homepage {
   // TRANSLATIONS
   // -----------------------------
 
-  translations = {
+  translations: Record<Language, Translation> = {
+    // ==========================================
+    // ENGLISH
+    // ==========================================
     en: {
       home: 'Home',
       howItWorks: 'How It Works',
+      articlesTitle: 'Explore articles',
+      articlesDescription:
+        'Discover articles worth reading, questioning and thinking about.',
       about: 'About',
       language: 'Language',
 
@@ -88,48 +130,41 @@ export class Homepage {
         'Dr.Kirk helps you review articles for clarity, credibility, bias, and important claims.',
 
       textLabel: 'Paste your article',
+      textHint: 'Paste the article text here.',
       textPlaceholder:
         'Paste the article text you want Dr.Kirk to review...',
 
       urlLabel: 'Or review an article URL',
-
+      urlHint: 'Enter the URL of the article you want to review.',
       urlPlaceholder: 'https://example.com/article',
 
       review: 'Review',
-
-      textHint: 'Paste the article text here.',
-
-      urlHint: 'Enter the URL of the article you want to review.',
-
-      resultTitle: 'Review Result',
-
-      resultPlaceholder: 'Your article review will appear here.',
-
       reviewing: 'Reviewing...',
 
-      articlesTitle: 'Explore articles',
+      resultTitle: 'Review Result',
+      resultPlaceholder: 'Your article review will appear here.',
 
-      articlesDescription: 'Discover articles worth reading, questioning and thinking about.',
+      sampleResult:
+        'This is a sample review. Your article has been submitted successfully. Dr.Kirk can analyze its clarity, claims, potential bias, and credibility.',
 
       latest: 'Latest',
-
       thisWeek: 'This week',
-
       interest: 'Interest',
-
       following: 'Following',
 
       featured: 'Featured',
-
       readArticle: 'Read article',
-
-      sampleResult:
-        'This is a sample review. Your article has been submitted successfully. Dr.Kirk can analyze its clarity, claims, potential bias, and credibility.'
     },
 
+    // ==========================================
+    // BAHASA MELAYU
+    // ==========================================
     ms: {
       home: 'Laman Utama',
       howItWorks: 'Cara Ia Berfungsi',
+      articlesTitle: 'Terokai artikel',
+      articlesDescription:
+        'Temui artikel yang berbaloi untuk dibaca, dipersoalkan dan difikirkan.',
       about: 'Tentang',
       language: 'Bahasa',
 
@@ -142,32 +177,42 @@ export class Homepage {
         'Dr.Kirk membantu anda menyemak artikel dari segi kejelasan, kredibiliti, bias dan dakwaan penting.',
 
       textLabel: 'Tampal artikel anda',
-
-      textPlaceholder: 'Tampal teks artikel yang ingin anda semak...',
+      textHint: 'Tampal teks artikel di sini.',
+      textPlaceholder:
+        'Tampal teks artikel yang ingin anda semak...',
 
       urlLabel: 'Atau semak URL artikel',
-
+      urlHint: 'Masukkan URL artikel yang ingin anda semak.',
       urlPlaceholder: 'https://example.com/article',
 
       review: 'Semak',
-
-      textHint: 'Tampal teks artikel di sini.',
-
-      urlHint: 'Masukkan URL artikel yang ingin anda semak.',
-
-      resultTitle: 'Keputusan Semakan',
-
-      resultPlaceholder: 'Semakan artikel anda akan muncul di sini.',
-
       reviewing: 'Sedang menyemak...',
 
+      resultTitle: 'Keputusan Semakan',
+      resultPlaceholder:
+        'Semakan artikel anda akan muncul di sini.',
+
       sampleResult:
-        'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar. Dr.Kirk boleh menganalisis kejelasan, dakwaan, kemungkinan bias dan kredibiliti.'
+        'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar. Dr.Kirk boleh menganalisis kejelasan, dakwaan, kemungkinan bias dan kredibiliti.',
+
+      latest: 'Terkini',
+      thisWeek: 'Minggu ini',
+      interest: 'Minat',
+      following: 'Mengikuti',
+
+      featured: 'Pilihan',
+      readArticle: 'Baca artikel',
     },
 
+    // ==========================================
+    // CHINESE
+    // ==========================================
     zh: {
       home: '首页',
       howItWorks: '使用方法',
+      articlesTitle: '探索文章',
+      articlesDescription:
+        '发现值得阅读、质疑和思考的文章。',
       about: '关于',
       language: '语言',
 
@@ -180,42 +225,31 @@ export class Homepage {
         'Dr.Kirk 帮助您检查文章的清晰度、可信度、偏见以及重要论点。',
 
       textLabel: '粘贴您的文章',
+      textHint: '在这里粘贴文章内容。',
       textPlaceholder:
         '粘贴您想让 Dr.Kirk 审查的文章内容...',
 
       urlLabel: '或者输入文章网址',
-
+      urlHint: '输入您想审查的文章网址。',
       urlPlaceholder: 'https://example.com/article',
 
       review: '审查',
-
-      textHint: '在这里粘贴文章内容。',
-      urlHint: '输入您想审查的文章网址。',
+      reviewing: '正在审查...',
 
       resultTitle: '审查结果',
-
       resultPlaceholder:
         '您的文章审查结果将在这里显示。',
 
-      reviewing: '正在审查...',
-
-      articlesTitle: '探索文章',
-
-      articlesDescription: '发现值得阅读、质疑和思考的文章。',
+      sampleResult:
+        '这是一个示例审查结果。您的文章已经成功提交。Dr.Kirk 可以分析文章的清晰度、论点、潜在偏见和可信度。',
 
       latest: '最新',
-
       thisWeek: '本周',
-
       interest: '兴趣',
-
       following: '关注',
 
       featured: '精选',
-
       readArticle: '阅读文章',
-
-      sampleResult: '这是一个示例审查结果。你的文章已经成功提交。',
     },
   };
 
@@ -233,7 +267,7 @@ export class Homepage {
   // TRANSLATION
   // -----------------------------
 
-  t() {
+  t(): Translation {
     return this.translations[this.language()];
   }
 
@@ -256,17 +290,16 @@ export class Homepage {
   filteredArticles(): Article[] {
     const filterMap: Record<ArticleFilter, string> = {
       Latest: 'latest',
-
       'This week': 'this-week',
-
       Interest: 'interest',
-
       Following: 'following',
     };
 
-    const currentFilter: string = filterMap[this.activeFilter()];
+    const currentFilter = filterMap[this.activeFilter()];
 
-    return this.articles().filter((article: Article) => article.filters.includes(currentFilter));
+    return this.articles().filter((article: Article) =>
+      article.filters.includes(currentFilter)
+    );
   }
 
   // -----------------------------
@@ -278,7 +311,9 @@ export class Homepage {
       const response: Response = await fetch('/articles.txt');
 
       if (!response.ok) {
-        throw new Error(`Failed to load articles.txt: ${response.status}`);
+        throw new Error(
+          `Failed to load articles.txt: ${response.status}`
+        );
       }
 
       const text: string = await response.text();
@@ -292,7 +327,10 @@ export class Homepage {
 
       console.log('Articles loaded:', articles);
     } catch (error) {
-      console.error('Could not load articles.txt:', error);
+      console.error(
+        'Could not load articles.txt:',
+        error
+      );
     }
   }
 
@@ -301,19 +339,14 @@ export class Homepage {
 
     return {
       id: Number(parts[0]),
-
       title: parts[1] ?? '',
-
       category: parts[2] ?? '',
-
       description: parts[3] ?? '',
-
       thumbnail: parts[4] ?? '',
-
-      filters: (parts[5] ?? '').split(',').map((filter: string) => filter.trim()),
-
+      filters: (parts[5] ?? '')
+        .split(',')
+        .map((filter: string) => filter.trim()),
       featured: parts[6]?.trim() === 'true',
-
       author: parts[7] ?? '',
     };
   }
@@ -336,12 +369,10 @@ export class Homepage {
     }
 
     this.reviewing.set(true);
-
     this.reviewResult.set('');
 
     setTimeout(() => {
       this.reviewing.set(false);
-
       this.reviewResult.set(this.t().sampleResult);
     }, 800);
   }
@@ -352,12 +383,10 @@ export class Homepage {
     }
 
     this.reviewing.set(true);
-
     this.reviewResult.set('');
 
     setTimeout(() => {
       this.reviewing.set(false);
-
       this.reviewResult.set(this.t().sampleResult);
     }, 800);
   }
