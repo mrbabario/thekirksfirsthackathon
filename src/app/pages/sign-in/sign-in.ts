@@ -5,6 +5,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmLabelImports } from '@spartan-ng/helm/label';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,6 +15,7 @@ import { HlmLabelImports } from '@spartan-ng/helm/label';
     HlmCardImports,
     HlmInputImports,
     HlmLabelImports,
+    RouterLink,
   ],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css',

@@ -46,11 +46,11 @@ export class Homepage {
       titleHighlight: 'Before you trust it.',
 
       description:
-        'Kirkify helps you review articles for clarity, credibility, bias, and important claims.',
+        'Dr.Kirk helps you review articles for clarity, credibility, bias, and important claims.',
 
       textLabel: 'Paste your article',
       textPlaceholder:
-        'Paste the article text you want Kirkify to review...',
+        'Paste the article text you want Dr.Kirk to review...',
 
       urlLabel: 'Or review an article URL',
       urlPlaceholder:
@@ -69,7 +69,7 @@ export class Homepage {
       reviewing: 'Reviewing...',
 
       sampleResult:
-        'This is a sample review. Your article has been submitted successfully. Kirkify can analyze its clarity, claims, potential bias, and credibility.'
+        'This is a sample review. Your article has been submitted successfully. Dr.Kirk can analyze its clarity, claims, potential bias, and credibility.'
     },
 
     ms: {
@@ -84,7 +84,7 @@ export class Homepage {
       titleHighlight: 'Sebelum mempercayainya.',
 
       description:
-        'Kirkify membantu anda menyemak artikel dari segi kejelasan, kredibiliti, bias dan dakwaan penting.',
+        'Dr.Kirk membantu anda menyemak artikel dari segi kejelasan, kredibiliti, bias dan dakwaan penting.',
 
       textLabel: 'Tampal artikel anda',
       textPlaceholder:
@@ -107,7 +107,7 @@ export class Homepage {
       reviewing: 'Sedang menyemak...',
 
       sampleResult:
-        'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar. Kirkify boleh menganalisis kejelasan, dakwaan, kemungkinan bias dan kredibiliti.'
+        'Ini ialah contoh semakan. Artikel anda telah berjaya dihantar. Dr.Kirk boleh menganalisis kejelasan, dakwaan, kemungkinan bias dan kredibiliti.'
     },
 
     zh: {
@@ -123,11 +123,11 @@ export class Homepage {
       titleHighlight: '在相信它之前。',
 
       description:
-        'Kirkify 帮助你检查文章的清晰度、可信度、偏见以及重要论点。',
+        'Dr.Kirk 帮助你检查文章的清晰度、可信度、偏见以及重要论点。',
 
       textLabel: '粘贴你的文章',
       textPlaceholder:
-        '粘贴你想让 Kirkify 审查的文章内容...',
+        '粘贴你想让 Dr.Kirk 审查的文章内容...',
 
       urlLabel: '或者输入文章网址',
       urlPlaceholder:
@@ -146,7 +146,7 @@ export class Homepage {
       reviewing: '正在审查...',
 
       sampleResult:
-        '这是一个示例审查结果。你的文章已经成功提交。Kirkify 可以分析文章的清晰度、论点、潜在偏见以及可信度。'
+        '这是一个示例审查结果。你的文章已经成功提交。Dr.Kirk 可以分析文章的清晰度、论点、潜在偏见以及可信度。'
     }
   };
 
