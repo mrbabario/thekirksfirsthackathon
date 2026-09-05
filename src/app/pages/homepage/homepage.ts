@@ -42,8 +42,8 @@ export class Homepage {
 
       badge: 'AI-Powered Article Review',
 
-      title: 'Understand your article.',
-      titleHighlight: 'Before you trust it.',
+      title: 'Before you trust the article.',
+      titleHighlight: 'Let Dr.Kirk verify it.',
 
       description:
         'Dr.Kirk helps you review articles for clarity, credibility, bias, and important claims.',
@@ -80,8 +80,8 @@ export class Homepage {
 
       badge: 'Semakan Artikel Berkuasa AI',
 
-      title: 'Fahami artikel anda.',
-      titleHighlight: 'Sebelum mempercayainya.',
+      title: 'Sebelum anda mempercayai artikel tersebut.',
+      titleHighlight: 'Biar Dr.Kirk mengesahkannya.',
 
       description:
         'Dr.Kirk membantu anda menyemak artikel dari segi kejelasan, kredibiliti, bias dan dakwaan penting.',
@@ -119,15 +119,15 @@ export class Homepage {
 
       badge: 'AI 智能文章审查',
 
-      title: '了解你的文章。',
-      titleHighlight: '在相信它之前。',
+      title: '在相信文章前。',
+      titleHighlight: '让 Dr.Kirk 验证您的文章。',
 
       description:
-        'Dr.Kirk 帮助你检查文章的清晰度、可信度、偏见以及重要论点。',
+        'Dr.Kirk 帮助您检查文章的清晰度、可信度、偏见以及重要论点。',
 
-      textLabel: '粘贴你的文章',
+      textLabel: '粘贴您的文章',
       textPlaceholder:
-        '粘贴你想让 Dr.Kirk 审查的文章内容...',
+        '粘贴您想让 Dr.Kirk 审查的文章内容...',
 
       urlLabel: '或者输入文章网址',
       urlPlaceholder:
@@ -136,17 +136,17 @@ export class Homepage {
       review: '审查',
 
       textHint: '在这里粘贴文章内容。',
-      urlHint: '输入你想审查的文章网址。',
+      urlHint: '输入您想审查的文章网址。',
 
       resultTitle: '审查结果',
 
       resultPlaceholder:
-        '你的文章审查结果将在这里显示。',
+        '您的文章审查结果将在这里显示。',
 
       reviewing: '正在审查...',
 
       sampleResult:
-        '这是一个示例审查结果。你的文章已经成功提交。Dr.Kirk 可以分析文章的清晰度、论点、潜在偏见以及可信度。'
+        '这是一个示例审查结果。您的文章已经成功提交。Dr.Kirk 可以分析文章的清晰度、论点、潜在偏见以及可信度。'
     }
   };
 
