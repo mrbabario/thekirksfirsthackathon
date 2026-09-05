@@ -42,3 +42,23 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# =========================
+# PYTHON / FASTAPI
+# =========================
+.venv/
+backend/__pycache__/
+**/__pycache__/
+
+*.py[cod]
+*.pyo
+*.pyd
+
+# Python environment files
+.env
+.env.*
+
+# SQLite database
+backend/*.db
+*.sqlite
+*.sqlite3

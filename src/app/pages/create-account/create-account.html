@@ -66,6 +66,12 @@
     </div>
 
     <hlm-card-footer class="flex-col gap-2">
+      @if (errorMessage) {
+        <p class="text-center text-sm text-red-500">
+          {{ errorMessage }}
+        </p>
+      }
+
       <button hlmBtn type="submit" form="create-account-form" class="w-full">Create Account</button>
 
       <a routerLink="/sign-in" class="text-center text-sm underline-offset-4 hover:underline">
