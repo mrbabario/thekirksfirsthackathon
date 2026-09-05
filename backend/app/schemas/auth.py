@@ -29,3 +29,16 @@ class RegisterResponse(BaseModel):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class LoginResponse(BaseModel):
+    access_token: str
+    token_type: str
+
+    user_id: int
+    full_name: str
+    email: EmailStr
