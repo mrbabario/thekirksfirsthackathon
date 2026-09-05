@@ -92,7 +92,7 @@ export class Forum {
       category: 'Media & News',
       description:
         'This article discusses how AI-generated content is changing the way misinformation spreads online.',
-      author: 'Sarah',
+      author: 'Erika Kirk',
       replies: 15,
       views: 241,
       time: '1 hr ago',
@@ -103,7 +103,7 @@ export class Forum {
       title: 'What sources do you trust the most?',
       category: 'General Discussion',
       description: 'Curious about which sources everyone uses when researching something online.',
-      author: 'Daniel',
+      author: 'Babario',
       replies: 31,
       views: 402,
       time: '2 hrs ago',
@@ -115,7 +115,7 @@ export class Forum {
       category: 'Help & Feedback',
       description:
         'I think it would be useful if Dr.Kirk could compare multiple sources covering the same story.',
-      author: 'Maya',
+      author: 'Ace Teoh',
       replies: 9,
       views: 167,
       time: '4 hrs ago',

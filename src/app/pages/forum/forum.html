@@ -1,23 +1,28 @@
 <div class="forum-page">
-  <!-- ==========================================
+ <!-- ==========================================
        NAVBAR
   =========================================== -->
-  <nav class="forum-navbar">
+  <nav class="navbar">
     <!-- LOGO -->
-    <a routerLink="/" class="logo">
+    <a href="#home" class="logo">
       <span class="logo-icon">K</span>
       <span class="logo-name">Dr.Kirk</span>
     </a>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION LINKS -->
     <div class="nav-links">
-      <a routerLink="/" class="nav-link"> Home </a>
+      <a href="#home" class="nav-link">
+        Home
+      </a>
 
-      <a routerLink="/" fragment="how-it-works" class="nav-link"> How It Works </a>
+      <a href="#how-it-works" class="nav-link">
+        How it works
+      </a>
 
-      <a routerLink="/" fragment="articles" class="nav-link"> Explore articles </a>
-
-      <a routerLink="/forum" class="nav-link active"> Forum </a>
+      <a href="#articles" class="nav-link">
+        Explore articles
+      </a>
+      <a routerLink="/forum" class="nav-link"> Forum </a>
     </div>
 
     <!-- NAV ACTIONS -->
@@ -29,13 +34,15 @@
         [hlmDropdownMenuTrigger]="languageMenu"
         class="language-button"
       >
-        🌐 {{ language }}
+        🌐 Language
       </button>
 
       <ng-template #languageMenu>
         <hlm-dropdown-menu>
           <hlm-dropdown-menu-group>
-            <hlm-dropdown-menu-label> Language </hlm-dropdown-menu-label>
+            <hlm-dropdown-menu-label>
+              language
+            </hlm-dropdown-menu-label>
 
             <button hlmDropdownMenuItem (click)="setLanguage('en')">🇬🇧 English</button>
 
