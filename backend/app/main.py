@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.db.database import Base, engine
-from app.api.routes.auth import router as auth_router
+from app.routes.auth import router as auth_router
 
 # Import models so SQLAlchemy knows about them
 from app.models import user
