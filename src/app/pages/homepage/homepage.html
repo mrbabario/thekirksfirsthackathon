@@ -1,15 +1,12 @@
 <div class="page">
-
   <!-- NAVBAR -->
   <nav class="navbar">
-
     <a href="#home" class="logo">
       <span class="logo-icon">K</span>
       <span class="logo-name">Kirkify</span>
     </a>
 
     <div class="nav-links">
-
       <a href="#home" class="nav-link">
         {{ t().home }}
       </a>
@@ -21,11 +18,9 @@
       <a href="#about" class="nav-link">
         {{ t().about }}
       </a>
-
     </div>
 
     <div class="nav-actions">
-
       <!-- LANGUAGE -->
       <button
         hlmBtn
@@ -37,55 +32,27 @@
       </button>
 
       <ng-template #languageMenu>
-
         <hlm-dropdown-menu class="language-menu">
-
           <hlm-dropdown-menu-group>
-
             <hlm-dropdown-menu-label>
               {{ t().language }}
             </hlm-dropdown-menu-label>
 
-            <button
-              hlmDropdownMenuItem
-              (click)="setLanguage('en')"
-            >
-              🇬🇧 English
-            </button>
+            <button hlmDropdownMenuItem (click)="setLanguage('en')">🇬🇧 English</button>
 
-            <button
-              hlmDropdownMenuItem
-              (click)="setLanguage('ms')"
-            >
-              🇲🇾 Bahasa Melayu
-            </button>
+            <button hlmDropdownMenuItem (click)="setLanguage('ms')">🇲🇾 Bahasa Melayu</button>
 
-            <button
-              hlmDropdownMenuItem
-              (click)="setLanguage('zh')"
-            >
-              🇨🇳 中文
-            </button>
-
+            <button hlmDropdownMenuItem (click)="setLanguage('zh')">🇨🇳 中文</button>
           </hlm-dropdown-menu-group>
-
         </hlm-dropdown-menu>
-
       </ng-template>
-
     </div>
-
   </nav>
-
 
   <!-- HERO -->
   <main id="home" class="main">
-
     <section class="hero">
-
-      <div class="badge">
-        ✦ {{ t().badge }}
-      </div>
+      <div class="badge">✦ {{ t().badge }}</div>
 
       <h1>
         {{ t().title }}
@@ -99,18 +66,13 @@
       <p class="description">
         {{ t().description }}
       </p>
-
     </section>
-
 
     <!-- REVIEW AREA -->
     <section class="review-area">
-
       <!-- ARTICLE TEXT -->
       <div class="input-section">
-
         <div class="input-header">
-
           <div>
             <h2>{{ t().textLabel }}</h2>
 
@@ -121,18 +83,10 @@
 
           <!-- REVIEW BUTTON -->
           @if (hasText()) {
-
-            <button
-              hlmBtn
-              class="review-button"
-              [disabled]="reviewing()"
-              (click)="reviewText()"
-            >
+            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewText()">
               {{ reviewing() ? t().reviewing : t().review }}
             </button>
-
           }
-
         </div>
 
         <textarea
@@ -141,15 +95,11 @@
           [placeholder]="t().textPlaceholder"
           class="article-textarea"
         ></textarea>
-
       </div>
-
 
       <!-- URL -->
       <div class="input-section">
-
         <div class="input-header">
-
           <div>
             <h2>{{ t().urlLabel }}</h2>
 
@@ -160,18 +110,10 @@
 
           <!-- REVIEW BUTTON -->
           @if (hasUrl()) {
-
-            <button
-              hlmBtn
-              class="review-button"
-              [disabled]="reviewing()"
-              (click)="reviewUrl()"
-            >
+            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewUrl()">
               {{ reviewing() ? t().reviewing : t().review }}
             </button>
-
           }
-
         </div>
 
         <input
@@ -181,21 +123,16 @@
           [placeholder]="t().urlPlaceholder"
           class="url-input"
         />
-
       </div>
-
 
       <!-- RESULT -->
       <div class="result-section">
-
         <div class="result-header">
           <h2>{{ t().resultTitle }}</h2>
         </div>
 
         <div class="result-box">
-
           @if (reviewing()) {
-
             <div class="loading">
               <div class="spinner"></div>
 
@@ -203,45 +140,31 @@
                 {{ t().reviewing }}
               </span>
             </div>
-
           } @else if (reviewResult()) {
-
             <p>
               {{ reviewResult() }}
             </p>
-
           } @else {
-
             <div class="empty-result">
-
               <span class="result-icon">✦</span>
 
               <p>
                 {{ t().resultPlaceholder }}
               </p>
-
             </div>
-
           }
-
         </div>
-
       </div>
-
     </section>
-
 
     <!-- HOW IT WORKS -->
     <section id="how-it-works" class="info-section">
-
       <div class="info-card">
         <div class="info-number">01</div>
 
         <h3>Provide an article</h3>
 
-        <p>
-          Paste the article directly or provide its URL.
-        </p>
+        <p>Paste the article directly or provide its URL.</p>
       </div>
 
       <div class="info-card">
@@ -249,9 +172,7 @@
 
         <h3>Review</h3>
 
-        <p>
-          Kirkify examines the article's important information and claims.
-        </p>
+        <p>Kirkify examines the article's important information and claims.</p>
       </div>
 
       <div class="info-card">
@@ -259,13 +180,164 @@
 
         <h3>Understand</h3>
 
-        <p>
-          Get a clearer picture of the article before relying on it.
-        </p>
+        <p>Get a clearer picture of the article before relying on it.</p>
+      </div>
+    </section>
+    <!-- ARTICLE DISCOVERY -->
+<section class="articles-section">
+
+  <div class="articles-heading">
+
+    <div>
+      <div class="section-label">
+        Kirkify
       </div>
 
-    </section>
+      <h2>
+        {{ t().articlesTitle }}
+      </h2>
 
+      <p>
+        {{ t().articlesDescription }}
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- FILTER BUTTONS -->
+
+  <div class="article-filters">
+
+    <button
+      hlmBtn
+      [variant]="activeFilter() === 'Latest'
+        ? 'default'
+        : 'outline'"
+      (click)="setFilter('Latest')"
+    >
+      {{ t().latest }}
+    </button>
+
+    <button
+      hlmBtn
+      [variant]="activeFilter() === 'This week'
+        ? 'default'
+        : 'outline'"
+      (click)="setFilter('This week')"
+    >
+      {{ t().thisWeek }}
+    </button>
+
+    <button
+      hlmBtn
+      [variant]="activeFilter() === 'Interest'
+        ? 'default'
+        : 'outline'"
+      (click)="setFilter('Interest')"
+    >
+      {{ t().interest }}
+    </button>
+
+    <button
+      hlmBtn
+      [variant]="activeFilter() === 'Following'
+        ? 'default'
+        : 'outline'"
+      (click)="setFilter('Following')"
+    >
+      {{ t().following }}
+    </button>
+
+  </div>
+
+
+  <!-- PADLET GRID -->
+
+  <div class="article-grid">
+
+    @for (article of filteredArticles(); track article.id) {
+
+      <article
+        class="article-card"
+        [class.featured-card]="article.featured"
+      >
+
+        <!-- Thumbnail -->
+
+        <div
+          class="article-thumbnail"
+          [style.background-image]="'url(' + article.thumbnail + ')'"
+        >
+
+          @if (
+            article.featured &&
+            activeFilter() === 'Latest'
+          ) {
+
+            <span class="featured-tag">
+              ✦ {{ t().featured }}
+            </span>
+
+          }
+
+          <span class="category-tag">
+            {{ article.category }}
+          </span>
+
+        </div>
+
+
+        <!-- Content -->
+
+        <div class="article-content">
+
+          <h3>
+            {{ article.title }}
+          </h3>
+
+          <p>
+            {{ article.description }}
+          </p>
+
+
+          <div class="article-footer">
+
+            <div class="author">
+              {{ article.author }}
+            </div>
+
+            <button
+              hlmBtn
+              variant="ghost"
+              class="read-button"
+            >
+              {{ t().readArticle }}
+              →
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    } @empty {
+
+      <div class="no-articles">
+
+        <span>✦</span>
+
+        <p>
+          No articles found.
+        </p>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>
   </main>
-
 </div>
