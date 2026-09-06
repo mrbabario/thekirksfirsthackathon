@@ -40,10 +40,26 @@ class FactChecker:
             settings.PUBMED_API_KEY,
         )
 
-        self.ranker = Ranker(
-            settings.EMBEDDING_MODEL,
-            settings.CROSS_ENCODER_MODEL,
-        )
+        self.ranker = None
+
+    def _get_ranker(self) -> Ranker:
+      if self.ranker is None:
+          print(
+              "[RANKING] Loading embedding and cross-encoder models...",
+              flush=True,
+          )
+
+          self.ranker = Ranker(
+              self.settings.EMBEDDING_MODEL,
+              self.settings.CROSS_ENCODER_MODEL,
+          )
+
+          print(
+              "[RANKING] Models loaded.",
+              flush=True,
+          )
+
+      return self.ranker
 
     # =========================================================
     # ARTICLE
@@ -54,132 +70,188 @@ class FactChecker:
         article: str,
     ) -> ArticleResult:
 
-        print(
-            "[START] check_article()",
-            flush=True,
-        )
+        import time
+        import traceback
 
-        article = self._normalize_article(
-            article
-        )
+        started = time.perf_counter()
 
-        article_hash_value = article_hash(
-            article
-        )
+        print("\n" + "=" * 70, flush=True)
+        print("DR.KIRK FACT CHECK REQUEST RECEIVED", flush=True)
+        print("=" * 70, flush=True)
 
-        print(
-            f"[INFO] Article length: "
-            f"{len(article)} characters",
-            flush=True,
-        )
+        try:
+            print("[START] check_article()", flush=True)
 
-        print(
-            f"[INFO] Hash: {article_hash_value}",
-            flush=True,
-        )
-
-        cached = self.cache.get_article(
-            article_hash_value,
-            self.settings.PIPELINE_VERSION,
-        )
-
-        if cached is not None:
+            article = self._normalize_article(article)
 
             print(
-                f"[CACHE] Article hit: "
-                f"{article_hash_value}",
+                f"[INFO] Article length: {len(article)} characters",
                 flush=True,
             )
 
-            return cached
+            if not article:
+                raise ValueError("Article is empty after normalization.")
 
-        print(
-            f"[CACHE] Article miss: "
-            f"{article_hash_value}",
-            flush=True,
-        )
-
-        # -----------------------------------------------------
-        # LANGUAGE + CLAIM EXTRACTION
-        # -----------------------------------------------------
-
-        print(
-            "[GEMMA] Starting claim extraction...",
-            flush=True,
-        )
-
-        language, claims = (
-            self.gemma.extract_claims(
-                article
-            )
-        )
-
-        print(
-            f"[GEMMA] Language: {language}",
-            flush=True,
-        )
-
-        print(
-            f"[GEMMA] Claims found: "
-            f"{len(claims)}",
-            flush=True,
-        )
-
-        # -----------------------------------------------------
-        # CHECK EACH CLAIM
-        # -----------------------------------------------------
-
-        results = []
-
-        for i, claim in enumerate(
-            claims,
-            start=1,
-        ):
+            article_hash_value = article_hash(article)
 
             print(
-                f"\n[CLAIM {i}/{len(claims)}] "
-                f"{claim.text}",
+                f"[INFO] Hash: {article_hash_value}",
                 flush=True,
             )
 
-            result = self._check_claim(
-                claim
+            # ---------------------------------------------------------
+            # CACHE
+            # ---------------------------------------------------------
+
+            print("[CACHE] Checking article cache...", flush=True)
+
+            cached = self.cache.get_article(
+                article_hash_value,
+                self.settings.PIPELINE_VERSION,
             )
 
-            results.append(result)
+            if cached is not None:
+                print(
+                    f"[CACHE] HIT: {article_hash_value}",
+                    flush=True,
+                )
+                print(
+                    "[DONE] Returning cached result.",
+                    flush=True,
+                )
+                return cached
 
             print(
-                f"[CLAIM {i}] Finished: "
-                f"{result.verdict}",
+                f"[CACHE] MISS: {article_hash_value}",
                 flush=True,
             )
 
-        # -----------------------------------------------------
-        # SAVE
-        # -----------------------------------------------------
+            # ---------------------------------------------------------
+            # LANGUAGE + CLAIM EXTRACTION
+            # ---------------------------------------------------------
 
-        result = ArticleResult(
-            article_hash=article_hash_value,
-            language=language,
-            claims=results,
-        )
+            print(
+                "\n[STAGE 1/7] GEMMA CLAIM EXTRACTION",
+                flush=True,
+            )
 
-        print(
-            "[CACHE] Saving article result...",
-            flush=True,
-        )
+            print(
+                f"[GEMMA] Model: {self.settings.GEMMA_MODEL}",
+                flush=True,
+            )
 
-        self.cache.save_article(
-            result,
-            self.settings.PIPELINE_VERSION,
-        )
+            language, claims = self.gemma.extract_claims(article)
 
-        print(
-            "[DONE] Article saved to cache.",
-            flush=True,
-        )
+            print(
+                f"[GEMMA] Language: {language}",
+                flush=True,
+            )
 
-        return result
+            print(
+                f"[GEMMA] Claims found: {len(claims)}",
+                flush=True,
+            )
+
+            for i, claim in enumerate(claims, start=1):
+                print(
+                    f"[CLAIM {i}] {claim.text}",
+                    flush=True,
+                )
+
+            # ---------------------------------------------------------
+            # CHECK EACH CLAIM
+            # ---------------------------------------------------------
+
+            results = []
+
+            for i, claim in enumerate(claims, start=1):
+
+                print("\n" + "-" * 70, flush=True)
+                print(
+                    f"[CLAIM {i}/{len(claims)}] {claim.text}",
+                    flush=True,
+                )
+                print("-" * 70, flush=True)
+
+                result = self._check_claim(claim)
+
+                results.append(result)
+
+                print(
+                    f"[CLAIM {i}] FINISHED → {result.verdict}",
+                    flush=True,
+                )
+
+            # ---------------------------------------------------------
+            # SAVE
+            # ---------------------------------------------------------
+
+            print(
+                "\n[STAGE 7/7] SAVING RESULT",
+                flush=True,
+            )
+
+            result = ArticleResult(
+                article_hash=article_hash_value,
+                language=language,
+                claims=results,
+            )
+
+            self.cache.save_article(
+                result,
+                self.settings.PIPELINE_VERSION,
+            )
+
+            elapsed = time.perf_counter() - started
+
+            print(
+                f"[DONE] Article saved to cache.",
+                flush=True,
+            )
+
+            print(
+                f"[DONE] Total pipeline time: {elapsed:.2f}s",
+                flush=True,
+            )
+
+            print("=" * 70, flush=True)
+            print("DR.KIRK FACT CHECK COMPLETE", flush=True)
+            print("=" * 70 + "\n", flush=True)
+
+            return result
+
+        except Exception as e:
+            elapsed = time.perf_counter() - started
+
+            print("\n" + "!" * 70, flush=True)
+            print("DR.KIRK FACT CHECK FAILED", flush=True)
+            print("!" * 70, flush=True)
+
+            print(
+                f"[ERROR] Type: {type(e).__name__}",
+                flush=True,
+            )
+
+            print(
+                f"[ERROR] Message: {e}",
+                flush=True,
+            )
+
+            print(
+                f"[ERROR] Runtime: {elapsed:.2f}s",
+                flush=True,
+            )
+
+            print(
+                "\n[ERROR] Full traceback:",
+                flush=True,
+            )
+
+            traceback.print_exc()
+
+            print("!" * 70 + "\n", flush=True)
+
+            raise
 
     # =========================================================
     # CLAIM
@@ -268,8 +340,10 @@ class FactChecker:
         # RANK LANGUAGE PAPERS
         # -----------------------------------------------------
 
+        ranker = self._get_ranker()
+
         language_papers = (
-            self.ranker.semantic_retrieve(
+            ranker.semantic_retrieve(
                 claim,
                 language_papers,
                 self.settings.SEMANTIC_TOP_K,
@@ -277,7 +351,7 @@ class FactChecker:
         )
 
         language_papers = (
-            self.ranker.rerank(
+            ranker.rerank(
                 claim,
                 language_papers,
                 self.settings.RERANK_TOP_K,
@@ -352,7 +426,7 @@ class FactChecker:
             )
 
             fallback_papers = (
-                self.ranker.semantic_retrieve(
+                ranker.semantic_retrieve(
                     claim,
                     fallback_papers,
                     self.settings.SEMANTIC_TOP_K,
@@ -360,7 +434,7 @@ class FactChecker:
             )
 
             fallback_papers = (
-                self.ranker.rerank(
+                ranker.rerank(
                     claim,
                     fallback_papers,
                     needed,

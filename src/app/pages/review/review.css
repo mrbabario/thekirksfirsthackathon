@@ -9,6 +9,7 @@
 
 .review-page {
   min-height: 100vh;
+
   background:
     radial-gradient(
       circle at 50% 0%,
@@ -20,35 +21,32 @@
   color: #f5f5f5;
 }
 
-
-/* =========================
+/* =========================================================
    NAVBAR
-========================= */
+========================================================= */
 
 .navbar {
   position: sticky;
   top: 0;
   z-index: 100;
 
+  width: 100%;
   height: 72px;
-
-  background: rgba(10, 10, 10, 0.84);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-  backdrop-filter: blur(18px);
-}
-
-.navbar-inner {
-  width: min(1200px, calc(100% - 40px));
-  height: 100%;
-
-  margin: 0 auto;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
-  gap: 30px;
+  padding: 0 48px;
+
+  background: rgba(10, 10, 10, 0.94);
+
+  border-bottom: 1px solid #242424;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  animation:
+    navbarDrop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .logo {
@@ -56,93 +54,136 @@
   align-items: center;
   gap: 10px;
 
-  color: #fff;
-  text-decoration: none;
+  flex-shrink: 0;
 
-  font-size: 20px;
-  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
 }
 
 .logo-icon {
   width: 34px;
   height: 34px;
 
-  object-fit: cover;
+  display: grid;
+  place-items: center;
 
-  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.logo-name {
+  color: #eeeeef;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  letter-spacing: -0.02em;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 30px;
+
+  margin-left: auto;
+  margin-right: 30px;
 }
 
 .nav-link {
-  color: #92929a;
+  position: relative;
+
+  color: #74747c;
   text-decoration: none;
 
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .nav-link:hover {
-  color: white;
+  color: #e7e7ea;
+}
+
+.nav-link::after {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+
+  height: 1px;
+
+  background: #f5f5f5;
+
+  transform: scaleX(0);
+  transform-origin: center;
+
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
 
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
+
+  flex-shrink: 0;
 }
 
-.language-select {
+.language-button,
+.sign-in-button {
   height: 38px;
 
-  padding: 0 12px;
+  border-radius: 8px;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
-
-  background: rgba(255, 255, 255, 0.04);
-  color: #d4d4d8;
-
-  font-size: 13px;
-
-  outline: none;
+  font-size: 12px;
 }
 
-.language-select option {
-  background: #111;
-  color: white;
+.language-button {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+  background: rgba(255, 255, 255, 0.025) !important;
+  color: #a8a8af !important;
 }
 
-.signin-button {
-  height: 38px;
+.language-button:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #eeeeef !important;
+}
 
+.sign-in-button {
   padding: 0 16px;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px;
 
-  border-radius: 9px;
+  background: #f2f2f3 !important;
+  color: #111111 !important;
 
-  background: white;
-  color: #0a0a0a;
-
-  text-decoration: none;
-
-  font-size: 13px;
-  font-weight: 600;
+  font-weight: 650;
 }
 
+.sign-in-button:hover {
+  background: #ffffff !important;
+}
 
-/* =========================
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
 
 .review-main {
   width: min(1080px, calc(100% - 40px));
@@ -152,10 +193,9 @@
   padding: 80px 0 110px;
 }
 
-
-/* =========================
+/* =========================================================
    HEADINGS
-========================= */
+========================================================= */
 
 .result-heading,
 .new-review {
@@ -220,10 +260,218 @@
   text-transform: uppercase;
 }
 
+/* =========================================================
+   TERMINAL REVIEW
+========================================================= */
 
-/* =========================
+.terminal-review {
+  animation: fade-up 0.6s ease both;
+}
+
+.terminal-window {
+  width: min(900px, 100%);
+
+  margin: 38px auto 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 15px;
+
+  background: #090909;
+
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.38),
+    0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.terminal-header {
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 0 16px;
+
+  background: #111111;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.terminal-dot {
+  width: 11px;
+  height: 11px;
+
+  flex: 0 0 11px;
+
+  border-radius: 50%;
+
+  background: #55555c;
+}
+
+.terminal-dot:first-child {
+  background: #ff5f57;
+}
+
+.terminal-dot:nth-child(2) {
+  background: #febc2e;
+}
+
+.terminal-dot:nth-child(3) {
+  background: #28c840;
+}
+
+.terminal-title {
+  margin-left: 8px;
+
+  overflow: hidden;
+
+  color: #74747b;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.1em;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/*
+ * Fixed-height console.
+ *
+ * The Angular signal `terminalLines` controls which log entries
+ * are visible. Older lines are removed from the signal as new
+ * ones arrive, so the terminal behaves like a rolling console.
+ */
+
+.terminal-body {
+  position: relative;
+
+  height: 280px;
+  min-height: 280px;
+  max-height: 280px;
+
+  overflow: hidden;
+
+  padding: 18px 20px 20px;
+
+  background-color: #090909;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.018) 50%,
+      transparent 50%
+    );
+
+  background-size: 100% 4px;
+}
+
+.terminal-output {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  overflow: hidden;
+}
+
+.terminal-line {
+  min-height: 23px;
+
+  flex: 0 0 auto;
+
+  overflow: hidden;
+
+  color: #66666e;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 12px;
+  line-height: 23px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.terminal-line.running {
+  color: #ececef;
+}
+
+.terminal-line.done {
+  color: #83e6a0;
+}
+
+.terminal-line.error {
+  color: #ff8585;
+}
+
+.terminal-cursor {
+  min-height: 23px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  flex: 0 0 auto;
+
+  color: #77777f;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 12px;
+  line-height: 23px;
+}
+
+.cursor-block {
+  color: #dcdce1;
+
+  animation:
+    terminal-cursor-blink 1s steps(1, end) infinite;
+}
+
+@keyframes terminal-cursor-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* =========================================================
    OVERVIEW
-========================= */
+========================================================= */
 
 .overview-card {
   margin-bottom: 50px;
@@ -280,6 +528,7 @@
 
 .article-hash code {
   color: #777780;
+
   font-size: 11px;
 }
 
@@ -340,10 +589,9 @@
   color: #f28e8e;
 }
 
-
-/* =========================
+/* =========================================================
    CLAIMS
-========================= */
+========================================================= */
 
 .claims-section {
   animation: fade-up 0.65s 0.15s ease both;
@@ -510,10 +758,9 @@
   text-align: right;
 }
 
-
-/* =========================
+/* =========================================================
    CLAIM DETAILS
-========================= */
+========================================================= */
 
 .claim-details {
   padding: 0 20px 24px 83px;
@@ -538,10 +785,38 @@
   line-height: 1.75;
 }
 
+.explanation-references {
+  margin-left: 3px;
+}
 
-/* =========================
+.inline-reference {
+  display: inline;
+
+  padding: 0;
+  margin-left: 2px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #bebec5;
+
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.inline-reference:hover {
+  color: #ffffff;
+
+  text-decoration: underline;
+}
+
+/* =========================================================
    CLAIM STRUCTURE
-========================= */
+========================================================= */
 
 .claim-structure {
   display: grid;
@@ -585,10 +860,9 @@
   overflow-wrap: anywhere;
 }
 
-
-/* =========================
+/* =========================================================
    REFERENCES
-========================= */
+========================================================= */
 
 .references-section {
   margin-top: 25px;
@@ -660,6 +934,10 @@
   font-size: 11px;
 }
 
+.reference-title {
+  min-width: 0;
+}
+
 .reference-title strong {
   display: block;
 
@@ -723,10 +1001,30 @@
   font-size: 9px;
 }
 
+.reference-link {
+  display: inline-block;
 
-/* =========================
+  margin-top: 12px;
+
+  color: #9999a1;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.reference-link:hover {
+  color: #f0f0f2;
+}
+
+/* =========================================================
    NO EVIDENCE
-========================= */
+========================================================= */
 
 .no-evidence {
   display: flex;
@@ -774,10 +1072,9 @@
   line-height: 1.5;
 }
 
-
-/* =========================
+/* =========================================================
    ALL SOURCES
-========================= */
+========================================================= */
 
 .sources-summary {
   margin-top: 55px;
@@ -811,13 +1108,16 @@
 
   transition:
     transform 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
 .source-card:hover {
   transform: translateY(-2px);
 
   border-color: rgba(255, 255, 255, 0.14);
+
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .source-number {
@@ -826,6 +1126,10 @@
   font-family: monospace;
 
   font-size: 10px;
+}
+
+.source-card > div {
+  min-width: 0;
 }
 
 .source-card strong {
@@ -845,6 +1149,10 @@
   color: #5f5f67;
 
   font-size: 9px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .source-arrow {
@@ -853,10 +1161,9 @@
   text-align: right;
 }
 
-
-/* =========================
+/* =========================================================
    NEW REVIEW
-========================= */
+========================================================= */
 
 .input-card {
   padding: 25px;
@@ -889,8 +1196,23 @@ textarea,
 input {
   width: 100%;
 
+  border-color: rgba(255, 255, 255, 0.09) !important;
+
   background: rgba(0, 0, 0, 0.24) !important;
   color: #f5f5f5 !important;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: #55555d !important;
+}
+
+textarea:focus,
+input:focus {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.035) !important;
 }
 
 textarea {
@@ -900,12 +1222,26 @@ textarea {
 .analyze-button {
   width: 100%;
   height: 44px;
+
+  border-radius: 8px;
+
+  background: #f1f1f2 !important;
+  color: #111111 !important;
+
+  font-weight: 650;
 }
 
+.analyze-button:hover:not(:disabled) {
+  background: #ffffff !important;
+}
 
-/* =========================
+.analyze-button:disabled {
+  opacity: 0.4;
+}
+
+/* =========================================================
    LOADING
-========================= */
+========================================================= */
 
 .loading-state {
   padding: 100px 20px;
@@ -941,10 +1277,9 @@ textarea {
   font-size: 13px;
 }
 
-
-/* =========================
+/* =========================================================
    BOTTOM
-========================= */
+========================================================= */
 
 .bottom-action {
   display: flex;
@@ -954,18 +1289,26 @@ textarea {
 }
 
 .secondary-button {
+  min-height: 40px;
+
+  padding: 0 16px;
+
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 
   background: transparent !important;
   color: #bcbcc3 !important;
+
+  border-radius: 8px;
 }
 
+.secondary-button:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #eeeeef !important;
+}
 
-
-
-/* =========================
+/* =========================================================
    ANIMATIONS
-========================= */
+========================================================= */
 
 @keyframes fade-up {
   from {
@@ -991,18 +1334,33 @@ textarea {
   }
 }
 
+@keyframes navbarDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-
-/* =========================
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
 @media (max-width: 850px) {
+  .navbar {
+    padding: 0 24px;
+  }
+
   .nav-links {
     display: none;
   }
@@ -1013,6 +1371,10 @@ textarea {
 
   .stat:nth-child(3) {
     border-right: 0;
+  }
+
+  .stat:nth-child(-n + 3) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   }
 
   .source-grid {
@@ -1027,12 +1389,66 @@ textarea {
     padding-top: 55px;
   }
 
-  .navbar-inner {
-    width: min(100% - 24px, 1200px);
+  .navbar {
+    height: 64px;
+
+    padding: 0 16px;
   }
 
-  .logo span {
+  .logo-name {
     display: none;
+  }
+
+  .nav-actions {
+    margin-left: auto;
+  }
+
+  .language-button {
+    width: 38px;
+
+    padding: 0;
+
+    font-size: 0 !important;
+  }
+
+  .language-button::first-letter {
+    font-size: 16px;
+  }
+
+  .sign-in-button {
+    padding: 0 13px;
+  }
+
+  .terminal-window {
+    margin-top: 28px;
+
+    border-radius: 11px;
+  }
+
+  .terminal-header {
+    height: 42px;
+
+    padding: 0 13px;
+  }
+
+  .terminal-title {
+    font-size: 9px;
+  }
+
+  .terminal-body {
+    height: 240px;
+    min-height: 240px;
+    max-height: 240px;
+
+    padding: 15px;
+  }
+
+  .terminal-line,
+  .terminal-cursor {
+    min-height: 22px;
+
+    font-size: 10px;
+    line-height: 22px;
   }
 
   .overview-card {
@@ -1056,6 +1472,10 @@ textarea {
     border-right: 1px solid rgba(255, 255, 255, 0.07);
   }
 
+  .stat:nth-child(2n) {
+    border-right: 0;
+  }
+
   .claim-header {
     grid-template-columns: 34px 1fr 20px;
 
@@ -1075,11 +1495,38 @@ textarea {
     padding-right: 15px;
   }
 
-  .footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
+  .source-grid {
+    grid-template-columns: 1fr;
+  }
 
-    gap: 10px;
+  .input-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .result-heading h1,
+  .new-review h1 {
+    font-size: 37px;
+  }
+
+  .terminal-body {
+    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+  }
+
+  .terminal-line,
+  .terminal-cursor {
+    font-size: 9px;
+  }
+
+  .overview-heading h2 {
+    font-size: 21px;
+  }
+
+  .stat-number {
+    font-size: 22px;
   }
 }
 
