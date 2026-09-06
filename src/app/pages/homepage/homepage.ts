@@ -456,34 +456,32 @@ export class Homepage {
   }
 
   reviewText(): void {
-    if (!this.hasText()) {
-      return;
-    }
+  const text = this.articleText.trim();
 
-    this.reviewing.set(true);
-    this.reviewResult.set('');
-
-    setTimeout(() => {
-      this.reviewing.set(false);
-      this.reviewResult.set(
-        this.t().sampleResult
-      );
-    }, 800);
+  if (!text) {
+    return;
   }
 
-  reviewUrl(): void {
-    if (!this.hasUrl()) {
-      return;
-    }
+  this.router.navigate(['/review'], {
+    state: {
+      articleText: text,
+      articleUrl: '',
+    },
+  });
+}
 
-    this.reviewing.set(true);
-    this.reviewResult.set('');
+reviewUrl(): void {
+  const url = this.articleUrl.trim();
 
-    setTimeout(() => {
-      this.reviewing.set(false);
-      this.reviewResult.set(
-        this.t().sampleResult
-      );
-    }, 800);
+  if (!url) {
+    return;
   }
+
+  this.router.navigate(['/review'], {
+    state: {
+      articleText: '',
+      articleUrl: url,
+    },
+  });
+}
 }
