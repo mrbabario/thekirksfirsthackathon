@@ -1,11 +1,18 @@
 from __future__ import annotations
 
-from typing import cast
+from dataclasses import asdict
 
 from algo.cache import Cache, article_hash
 from algo.config import Settings
 from algo.llm.gemma import GemmaClient
-from algo.models import *
+from algo.models import (
+    ArticleResult,
+    Claim,
+    ClaimResult,
+    ExplanationPart,
+    Reference,
+    Verdict,
+)
 from algo.retrieval.pubmed import PubMedClient
 from algo.retrieval.ranking import Ranker
 
@@ -16,359 +23,593 @@ class FactChecker:
         self,
         settings: Settings,
     ):
-
         self.settings = settings
 
-        # ----------------------------------------------------
-        # Cache
-        # ----------------------------------------------------
+        self.cache = Cache(
+            settings.CACHE_DB
+        )
 
-        self.cache = Cache(settings.CACHE_DB)
-
-        # ----------------------------------------------------
-        # Gemma
-        # ----------------------------------------------------
-
-        self.gemma = GemmaClient(settings.GEMMA_MODEL)
-
-        # ----------------------------------------------------
-        # PubMed
-        # ----------------------------------------------------
+        self.gemma = GemmaClient(
+            settings.GEMMA_MODEL
+        )
 
         self.pubmed = PubMedClient(
-            base_url=settings.PUBMED_BASE_URL,
-            cache=self.cache,
-            email=settings.PUBMED_EMAIL,
-            api_key=settings.PUBMED_API_KEY,
+            settings.PUBMED_BASE_URL,
+            self.cache,
+            settings.PUBMED_EMAIL,
+            settings.PUBMED_API_KEY,
         )
-
-        # ----------------------------------------------------
-        # Ranking
-        # ----------------------------------------------------
 
         self.ranker = Ranker(
-            embedding_model_name=(settings.EMBEDDING_MODEL),
-            cross_encoder_model_name=(settings.CROSS_ENCODER_MODEL),
+            settings.EMBEDDING_MODEL,
+            settings.CROSS_ENCODER_MODEL,
         )
 
-    # ========================================================
-    # MAIN ALGORITHM
-    # ========================================================
+    # =========================================================
+    # ARTICLE
+    # =========================================================
 
-    def check_article(self, article: str) -> ArticleResult:
-      print("[START] check_article()", flush=True)
+    def check_article(
+        self,
+        article: str,
+    ) -> ArticleResult:
 
-      article = self._normalize_article(article)
-      print(f"[INFO] Article length: {len(article)} characters", flush=True)
+        print(
+            "[START] check_article()",
+            flush=True,
+        )
 
-      article_hash_value = article_hash(article)
-      print(f"[INFO] Hash: {article_hash_value}", flush=True)
+        article = self._normalize_article(
+            article
+        )
 
-      cached = self.cache.get_article(
-          article_hash_value,
-          self.settings.PIPELINE_VERSION,
-      )
+        article_hash_value = article_hash(
+            article
+        )
 
-      if cached is not None:
-          print(
-              f"[CACHE] Article hit: {article_hash_value}",
-              flush=True,
-          )
-          return cached
+        print(
+            f"[INFO] Article length: "
+            f"{len(article)} characters",
+            flush=True,
+        )
 
-      print(
-          f"[CACHE] Article miss: {article_hash_value}",
-          flush=True,
-      )
+        print(
+            f"[INFO] Hash: {article_hash_value}",
+            flush=True,
+        )
 
-      # --------------------------------------------------
-      # GEMMA CLAIM EXTRACTION
-      # --------------------------------------------------
+        cached = self.cache.get_article(
+            article_hash_value,
+            self.settings.PIPELINE_VERSION,
+        )
 
-      print("[GEMMA] Starting claim extraction...", flush=True)
+        if cached is not None:
 
-      language, claims = self.gemma.extract_claims(article)
+            print(
+                f"[CACHE] Article hit: "
+                f"{article_hash_value}",
+                flush=True,
+            )
 
-      print(
-          f"[GEMMA] Claim extraction finished. "
-          f"Language={language}, Claims={len(claims)}",
-          flush=True,
-      )
+            return cached
 
-      # --------------------------------------------------
-      # CLAIMS
-      # --------------------------------------------------
+        print(
+            f"[CACHE] Article miss: "
+            f"{article_hash_value}",
+            flush=True,
+        )
 
-      results = []
+        # -----------------------------------------------------
+        # LANGUAGE + CLAIM EXTRACTION
+        # -----------------------------------------------------
 
-      for i, claim in enumerate(claims, start=1):
+        print(
+            "[GEMMA] Starting claim extraction...",
+            flush=True,
+        )
 
-          print(
-              f"\n[CLAIM {i}/{len(claims)}] {claim.text}",
-              flush=True,
-          )
+        language, claims = (
+            self.gemma.extract_claims(
+                article
+            )
+        )
 
-          result = self._check_claim(claim)
+        print(
+            f"[GEMMA] Language: {language}",
+            flush=True,
+        )
 
-          results.append(result)
+        print(
+            f"[GEMMA] Claims found: "
+            f"{len(claims)}",
+            flush=True,
+        )
 
-          print(
-              f"[CLAIM {i}] Finished: {result.verdict}",
-              flush=True,
-          )
+        # -----------------------------------------------------
+        # CHECK EACH CLAIM
+        # -----------------------------------------------------
 
-      # --------------------------------------------------
-      # SAVE
-      # --------------------------------------------------
+        results = []
 
-      result = ArticleResult(
-          article_hash=article_hash_value,
-          language=language,
-          claims=results,
-      )
+        for i, claim in enumerate(
+            claims,
+            start=1,
+        ):
 
-      print("[CACHE] Saving article result...", flush=True)
+            print(
+                f"\n[CLAIM {i}/{len(claims)}] "
+                f"{claim.text}",
+                flush=True,
+            )
 
-      self.cache.save_article(
-          result,
-          self.settings.PIPELINE_VERSION,
-      )
+            result = self._check_claim(
+                claim
+            )
 
-      print("[DONE] Article saved to cache.", flush=True)
+            results.append(result)
 
-      return result
+            print(
+                f"[CLAIM {i}] Finished: "
+                f"{result.verdict}",
+                flush=True,
+            )
 
-    # ========================================================
-    # CLAIM PIPELINE
-    # ========================================================
+        # -----------------------------------------------------
+        # SAVE
+        # -----------------------------------------------------
 
-    def _check_claim(self, claim: Claim) -> ClaimResult:
-      print("[GEMMA] Generating PubMed queries...", flush=True)
+        result = ArticleResult(
+            article_hash=article_hash_value,
+            language=language,
+            claims=results,
+        )
 
-      queries = self.gemma.generate_queries(claim)
+        print(
+            "[CACHE] Saving article result...",
+            flush=True,
+        )
 
-      print(
-          f"[GEMMA] Generated queries: {queries}",
-          flush=True,
-      )
+        self.cache.save_article(
+            result,
+            self.settings.PIPELINE_VERSION,
+        )
 
-      pmids = []
+        print(
+            "[DONE] Article saved to cache.",
+            flush=True,
+        )
 
-      print("[PUBMED] Searching...", flush=True)
+        return result
 
-      for query in queries:
+    # =========================================================
+    # CLAIM
+    # =========================================================
 
-          print(
-              f"[PUBMED] Query: {query}",
-              flush=True,
-          )
+    def _check_claim(
+        self,
+        claim: Claim,
+    ) -> ClaimResult:
 
-          ids = self.pubmed.search_with_fallback(
-              query,
-              claim.language,
-              self.settings.PUBMED_RESULTS_PER_QUERY,
-          )
+        # -----------------------------------------------------
+        # QUERY GENERATION
+        # -----------------------------------------------------
 
-          print(
-              f"[PUBMED] Returned {len(ids)} PMIDs",
-              flush=True,
-          )
+        print(
+            "[GEMMA] Generating PubMed queries...",
+            flush=True,
+        )
 
-          for pmid in ids:
+        queries = (
+            self.gemma.generate_queries(
+                claim
+            )
+        )
 
-              if pmid not in pmids:
-                  pmids.append(pmid)
+        print(
+            f"[GEMMA] Queries: {queries}",
+            flush=True,
+        )
 
-              if len(pmids) >= self.settings.MAX_CANDIDATES:
-                  break
+        # -----------------------------------------------------
+        # LANGUAGE-SPECIFIC SEARCH
+        # -----------------------------------------------------
 
-          if len(pmids) >= self.settings.MAX_CANDIDATES:
-              break
+        language_pmids: list[str] = []
 
-      print(
-          f"[PUBMED] Total candidates: {len(pmids)}",
-          flush=True,
-      )
+        for query in queries:
 
-      papers = self.pubmed.fetch(pmids)
+            print(
+                f"[PUBMED] Language-specific query: "
+                f"{query}",
+                flush=True,
+            )
 
-      print(
-          f"[PUBMED] Fetched {len(papers)} papers",
-          flush=True,
-      )
+            ids = self.pubmed.search(
+                query,
+                language=claim.language,
+                retmax=(
+                    self.settings
+                    .PUBMED_RESULTS_PER_QUERY
+                ),
+            )
 
-      print("[RANKING] Semantic retrieval...", flush=True)
+            for pmid in ids:
 
-      papers = self.ranker.semantic_retrieve(
-          claim,
-          papers,
-          self.settings.SEMANTIC_TOP_K,
-      )
+                if pmid not in language_pmids:
+                    language_pmids.append(
+                        pmid
+                    )
 
-      print(
-          f"[RANKING] Semantic top: {len(papers)}",
-          flush=True,
-      )
+        print(
+            f"[PUBMED] "
+            f"{len(language_pmids)} "
+            f"{claim.language} candidates",
+            flush=True,
+        )
 
-      print("[RANKING] Cross-encoder...", flush=True)
+        # -----------------------------------------------------
+        # FETCH LANGUAGE PAPERS
+        # -----------------------------------------------------
 
-      papers = self.ranker.rerank(
-          claim,
-          papers,
-          self.settings.RERANK_TOP_K,
-      )
+        language_papers = (
+            self.pubmed.fetch(
+                language_pmids
+            )
+        )
 
-      print(
-          f"[RANKING] Final references: {len(papers)}",
-          flush=True,
-      )
+        print(
+            f"[PUBMED] Fetched "
+            f"{len(language_papers)} "
+            f"language-specific papers",
+            flush=True,
+        )
 
-      references = [
-          Reference(
-              number=i + 1,
-              pmid=paper.pmid,
-              title=paper.title,
-              abstract=paper.abstract,
-              journal=paper.journal,
-              year=paper.year,
-          )
-          for i, paper in enumerate(papers)
-      ]
+        # -----------------------------------------------------
+        # RANK LANGUAGE PAPERS
+        # -----------------------------------------------------
 
-      print("[GEMMA] Evaluating claim...", flush=True)
+        language_papers = (
+            self.ranker.semantic_retrieve(
+                claim,
+                language_papers,
+                self.settings.SEMANTIC_TOP_K,
+            )
+        )
 
-      verdict, explanation = self._get_validated_verdict(
-          claim,
-          references,
-      )
+        language_papers = (
+            self.ranker.rerank(
+                claim,
+                language_papers,
+                self.settings.RERANK_TOP_K,
+            )
+        )
 
-      print(
-          f"[GEMMA] Verdict: {verdict}",
-          flush=True,
-      )
+        print(
+            f"[RANKING] "
+            f"{len(language_papers)} "
+            f"language-specific papers after ranking",
+            flush=True,
+        )
 
-      return ClaimResult(
-          claim=claim,
-          verdict=verdict,
-          explanation=explanation,
-          references=references,
-      )
+        # -----------------------------------------------------
+        # INTERNATIONAL FALLBACK
+        # -----------------------------------------------------
 
-    # ========================================================
+        final_papers = language_papers
+
+        if len(final_papers) < self.settings.RERANK_TOP_K:
+
+            print(
+                "[PUBMED] Not enough "
+                f"{claim.language} evidence.",
+                flush=True,
+            )
+
+            print(
+                "[PUBMED] Using international fallback.",
+                flush=True,
+            )
+
+            fallback_pmids: list[str] = []
+
+            for query in queries:
+
+                ids = self.pubmed.search(
+                    query,
+                    language=None,
+                    retmax=(
+                        self.settings
+                        .PUBMED_RESULTS_PER_QUERY
+                    ),
+                )
+
+                for pmid in ids:
+
+                    if pmid in language_pmids:
+                        continue
+
+                    if pmid not in fallback_pmids:
+                        fallback_pmids.append(
+                            pmid
+                        )
+
+            print(
+                f"[PUBMED] "
+                f"{len(fallback_pmids)} "
+                f"international candidates",
+                flush=True,
+            )
+
+            fallback_papers = (
+                self.pubmed.fetch(
+                    fallback_pmids
+                )
+            )
+
+            needed = (
+                self.settings.RERANK_TOP_K
+                - len(final_papers)
+            )
+
+            fallback_papers = (
+                self.ranker.semantic_retrieve(
+                    claim,
+                    fallback_papers,
+                    self.settings.SEMANTIC_TOP_K,
+                )
+            )
+
+            fallback_papers = (
+                self.ranker.rerank(
+                    claim,
+                    fallback_papers,
+                    needed,
+                )
+            )
+
+            final_papers = (
+                final_papers
+                + fallback_papers
+            )
+
+        # -----------------------------------------------------
+        # NUMBER REFERENCES
+        # -----------------------------------------------------
+
+        references = []
+
+        for i, paper in enumerate(
+            final_papers,
+            start=1,
+        ):
+
+            references.append(
+                Reference(
+                    number=i,
+                    pmid=paper.pmid,
+                    title=paper.title,
+                    abstract=paper.abstract,
+                    journal=paper.journal,
+                    year=paper.year,
+                )
+            )
+
+        print(
+            f"[RANKING] Final references: "
+            f"{len(references)}",
+            flush=True,
+        )
+
+        # -----------------------------------------------------
+        # CLAIM EVALUATION
+        # -----------------------------------------------------
+
+        print(
+            "[GEMMA] Evaluating claim...",
+            flush=True,
+        )
+
+        verdict, explanation = (
+            self._get_validated_verdict(
+                claim,
+                references,
+            )
+        )
+
+        print(
+            f"[GEMMA] Verdict: {verdict}",
+            flush=True,
+        )
+
+        return ClaimResult(
+            claim=claim,
+            verdict=verdict,
+            explanation=explanation,
+            references=references,
+        )
+
+    # =========================================================
     # VERDICT + CITATION VALIDATION
-    # ========================================================
+    # =========================================================
 
     def _get_validated_verdict(
         self,
         claim: Claim,
         references: list[Reference],
-    ) -> tuple[Verdict, list[ExplanationPart]]:
+    ) -> tuple[
+        Verdict,
+        list[ExplanationPart],
+    ]:
 
         if not references:
+
             return (
                 "INSUFFICIENT",
                 [
                     ExplanationPart(
-                        text="No relevant biomedical references were found.",
+                        text=(
+                            "No relevant biomedical "
+                            "references were found."
+                        ),
                         references=[],
                     )
                 ],
             )
 
-        valid_reference_ids = {ref.number for ref in references}
+        valid_reference_ids = {
+            ref.number
+            for ref in references
+        }
 
         for attempt in range(2):
-            data = self.gemma.compare_claim(
-                claim,
-                references,
+
+            data = (
+                self.gemma.compare_claim(
+                    claim,
+                    references,
+                )
             )
 
-            verdict_raw = data.get("verdict")
-            explanation_raw = data.get("explanation")
+            verdict_raw = data.get(
+                "verdict"
+            )
 
-            # --------------------------------------------------
-            # Validate verdict
-            # --------------------------------------------------
+            # -------------------------------------------------
+            # VERDICT VALIDATION
+            # -------------------------------------------------
 
-            valid_verdicts = {
-                "SUPPORTED",
-                "CONTRADICTED",
-                "MIXED",
-                "INSUFFICIENT",
-            }
+            if verdict_raw == "SUPPORTED":
+                verdict: Verdict = "SUPPORTED"
 
-            if verdict_raw not in valid_verdicts:
+            elif verdict_raw == "CONTRADICTED":
+                verdict = "CONTRADICTED"
+
+            elif verdict_raw == "MIXED":
+                verdict = "MIXED"
+
+            elif verdict_raw == "INSUFFICIENT":
+                verdict = "INSUFFICIENT"
+
+            else:
+                print(
+                    "[VALIDATION] Invalid verdict.",
+                    flush=True,
+                )
                 continue
 
-            verdict = cast(Verdict, verdict_raw)
+            # -------------------------------------------------
+            # EXPLANATION VALIDATION
+            # -------------------------------------------------
 
-            # --------------------------------------------------
-            # Validate explanation
-            # --------------------------------------------------
+            explanation_raw = data.get(
+                "explanation"
+            )
 
-            explanation: list[ExplanationPart] = []
-
-            if not isinstance(explanation_raw, list):
+            if not isinstance(
+                explanation_raw,
+                list,
+            ):
                 continue
+
+            explanation: list[
+                ExplanationPart
+            ] = []
 
             valid = True
 
             for part in explanation_raw:
-              if not isinstance(part, dict):
-                  valid = False
-                  break
 
-              text = part.get("text")
-              citation_ids = part.get("references", [])
+                if not isinstance(
+                    part,
+                    dict,
+                ):
+                    valid = False
+                    break
 
-              if not isinstance(text, str):
-                  valid = False
-                  break
+                text = part.get("text")
 
-              if not isinstance(citation_ids, list):
-                  valid = False
-                  break
+                citation_ids = part.get(
+                    "references",
+                    [],
+                )
 
-              if not all(
-                  isinstance(x, int)
-                  for x in citation_ids
-              ):
-                  valid = False
-                  break
+                if not isinstance(
+                    text,
+                    str,
+                ):
+                    valid = False
+                    break
 
-              if not self._valid_citations(
-                  citation_ids,
-                  valid_reference_ids,
-              ):
-                  valid = False
-                  break
+                if not isinstance(
+                    citation_ids,
+                    list,
+                ):
+                    valid = False
+                    break
 
-              explanation.append(
-                  ExplanationPart(
-                      text=text,
-                      references=citation_ids,
-                  )
-              )
+                if not all(
+                    isinstance(
+                        x,
+                        int,
+                    )
+                    for x in citation_ids
+                ):
+                    valid = False
+                    break
+
+                if not self._valid_citations(
+                    citation_ids,
+                    valid_reference_ids,
+                ):
+                    valid = False
+                    break
+
+                explanation.append(
+                    ExplanationPart(
+                        text=text,
+                        references=citation_ids,
+                    )
+                )
 
             if not valid:
+                print(
+                    "[VALIDATION] Invalid "
+                    "citation structure.",
+                    flush=True,
+                )
                 continue
 
-            return verdict, explanation
+            return (
+                verdict,
+                explanation,
+            )
 
-        # Gemma failed validation twice
+        # -----------------------------------------------------
+        # FAILED VALIDATION
+        # -----------------------------------------------------
+
+        print(
+            "[VALIDATION] Gemma failed "
+            "validation twice.",
+            flush=True,
+        )
+
         return (
             "INSUFFICIENT",
             [
                 ExplanationPart(
-                    text="The available evidence could not be reliably evaluated.",
+                    text=(
+                        "The available evidence "
+                        "could not be reliably evaluated."
+                    ),
                     references=[],
                 )
             ],
         )
 
-    # ========================================================
+    # =========================================================
     # CITATION VALIDATION
-    # ========================================================
+    # =========================================================
 
     def _valid_citations(
         self,
@@ -377,21 +618,20 @@ class FactChecker:
     ) -> bool:
 
         return all(
-            reference_id in valid_reference_ids
+            reference_id
+            in valid_reference_ids
             for reference_id in citations
         )
 
-    # ========================================================
+    # =========================================================
     # ARTICLE NORMALIZATION
-    # ========================================================
+    # =========================================================
 
-    @staticmethod
     def _normalize_article(
+        self,
         article: str,
     ) -> str:
 
-        lines = [line.strip() for line in article.splitlines()]
-
-        lines = [line for line in lines if line]
-
-        return "\n".join(lines)
+        return " ".join(
+            article.split()
+        )

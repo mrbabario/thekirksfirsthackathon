@@ -10,13 +10,20 @@ from algo.models import Claim, Reference
 
 
 class GemmaClient:
-    def __init__(self, model_name: str = "gemma3:4b"):
+    def __init__(
+        self,
+        model_name: str = "gemma3:4b",
+    ):
         self.model_name = model_name
 
         print(
             f"[GEMMA] Using local Ollama model: {model_name}",
             flush=True,
         )
+
+    # ---------------------------------------------------------
+    # GENERATION
+    # ---------------------------------------------------------
 
     def _generate(
         self,
@@ -52,9 +59,18 @@ class GemmaClient:
 
         return text.strip()
 
-    def _parse_json(self, text: str) -> dict[str, Any]:
+    # ---------------------------------------------------------
+    # JSON PARSING
+    # ---------------------------------------------------------
+
+    def _parse_json(
+        self,
+        text: str,
+    ) -> dict[str, Any]:
+
         text = text.strip()
 
+        # Remove markdown fences.
         text = re.sub(
             r"^```(?:json)?\s*",
             "",
@@ -68,15 +84,17 @@ class GemmaClient:
             text,
         )
 
+        # Try direct JSON.
         try:
             return json.loads(text)
         except json.JSONDecodeError:
             pass
 
+        # Try extracting outer JSON object.
         start = text.find("{")
         end = text.rfind("}")
 
-        if start != -1 and end != -1:
+        if start != -1 and end != -1 and end > start:
             candidate = text[start:end + 1]
 
             try:
@@ -88,6 +106,10 @@ class GemmaClient:
             f"Gemma returned invalid JSON:\n{text}"
         )
 
+    # ---------------------------------------------------------
+    # LANGUAGE + CLAIM EXTRACTION
+    # ---------------------------------------------------------
+
     def extract_claims(
         self,
         article: str,
@@ -96,8 +118,17 @@ class GemmaClient:
         prompt = f"""
 Analyze the following medical article.
 
-Extract only atomic claims that can be medically verified
-using biomedical literature.
+First identify the language of the ORIGINAL ARTICLE.
+
+Use an ISO 639-1 language code:
+German -> "de"
+English -> "en"
+French -> "fr"
+Spanish -> "es"
+etc.
+
+Then extract only atomic claims that can be medically
+verified using biomedical literature.
 
 Do not extract:
 - opinions
@@ -106,10 +137,13 @@ Do not extract:
 - unverifiable statements
 - duplicate claims
 
-Return ONLY valid JSON:
+The claim text should remain in the ORIGINAL LANGUAGE
+of the article.
+
+Return ONLY valid JSON in exactly this format:
 
 {{
-  "language": "en",
+  "language": "de",
   "claims": [
     {{
       "text": "...",
@@ -121,7 +155,7 @@ Return ONLY valid JSON:
   ]
 }}
 
-ARTICLE:
+ORIGINAL ARTICLE:
 {article}
 """
 
@@ -132,23 +166,53 @@ ARTICLE:
             )
         )
 
-        language = data.get("language", "en")
+        language = str(
+            data.get("language", "en")
+        ).lower().strip()
 
-        claims = []
+        claims: list[Claim] = []
 
         for item in data.get("claims", []):
+
+            if not isinstance(item, dict):
+                continue
+
+            text = item.get("text", "")
+
+            if not isinstance(text, str):
+                continue
+
+            if not text.strip():
+                continue
+
             claims.append(
                 Claim(
-                    text=item.get("text", ""),
-                    subject=item.get("subject", ""),
-                    predicate=item.get("predicate", ""),
-                    object=item.get("object", ""),
-                    entities=item.get("entities", []),
+                    text=text.strip(),
+                    subject=str(
+                        item.get("subject", "")
+                    ),
+                    predicate=str(
+                        item.get("predicate", "")
+                    ),
+                    object=str(
+                        item.get("object", "")
+                    ),
+                    entities=[
+                        str(x)
+                        for x in item.get(
+                            "entities",
+                            [],
+                        )
+                    ],
                     language=language,
                 )
             )
 
         return language, claims
+
+    # ---------------------------------------------------------
+    # PUBMED QUERY GENERATION
+    # ---------------------------------------------------------
 
     def generate_queries(
         self,
@@ -159,13 +223,21 @@ ARTICLE:
 Generate 3 to 5 targeted PubMed search queries for this
 medical claim.
 
+The search queries should be suitable for PubMed.
+
 Cover:
 1. the core topic
-2. the medical relationship/mechanism
+2. the medical relationship or mechanism
 3. important synonyms
 4. population or outcome where relevant
 
-Avoid vague queries.
+Prefer medically precise terminology.
+
+The claim is written in language:
+{claim.language}
+
+You may use internationally recognized medical terminology
+such as English MeSH terms where useful.
 
 Return ONLY valid JSON:
 
@@ -200,13 +272,24 @@ ENTITIES:
             )
         )
 
-        queries = data.get("queries", [])
+        queries = data.get(
+            "queries",
+            [],
+        )
+
+        if not isinstance(queries, list):
+            return []
 
         return [
             q.strip()
             for q in queries
-            if isinstance(q, str) and q.strip()
+            if isinstance(q, str)
+            and q.strip()
         ][:5]
+
+    # ---------------------------------------------------------
+    # CLAIM COMPARISON
+    # ---------------------------------------------------------
 
     def compare_claim(
         self,
@@ -214,9 +297,10 @@ ENTITIES:
         references: list[Reference],
     ) -> dict[str, Any]:
 
-        reference_text = []
+        reference_text: list[str] = []
 
         for ref in references:
+
             reference_text.append(
                 f"""
 [{ref.number}]
@@ -228,12 +312,17 @@ Abstract:
 """.strip()
             )
 
+        output_language = claim.language
+
         prompt = f"""
-Evaluate the medical claim against the provided biomedical
-references.
+Evaluate this medical claim against the provided
+biomedical references.
 
 CLAIM:
 {claim.text}
+
+ORIGINAL ARTICLE LANGUAGE:
+{output_language}
 
 REFERENCES:
 
@@ -248,12 +337,20 @@ INSUFFICIENT
 
 Rules:
 
-- SUPPORTED: evidence generally supports the claim.
-- CONTRADICTED: evidence generally conflicts with the claim.
-- MIXED: evidence contains meaningful agreement and disagreement.
-- INSUFFICIENT: references do not provide enough evidence.
+- SUPPORTED:
+  Evidence generally supports the claim.
+
+- CONTRADICTED:
+  Evidence generally conflicts with the claim.
+
+- MIXED:
+  Evidence contains meaningful agreement and disagreement.
+
+- INSUFFICIENT:
+  The references do not provide enough evidence.
 
 Be careful about:
+
 - correlation vs causation
 - animal vs human studies
 - observational vs randomized studies
@@ -262,25 +359,45 @@ Be careful about:
 - outcome differences
 - whether the paper actually addresses the claim
 
+IMPORTANT LANGUAGE RULE:
+
+Write the explanation in the SAME LANGUAGE as the
+original article.
+
+Original article language:
+{output_language}
+
+For example:
+
+de -> write the explanation in German.
+en -> write the explanation in English.
+fr -> write the explanation in French.
+
+Do NOT translate reference titles or abstracts.
+
+Every explanation part must explicitly cite the numbered
+references that support that statement.
+
+Use ONLY reference numbers that actually exist.
+
+DO NOT invent reference numbers.
+DO NOT output PMIDs.
+
 Return ONLY valid JSON:
 
 {{
   "verdict": "SUPPORTED",
   "explanation": [
     {{
-      "text": "The evidence shows ...",
+      "text": "...",
       "references": [1, 3]
     }},
     {{
-      "text": "However, the evidence is observational ...",
+      "text": "...",
       "references": [3]
     }}
   ]
 }}
-
-Use ONLY reference numbers that actually exist.
-DO NOT invent reference numbers.
-DO NOT output PMIDs.
 """
 
         return self._parse_json(

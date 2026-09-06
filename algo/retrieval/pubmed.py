@@ -1,11 +1,7 @@
 from __future__ import annotations
 
-import time
-import xml.etree.ElementTree as ET
-
 import requests
 
-from algo.cache import Cache
 from algo.models import Paper
 
 
@@ -14,7 +10,7 @@ class PubMedClient:
     def __init__(
         self,
         base_url: str,
-        cache: Cache,
+        cache,
         email: str = "",
         api_key: str = "",
     ):
@@ -23,11 +19,12 @@ class PubMedClient:
         self.email = email
         self.api_key = api_key
 
-    # ========================================================
-    # REQUEST PARAMETERS
-    # ========================================================
+    # ---------------------------------------------------------
+    # COMMON PARAMETERS
+    # ---------------------------------------------------------
 
     def _common_params(self) -> dict:
+
         params = {}
 
         if self.email:
@@ -38,9 +35,9 @@ class PubMedClient:
 
         return params
 
-    # ========================================================
-    # 4. SEARCH
-    # ========================================================
+    # ---------------------------------------------------------
+    # SEARCH
+    # ---------------------------------------------------------
 
     def search(
         self,
@@ -49,28 +46,52 @@ class PubMedClient:
         retmax: int = 40,
     ) -> list[str]:
 
-        params = self._common_params()
+        language_map = {
+            "de": "German",
+            "deu": "German",
+            "german": "German",
 
-        search_query = query
+            "en": "English",
+            "eng": "English",
+            "english": "English",
 
-        # Language-specific search.
-        #
-        # PubMed language terms use e.g.
-        # "english[lang]"
-        #
-        # This is a first-pass filter.
+            "fr": "French",
+            "fra": "French",
+            "french": "French",
+
+            "es": "Spanish",
+            "spa": "Spanish",
+            "spanish": "Spanish",
+
+            "it": "Italian",
+            "ita": "Italian",
+            "italian": "Italian",
+
+            "pt": "Portuguese",
+            "por": "Portuguese",
+            "portuguese": "Portuguese",
+        }
+
+        final_query = query
+
         if language:
-            search_query = (
-                f"({query}) AND "
-                f"{language}[lang]"
+            language_name = language_map.get(
+                language.lower().strip(),
+                language,
             )
 
-        params.update({
+            final_query = (
+                f"({query}) AND "
+                f"{language_name}[lang]"
+            )
+
+        params = {
+            **self._common_params(),
             "db": "pubmed",
-            "term": search_query,
+            "term": final_query,
             "retmax": retmax,
             "retmode": "json",
-        })
+        }
 
         response = requests.get(
             f"{self.base_url}/esearch.fcgi",
@@ -82,89 +103,84 @@ class PubMedClient:
 
         data = response.json()
 
-        ids = data["esearchresult"]["idlist"]
+        return data["esearchresult"].get(
+            "idlist",
+            [],
+        )
 
-        # Be polite to NCBI.
-        time.sleep(0.1)
+    # ---------------------------------------------------------
+    # LANGUAGE-FIRST SEARCH
+    # ---------------------------------------------------------
 
-        return ids
-
-    # ========================================================
-    # LANGUAGE + INTERNATIONAL FALLBACK
-    # ========================================================
-
-    def search_with_fallback(
+    def search_language_first(
         self,
         query: str,
         language: str,
         retmax: int = 40,
-    ) -> list[str]:
+    ) -> tuple[list[str], list[str]]:
 
-        language_map = {
-            "de": "German",
-            "deu": "German",
-            "german": "German",
-            "en": "English",
-            "eng": "English",
-            "english": "English",
-        }
+        language_ids = []
+        international_ids = []
 
-        pubmed_language = language_map.get(
-            language.lower().strip()
+        # --------------------------------------------
+        # 1. SEARCH TARGET LANGUAGE
+        # --------------------------------------------
+
+        print(
+            f"[PUBMED] Searching language={language}",
+            flush=True,
         )
 
-        ids = []
-
-        # ----------------------------------------
-        # 1. Language-specific search FIRST
-        # ----------------------------------------
-
-        if pubmed_language:
-            print(
-                f"[PUBMED] Searching {pubmed_language} first...",
-                flush=True,
-            )
-
-            ids = self.search(
+        try:
+            language_ids = self.search(
                 query,
-                language=pubmed_language,
+                language=language,
                 retmax=retmax,
             )
-
+        except Exception as e:
             print(
-                f"[PUBMED] {pubmed_language}: {len(ids)} results",
+                f"[PUBMED] Language search failed: {e}",
                 flush=True,
             )
 
-        # ----------------------------------------
-        # 2. International fallback
-        # ----------------------------------------
+        print(
+            f"[PUBMED] {language}: "
+            f"{len(language_ids)} results",
+            flush=True,
+        )
 
-        if len(ids) < retmax:
+        # --------------------------------------------
+        # 2. SEARCH INTERNATIONAL
+        # --------------------------------------------
 
-            print(
-                "[PUBMED] Searching international fallback...",
-                flush=True,
-            )
+        print(
+            "[PUBMED] Searching international fallback...",
+            flush=True,
+        )
 
-            fallback_ids = self.search(
+        try:
+            international_ids = self.search(
                 query,
                 language=None,
                 retmax=retmax,
             )
+        except Exception as e:
+            print(
+                f"[PUBMED] International search failed: {e}",
+                flush=True,
+            )
 
-            for pmid in fallback_ids:
-                if pmid not in ids:
-                    ids.append(pmid)
+        print(
+            f"[PUBMED] International: "
+            f"{len(international_ids)} results",
+            flush=True,
+        )
 
-                if len(ids) >= retmax:
-                    break
+        return language_ids, international_ids
 
-        return ids
-
-    # ========================================================
-    # 5. EFETCH
-    # ========================================================
+    # ---------------------------------------------------------
+    # FETCH
+    # ---------------------------------------------------------
 
     def fetch(
         self,
@@ -174,37 +190,28 @@ class PubMedClient:
         if not pmids:
             return []
 
-        papers = []
-        missing = []
-
-        # ----------------------------------------------
-        # Cache lookup
-        # ----------------------------------------------
+        cached_papers: dict[str, Paper] = {}
+        missing: list[str] = []
 
         for pmid in pmids:
 
-            cached = self.cache.get_paper(
-                pmid
-            )
+            cached = self.cache.get_paper(pmid)
 
-            if cached:
-                papers.append(cached)
+            if cached is not None:
+                cached_papers[pmid] = cached
             else:
                 missing.append(pmid)
 
-        # ----------------------------------------------
-        # Fetch missing papers
-        # ----------------------------------------------
+        fetched: list[Paper] = []
 
         if missing:
 
-            params = self._common_params()
-
-            params.update({
+            params = {
+                **self._common_params(),
                 "db": "pubmed",
                 "id": ",".join(missing),
                 "retmode": "xml",
-            })
+            }
 
             response = requests.get(
                 f"{self.base_url}/efetch.fcgi",
@@ -219,33 +226,36 @@ class PubMedClient:
             )
 
             for paper in fetched:
-                self.cache.save_paper(
-                    paper
-                )
-                papers.append(paper)
+                self.cache.save_paper(paper)
 
-        # Preserve original PMID search order.
-        paper_by_pmid = {
-            paper.pmid: paper
-            for paper in papers
-        }
+                cached_papers[
+                    paper.pmid
+                ] = paper
 
-        return [
-            paper_by_pmid[pmid]
-            for pmid in pmids
-            if pmid in paper_by_pmid
-        ]
+        # Preserve original PMID order.
+        result = []
 
-    # ========================================================
-    # XML PARSER
-    # ========================================================
+        for pmid in pmids:
+
+            paper = cached_papers.get(pmid)
+
+            if paper is not None:
+                result.append(paper)
+
+        return result
+
+    # ---------------------------------------------------------
+    # XML PARSING
+    # ---------------------------------------------------------
 
     def _parse_xml(
         self,
-        xml: str,
+        xml_text: str,
     ) -> list[Paper]:
 
-        root = ET.fromstring(xml)
+        import xml.etree.ElementTree as ET
+
+        root = ET.fromstring(xml_text)
 
         papers = []
 
@@ -253,47 +263,54 @@ class PubMedClient:
             ".//PubmedArticle"
         ):
 
-            pmid_node = article.find(
-                ".//MedlineCitation/PMID"
+            medline = article.find(
+                "./MedlineCitation"
             )
 
-            if pmid_node is None:
+            if medline is None:
+                continue
+
+            pmid_element = medline.find(
+                "./PMID"
+            )
+
+            if pmid_element is None:
                 continue
 
             pmid = (
-                pmid_node.text or ""
+                pmid_element.text or ""
             ).strip()
 
-            # ------------------------------------------
-            # Title
-            # ------------------------------------------
-
-            title_node = article.find(
-                ".//ArticleTitle"
+            article_data = medline.find(
+                "./Article"
             )
 
-            title = ""
+            if article_data is None:
+                continue
 
-            if title_node is not None:
-                title = "".join(
-                    title_node.itertext()
-                ).strip()
+            title_element = article_data.find(
+                "./ArticleTitle"
+            )
 
-            # ------------------------------------------
-            # Abstract
-            # ------------------------------------------
+            title = (
+                "".join(
+                    title_element.itertext()
+                )
+                if title_element is not None
+                else ""
+            )
 
             abstract_parts = []
 
-            for node in article.findall(
-                ".//Abstract/AbstractText"
+            for abstract_text in article_data.findall(
+                "./Abstract/AbstractText"
             ):
 
                 text = "".join(
-                    node.itertext()
-                ).strip()
+                    abstract_text.itertext()
+                )
 
-                label = node.attrib.get(
+                label = abstract_text.attrib.get(
                     "Label"
                 )
 
@@ -302,59 +319,47 @@ class PubMedClient:
                         f"{label}: {text}"
                     )
 
-                if text:
-                    abstract_parts.append(
-                        text
-                    )
+                abstract_parts.append(text)
 
             abstract = "\n".join(
                 abstract_parts
             )
 
-            # ------------------------------------------
-            # Journal
-            # ------------------------------------------
-
-            journal_node = article.find(
-                ".//Journal/Title"
+            journal_element = article_data.find(
+                "./Journal/Title"
             )
 
             journal = (
-                journal_node.text.strip()
-                if journal_node is not None
-                and journal_node.text
+                journal_element.text or ""
+                if journal_element is not None
                 else ""
             )
 
-            # ------------------------------------------
-            # Year
-            # ------------------------------------------
-
             year = self._extract_year(
-                article
+                article_data
             )
 
-            # ------------------------------------------
-            # Language
-            # ------------------------------------------
-
-            language_node = article.find(
-                ".//Language"
-            )
+            languages = [
+                (
+                    element.text or ""
+                ).strip()
+                for element in article_data.findall(
+                    "./Language"
+                )
+            ]
 
             language = (
-                language_node.text.strip()
-                if language_node is not None
-                and language_node.text
+                languages[0]
+                if languages
                 else ""
             )
 
             papers.append(
                 Paper(
                     pmid=pmid,
-                    title=title,
-                    abstract=abstract,
-                    journal=journal,
+                    title=title.strip(),
+                    abstract=abstract.strip(),
+                    journal=journal.strip(),
                     year=year,
                     language=language,
                 )
@@ -362,28 +367,32 @@ class PubMedClient:
 
         return papers
 
-    @staticmethod
+    # ---------------------------------------------------------
+    # YEAR
+    # ---------------------------------------------------------
+
     def _extract_year(
-        article: ET.Element,
+        self,
+        article_data,
     ) -> int | None:
 
-        possible_nodes = [
-            article.find(".//PubDate/Year"),
-            article.find(
-                ".//ArticleDate/Year"
+        candidates = [
+            article_data.find(
+                "./Journal/JournalIssue/PubDate/Year"
+            ),
+            article_data.find(
+                "./ArticleDate/Year"
             ),
         ]
 
-        for node in possible_nodes:
+        for element in candidates:
 
-            if node is None:
-                continue
+            if element is not None:
+                value = (
+                    element.text or ""
+                ).strip()
 
-            value = (
-                node.text or ""
-            ).strip()
-
-            if value.isdigit():
-                return int(value)
+                if value.isdigit():
+                    return int(value)
 
         return None
