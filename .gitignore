@@ -62,3 +62,5 @@ backend/__pycache__/
 backend/*.db
 *.sqlite
 *.sqlite3
+
+algo/*.db
