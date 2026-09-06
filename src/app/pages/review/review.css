@@ -1539,3 +1539,79 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+.reference-header {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+}
+
+.reference-main {
+  flex: 1;
+
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 22px;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 13px;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.reference-main:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.reference-analyze {
+  flex-shrink: 0;
+
+  height: 28px;
+
+  margin-right: 10px;
+  padding: 0 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+
+  background: rgba(255, 255, 255, 0.035);
+  color: #a8a8af;
+
+  font-size: 10px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.reference-analyze:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #f0f0f2;
+}
+
+.reference-analyze:active {
+  transform: translateY(1px);
+}

@@ -89,7 +89,7 @@
           </div>
 
           <h1>
-            Dr.Kirk is investigating...
+            Dr.Kirk is investigating
           </h1>
 
           <p>
@@ -110,6 +110,7 @@
 
           <div class="terminal-body">
             <div class="terminal-output">
+
               @for (
                 line of terminalLines();
                 track $index
@@ -128,9 +129,11 @@
                 <span>$</span>
                 <span class="cursor-block">▋</span>
               </div>
+
             </div>
           </div>
         </div>
+
       </section>
     }
 
@@ -191,6 +194,13 @@
           </button>
 
         </div>
+
+        @if (errorMessage()) {
+          <div class="review-error">
+            {{ errorMessage() }}
+          </div>
+        }
+
       </section>
     }
 
@@ -313,6 +323,7 @@
           </div>
 
         </div>
+
       </section>
 
       <!-- CLAIMS -->
@@ -532,50 +543,64 @@
 
                           <div class="reference">
 
-                            <button
-                              type="button"
-                              class="reference-header"
-                              (click)="
-                                toggleReference(
-                                  i,
-                                  reference.number
-                                );
-                                $event.stopPropagation()
-                              "
-                            >
+                            <div class="reference-header">
 
-                              <div class="reference-number">
-                                [{{ reference.number }}]
-                              </div>
-
-                              <div class="reference-title">
-
-                                <strong>
-                                  {{ reference.title }}
-                                </strong>
-
-                                <span>
-                                  {{ reference.journal }}
-
-                                  @if (reference.year) {
-                                    · {{ reference.year }}
-                                  }
-                                </span>
-
-                              </div>
-
-                              <span class="reference-arrow">
-                                {{
-                                  isReferenceExpanded(
+                              <button
+                                type="button"
+                                class="reference-main"
+                                (click)="
+                                  toggleReference(
                                     i,
                                     reference.number
                                   )
-                                    ? '−'
-                                    : '+'
-                                }}
-                              </span>
+                                "
+                              >
 
-                            </button>
+                                <div class="reference-number">
+                                  [{{ reference.number }}]
+                                </div>
+
+                                <div class="reference-title">
+
+                                  <strong>
+                                    {{ reference.title }}
+                                  </strong>
+
+                                  <span>
+                                    {{ reference.journal }}
+
+                                    @if (reference.year) {
+                                      · {{ reference.year }}
+                                    }
+                                  </span>
+
+                                </div>
+
+                                <span class="reference-arrow">
+                                  {{
+                                    isReferenceExpanded(
+                                      i,
+                                      reference.number
+                                    )
+                                      ? '−'
+                                      : '+'
+                                  }}
+                                </span>
+
+                              </button>
+
+                              <button
+                                type="button"
+                                class="reference-analyze"
+                                (click)="
+                                  analyzeReference(reference);
+                                  $event.stopPropagation()
+                                "
+                              >
+                                Analyze
+                              </button>
+
+                            </div>
 
                             @if (
                               isReferenceExpanded(
@@ -701,23 +726,13 @@
               track reference.number
             ) {
 
-              <a
-                class="source-card"
-                [href]="
-                  'https://pubmed.ncbi.nlm.nih.gov/' +
-                  reference.pmid +
-                  '/'
-                "
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <div class="source-card">
 
                 <span class="source-number">
                   [{{ reference.number }}]
                 </span>
 
                 <div>
-
                   <strong>
                     {{ reference.title }}
                   </strong>
@@ -728,16 +743,32 @@
                     @if (reference.year) {
                       · {{ reference.year }}
                     }
-
                   </span>
-
                 </div>
 
-                <span class="source-arrow">
-                  ↗
-                </span>
+                <button
+                  type="button"
+                  class="source-analyze"
+                  (click)="analyzeReference(reference)"
+                >
+                  Analyze
+                </button>
 
-              </a>
+                <a
+                  class="source-arrow"
+                  [href]="
+                    'https://pubmed.ncbi.nlm.nih.gov/' +
+                    reference.pmid +
+                    '/'
+                  "
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open PubMed source"
+                >
+                  ↗
+                </a>
+
+              </div>
 
             }
 

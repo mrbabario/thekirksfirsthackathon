@@ -50,6 +50,7 @@ export class ReviewPage implements OnDestroy {
   hasResult = signal(false);
 
   review = signal<ArticleResult | null>(null);
+  errorMessage = signal<string | null>(null);
 
   expandedClaims = signal<number[]>([]);
   expandedReferences = signal<string[]>([]);
@@ -57,12 +58,6 @@ export class ReviewPage implements OnDestroy {
   currentStage = signal(0);
   terminalStarted = signal(false);
 
-  /**
-   * Lines currently visible in the terminal.
-   *
-   * The terminal itself has a fixed CSS height. Older lines are
-   * removed from this array as new lines are added.
-   */
   terminalLines = signal<string[]>([]);
 
   readonly pipelineStages: PipelineStage[] = [
@@ -116,11 +111,6 @@ export class ReviewPage implements OnDestroy {
     },
   ];
 
-  /**
-   * Number of log lines retained in the visible terminal.
-   *
-   * Change this to 6, 7, 8, etc. without changing the CSS.
-   */
   private readonly maxTerminalLines = 7;
 
   private stageTimer?: ReturnType<typeof setInterval>;
@@ -263,6 +253,8 @@ export class ReviewPage implements OnDestroy {
       return;
     }
 
+    this.errorMessage.set(null);
+
     this.analyzing.set(true);
     this.hasResult.set(false);
     this.review.set(null);
@@ -315,13 +307,41 @@ export class ReviewPage implements OnDestroy {
           '> ERROR: Fact-check request failed.',
         );
 
-        this.addTerminalLine(
-          '> Returning to review form...',
-        );
-
         this.analyzing.set(false);
         this.hasResult.set(false);
+
+        this.errorMessage.set(
+          'The article could not be reviewed. Please check the URL and try again.',
+        );
       },
+    });
+  }
+
+  analyzeReference(reference: Reference): void {
+    const url =
+      `https://pubmed.ncbi.nlm.nih.gov/${reference.pmid}/`;
+
+    this.stopStageAnimation();
+
+    this.articleText = '';
+    this.articleUrl = url;
+
+    this.review.set(null);
+    this.hasResult.set(false);
+    this.analyzing.set(false);
+
+    this.errorMessage.set(null);
+
+    this.expandedClaims.set([]);
+    this.expandedReferences.set([]);
+
+    this.currentStage.set(0);
+    this.terminalStarted.set(false);
+    this.terminalLines.set([]);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     });
   }
 
@@ -332,6 +352,8 @@ export class ReviewPage implements OnDestroy {
     this.hasResult.set(false);
     this.review.set(null);
 
+    this.errorMessage.set(null);
+
     this.articleText = '';
     this.articleUrl = '';
 
@@ -341,6 +363,11 @@ export class ReviewPage implements OnDestroy {
     this.currentStage.set(0);
     this.terminalStarted.set(false);
     this.terminalLines.set([]);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   private startStageAnimation(): void {
@@ -375,11 +402,11 @@ export class ReviewPage implements OnDestroy {
 
       this.currentStage.set(nextStage);
 
-      const next =
+      const nextStageDefinition =
         this.pipelineStages[nextStage];
 
       this.addTerminalLine(
-        `[RUNNING] ${next.label}`,
+        `[RUNNING] ${nextStageDefinition.label}`,
       );
     }, 1800);
   }
