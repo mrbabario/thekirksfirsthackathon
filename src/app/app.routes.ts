@@ -6,11 +6,12 @@ import { CreateAccount } from './pages/create-account/create-account';
 import { Forum } from './pages/forum/forum';
 import { ForumPost } from './pages/forum-post/forum-post';
 import { CreatePost } from './pages/create-post/create-post';
+import { ReviewPage } from './pages/review/review';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Homepage
+    component: Homepage,
   },
   {
     path: 'sign-in',
@@ -19,6 +20,10 @@ export const routes: Routes = [
   {
     path: 'create-account',
     component: CreateAccount,
+  },
+  {
+    path: 'review',
+    component: ReviewPage ,
   },
   {
     path: 'forum',
@@ -32,4 +37,4 @@ export const routes: Routes = [
     path: 'forum/:id',
     component: ForumPost,
   },
-]
+];

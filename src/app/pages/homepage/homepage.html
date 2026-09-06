@@ -54,26 +54,13 @@
       </ng-template>
 
       <!-- AUTHENTICATION -->
-@if (authService.isLoggedIn()) {
-  <button
-    hlmBtn
-    variant="outline"
-    class="logout-button"
-    (click)="logout()"
-  >
-    Logout
-  </button>
-} @else {
-  <button
-    hlmBtn
-    variant="default"
-    class="sign-in-button"
-    routerLink="/sign-in"
-  >
-    Sign in
-  </button>
-  }
-
+      @if (authService.isLoggedIn()) {
+        <button hlmBtn variant="outline" class="logout-button" (click)="logout()">Logout</button>
+      } @else {
+        <button hlmBtn variant="default" class="sign-in-button" routerLink="/sign-in">
+          Sign in
+        </button>
+      }
     </div>
   </nav>
 
@@ -126,12 +113,8 @@
           </div>
 
           @if (hasText()) {
-            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewText()">
-              @if (reviewing()) {
-                {{ t().reviewing }}
-              } @else {
-                {{ t().review }}
-              }
+            <button hlmBtn type="button" [disabled]="!hasText()" (click)="reviewText()">
+              {{ t().review }}
             </button>
           }
         </div>
@@ -160,12 +143,8 @@
           </div>
 
           @if (hasUrl()) {
-            <button hlmBtn class="review-button" [disabled]="reviewing()" (click)="reviewUrl()">
-              @if (reviewing()) {
-                {{ t().reviewing }}
-              } @else {
-                {{ t().review }}
-              }
+            <button hlmBtn type="button" [disabled]="!hasUrl()" (click)="reviewUrl()">
+              {{ t().review }}
             </button>
           }
         </div>
