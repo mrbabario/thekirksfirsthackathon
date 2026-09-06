@@ -1,0 +1,160 @@
+<div class="forum-post-page">
+  <!-- ==========================================
+       NAVBAR
+  =========================================== -->
+  <nav class="forum-navbar">
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">K</span>
+      <span class="logo-name">Dr.Kirk</span>
+    </a>
+
+    <div class="nav-links">
+      <a routerLink="/" class="nav-link"> Home </a>
+
+      <a routerLink="/" fragment="how-it-works" class="nav-link"> How It Works </a>
+
+      <a routerLink="/" fragment="articles" class="nav-link"> Explore Articles </a>
+
+      <a routerLink="/forum" class="nav-link active"> Forum </a>
+    </div>
+
+    <div class="nav-actions">
+      <button hlmBtn variant="outline" routerLink="/forum">← Forum</button>
+
+      <button hlmBtn variant="default" routerLink="/sign-in">Sign in</button>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
+  <main class="post-detail">
+    @if (post) {
+      <!-- BACK -->
+      <a routerLink="/forum" class="back-link"> ← Back to discussions </a>
+
+      <!-- POST HEADER -->
+      <article class="main-post">
+        <div class="post-meta">
+          <span class="post-category">
+            {{ post.category }}
+          </span>
+
+          @if (post.pinned) {
+            <span class="pinned"> PINNED </span>
+          }
+
+          <span class="post-tag">
+            {{ post.tag }}
+          </span>
+        </div>
+
+        <h1>
+          {{ post.title }}
+        </h1>
+
+        <div class="post-author">
+          Started by
+          <strong>{{ post.author }}</strong>
+          <span>·</span>
+          <span>{{ post.time }}</span>
+        </div>
+
+        <div class="post-content">
+          <p>
+            {{ post.description }}
+          </p>
+
+          <p>
+            This is the full discussion content for this forum post. During the hackathon, this can
+            be mock content to demonstrate the discussion flow.
+          </p>
+        </div>
+
+        <!-- STATS -->
+        <div class="discussion-stats">
+          <span>
+            <strong>{{ post.replies }}</strong>
+            replies
+          </span>
+
+          <span>
+            <strong>{{ post.views }}</strong>
+            views
+          </span>
+        </div>
+      </article>
+
+      <!-- ========================================
+           DISCUSSION
+      ========================================= -->
+      <section class="discussion-section">
+        <div class="discussion-heading">
+          <span class="section-label"> COMMUNITY </span>
+
+          <h2>Discussion</h2>
+        </div>
+
+        <!-- REPLY -->
+        <article class="reply">
+          <div class="reply-header">
+            <div>
+              <strong>Alex</strong>
+              <span>2 min ago</span>
+            </div>
+          </div>
+
+          <p>
+            I usually check who published the article, where the information comes from, and whether
+            other reliable sources report the same thing.
+          </p>
+        </article>
+
+        <!-- REPLY -->
+        <article class="reply">
+          <div class="reply-header">
+            <div>
+              <strong>Sarah</strong>
+              <span>5 min ago</span>
+            </div>
+          </div>
+
+          <p>
+            I also look for the original source rather than trusting screenshots or social media
+            posts.
+          </p>
+        </article>
+
+        <!-- ======================================
+             REPLY BOX
+        ======================================= -->
+        <div class="reply-box">
+          <div class="reply-box-header">
+            <h3>Join the discussion</h3>
+
+            <span> Share your thoughts </span>
+          </div>
+
+          <textarea hlmTextarea class="reply-textarea" placeholder="Write your reply..."></textarea>
+
+          <div class="reply-actions">
+            <button hlmBtn variant="default">Post reply</button>
+          </div>
+        </div>
+      </section>
+    } @else {
+      <!-- ========================================
+           NOT FOUND
+      ========================================= -->
+      <div class="not-found">
+        <div class="not-found-icon">?</div>
+
+        <h1>Discussion not found</h1>
+
+        <p>This discussion doesn't exist or may have been removed.</p>
+
+        <button hlmBtn variant="default" routerLink="/forum">Back to forum</button>
+      </div>
+    }
+  </main>
+</div>

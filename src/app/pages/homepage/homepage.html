@@ -22,6 +22,7 @@
       <a href="#articles" class="nav-link">
         {{ t().articlesTitle }}
       </a>
+      <a routerLink="/forum" class="nav-link"> Forum </a>
     </div>
 
     <!-- NAV ACTIONS -->
@@ -52,8 +53,27 @@
         </hlm-dropdown-menu>
       </ng-template>
 
-      <!-- SIGN IN -->
-      <button hlmBtn variant="default" class="sign-in-button" routerLink="/sign-in">Sign in</button>
+      <!-- AUTHENTICATION -->
+@if (authService.isLoggedIn()) {
+  <button
+    hlmBtn
+    variant="outline"
+    class="logout-button"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+} @else {
+  <button
+    hlmBtn
+    variant="default"
+    class="sign-in-button"
+    routerLink="/sign-in"
+  >
+    Sign in
+  </button>
+  }
+
     </div>
   </nav>
 
@@ -67,11 +87,17 @@
     <section id="home" class="hero">
       <div class="badge">✦ {{ t().badge }}</div>
 
-      <h1>
-        {{ t().title }}
+      <h1 class="typing-title">
+        <span class="typing-line">
+          {{ displayedTitle() }}
+          <span class="typing-cursor"></span>
+        </span>
+
         <br />
-        <span>
-          {{ t().titleHighlight }}
+
+        <span class="typing-line typing-highlight">
+          {{ displayedTitleHighlight() }}
+          <span class="typing-cursor"></span>
         </span>
       </h1>
 
@@ -190,55 +216,53 @@
     </section>
 
     <!-- ========================================
-         HOW IT WORKS DIVIDER
-    ========================================= -->
-    <div class="section-divider">
-      <span>
-        {{ t().howItWorks }}
-      </span>
-    </div>
-
-    <!-- ========================================
          HOW IT WORKS
     ========================================= -->
     <section id="how-it-works" class="how-it-works-section">
-      <!-- STEP 1 -->
-      <div class="info-card">
-        <div class="info-top">
-          <span class="info-number"> 01 </span>
-
-          <span class="info-icon"> 📝 </span>
-        </div>
-
-        <h3>Provide an article</h3>
-
-        <p>Paste the article text directly or provide its URL for review.</p>
+      <!-- HOW IT WORKS DIVIDER -->
+      <div class="section-divider">
+        <span>
+          {{ t().howItWorks }}
+        </span>
       </div>
 
-      <!-- STEP 2 -->
-      <div class="info-card">
-        <div class="info-top">
-          <span class="info-number"> 02 </span>
+      <!-- HOW IT WORKS CARDS -->
+      <div class="how-it-works-cards">
+        <!-- STEP 1 -->
+        <div class="info-card">
+          <div class="info-top">
+            <span class="info-number">01</span>
+            <span class="info-icon">📝</span>
+          </div>
 
-          <span class="info-icon"> 🔍 </span>
+          <h3>Provide an article</h3>
+
+          <p>Paste the article text directly or provide its URL for review.</p>
         </div>
 
-        <h3>Review</h3>
+        <!-- STEP 2 -->
+        <div class="info-card">
+          <div class="info-top">
+            <span class="info-number">02</span>
+            <span class="info-icon">🔍</span>
+          </div>
 
-        <p>Dr.Kirk examines the article's important information and claims.</p>
-      </div>
+          <h3>Review</h3>
 
-      <!-- STEP 3 -->
-      <div class="info-card">
-        <div class="info-top">
-          <span class="info-number"> 03 </span>
-
-          <span class="info-icon"> 💡 </span>
+          <p>Dr.Kirk examines the article's important information and claims.</p>
         </div>
 
-        <h3>Understand</h3>
+        <!-- STEP 3 -->
+        <div class="info-card">
+          <div class="info-top">
+            <span class="info-number">03</span>
+            <span class="info-icon">💡</span>
+          </div>
 
-        <p>Get a clearer understanding before deciding whether to trust the article.</p>
+          <h3>Understand</h3>
+
+          <p>Get a clearer understanding before deciding whether to trust the article.</p>
+        </div>
       </div>
     </section>
 

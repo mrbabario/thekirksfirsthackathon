@@ -1,0 +1,167 @@
+<div class="create-post-page">
+  <!-- ==========================================
+       NAVBAR
+  =========================================== -->
+  <nav class="create-navbar">
+    <!-- LOGO -->
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">K</span>
+      <span class="logo-name">Dr.Kirk</span>
+    </a>
+
+    <!-- NAVIGATION LINKS -->
+    <div class="nav-links">
+      <a routerLink="/" class="nav-link"> Home </a>
+
+      <a routerLink="/" fragment="how-it-works" class="nav-link"> How It Works </a>
+
+      <a routerLink="/" fragment="articles" class="nav-link"> Explore Articles </a>
+
+      <a routerLink="/forum" class="nav-link active"> Forum </a>
+    </div>
+
+    <!-- NAV ACTIONS -->
+    <div class="nav-actions">
+      <!-- LANGUAGE -->
+      <button
+        hlmBtn
+        variant="outline"
+        [hlmDropdownMenuTrigger]="languageMenu"
+        class="language-button"
+      >
+        🌐 {{ language }}
+      </button>
+
+      <ng-template #languageMenu>
+        <hlm-dropdown-menu>
+          <hlm-dropdown-menu-group>
+            <hlm-dropdown-menu-label> Language </hlm-dropdown-menu-label>
+
+            <button hlmDropdownMenuItem (click)="setLanguage('en')">🇬🇧 English</button>
+
+            <button hlmDropdownMenuItem (click)="setLanguage('ms')">🇲🇾 Bahasa Melayu</button>
+
+            <button hlmDropdownMenuItem (click)="setLanguage('zh')">🇨🇳 中文</button>
+          </hlm-dropdown-menu-group>
+        </hlm-dropdown-menu>
+      </ng-template>
+
+      <!-- SIGN IN -->
+      <button hlmBtn variant="default" class="sign-in-button" routerLink="/sign-in">Sign in</button>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
+  <main class="create-post-main">
+    <!-- BACK TO FORUM -->
+    <a routerLink="/forum" class="back-link"> ← Back to discussions </a>
+
+    <!-- ========================================
+         PAGE HEADER
+    ========================================= -->
+    <section class="create-header">
+      <span class="section-label"> COMMUNITY </span>
+
+      <h1>Create a post.</h1>
+
+      <p>
+        Start a discussion, ask a question, or share something interesting with the Dr.Kirk
+        community.
+      </p>
+    </section>
+
+    <!-- ========================================
+         CREATE POST FORM
+    ======================================== -->
+    <form class="create-post-card" (ngSubmit)="submitPost()">
+      <!-- ======================================
+           TITLE
+      ======================================= -->
+      <div class="form-group">
+        <label for="title"> Title </label>
+
+        <p class="form-hint">Choose the medical topic related to your post.</p>
+
+        <input
+          id="title"
+          name="title"
+          hlmInput
+          type="text"
+          [(ngModel)]="title"
+          placeholder="What would you like to discuss?"
+        />
+      </div>
+
+      <!-- ======================================
+           CATEGORY + TAG
+      ======================================= -->
+      <div class="form-row">
+        <!-- CATEGORY -->
+        <div class="form-group">
+          <label for="category"> Category </label>
+
+          <p class="form-hint">Choose the most relevant category.</p>
+
+          <select id="category" name="category" [(ngModel)]="category" class="form-select">
+            @for (item of categories; track item) {
+              <option [value]="item">
+                {{ item }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <!-- TAG -->
+        <div class="form-group">
+          <label for="tag"> Tag </label>
+
+          <p class="form-hint">Add a simple label to your post.</p>
+
+          <select id="tag" name="tag" [(ngModel)]="tag" class="form-select">
+            @for (item of tags; track item) {
+              <option [value]="item">
+                {{ item }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- ======================================
+           POST CONTENT
+      ======================================= -->
+      <div class="form-group">
+        <label for="content"> Your post </label>
+
+        <p class="form-hint">Explain your idea, question, or discussion point.</p>
+
+        <textarea
+          id="content"
+          name="content"
+          hlmTextarea
+          [(ngModel)]="content"
+          class="post-textarea"
+          placeholder="Write your post here..."
+        ></textarea>
+      </div>
+
+      <!-- ======================================
+           FORM ACTIONS
+      ======================================= -->
+      <div class="form-actions">
+        <button hlmBtn type="button" variant="outline" routerLink="/forum">Cancel</button>
+
+        <button
+          hlmBtn
+          type="submit"
+          variant="default"
+          [disabled]="!title.trim() || !content.trim()"
+        >
+          Publish post
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
