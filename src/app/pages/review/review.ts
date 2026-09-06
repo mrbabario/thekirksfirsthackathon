@@ -38,6 +38,7 @@ interface PipelineStage {
     HlmTextareaImports,
     HlmDropdownMenuImports,
     DecimalPipe,
+    HlmDropdownMenuImports,
   ],
   templateUrl: './review.html',
   styleUrl: './review.css',

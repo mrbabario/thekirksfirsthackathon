@@ -84,20 +84,10 @@ export class CreatePost {
   // ==========================================
 
   submitPost(): void {
-    if (!this.title.trim() || !this.content.trim()) {
-      return;
-    }
-
-    const newPost = {
-      title: this.title.trim(),
-      category: this.category,
-      tag: this.tag,
-      content: this.content.trim(),
-    };
-
-    console.log('New forum post:', newPost);
-
-    // Frontend-only for the hackathon for now.
-    this.router.navigate(['/forum']);
+  if (!this.title.trim() || !this.content.trim()) {
+    return;
   }
+
+  this.router.navigate(['/asdf-post']);
+}
 }

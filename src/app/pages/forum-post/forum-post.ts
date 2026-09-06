@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
+import { FormsModule } from '@angular/forms';
 
 interface ForumPostData {
   id: number;
@@ -21,7 +22,7 @@ interface ForumPostData {
   selector: 'app-forum-post',
   standalone: true,
 
-  imports: [RouterLink, HlmButtonImports, HlmTextareaImports],
+  imports: [RouterLink, HlmButtonImports, HlmTextareaImports , FormsModule,],
 
   templateUrl: './forum-post.html',
   styleUrl: './forum-post.css',
@@ -34,10 +35,10 @@ export class ForumPost {
   posts: ForumPostData[] = [
     {
       id: 1,
-      title: 'How do you tell if an article is actually credible?',
-      category: 'Fact Checking',
+      title: 'COVID-19 vaccines are causing cancer rates to skyrocket',
+      category: 'General Discussion',
       description:
-        'What are the first things you look for when checking whether an online article is trustworthy?',
+        'I recently read an article claiming that COVID-19 vaccines are linked to a significant increase in cancer rates. I am concerned about the validity of this claim and would like to discuss it with others.',
       author: 'Alex',
       replies: 24,
       views: 318,
@@ -75,4 +76,17 @@ export class ForumPost {
 
     this.post = this.posts.find((post) => post.id === this.postId);
   }
+communityNote = '';
+
+addCommunityNote(): void {
+  const note = this.communityNote.trim();
+
+  if (!note) {
+    return;
+  }
+
+  console.log('Community note:', note);
+
+  this.communityNote = '';
+}
 }

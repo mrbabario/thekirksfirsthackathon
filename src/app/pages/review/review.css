@@ -10,6 +10,7 @@
 .review-page {
   min-height: 100vh;
 
+
   background:
     radial-gradient(
       circle at 50% 0%,
@@ -28,8 +29,9 @@
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 
+  width: 100%;
   width: 100%;
   height: 72px;
 
@@ -52,6 +54,7 @@
 .logo {
   display: inline-flex;
   align-items: center;
+
   gap: 10px;
 
   flex-shrink: 0;
@@ -103,6 +106,7 @@
   text-decoration: none;
 
   font-size: 13px;
+  font-size: 13px;
   font-weight: 500;
 
   transition:
@@ -135,6 +139,11 @@
 .nav-link:hover::after {
   transform: scaleX(1);
 }
+
+
+/* =========================================================
+   ACTIONS - FAR RIGHT
+========================================================= */
 
 .nav-actions {
   display: flex;
@@ -211,6 +220,7 @@
 .badge {
   display: inline-flex;
   align-items: center;
+
   gap: 8px;
 
   padding: 8px 13px;
@@ -218,6 +228,7 @@
   margin-bottom: 20px;
 
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   border-radius: 999px;
 
   background: rgba(255, 255, 255, 0.035);
@@ -225,6 +236,7 @@
   color: #cfcfd5;
 
   font-size: 12px;
+
   font-weight: 600;
 }
 
@@ -233,6 +245,7 @@
   margin: 0;
 
   font-size: clamp(43px, 6vw, 68px);
+
   line-height: 1.02;
 
   letter-spacing: -0.045em;
@@ -247,6 +260,7 @@
   color: #898991;
 
   font-size: 16px;
+
   line-height: 1.7;
 }
 
@@ -254,9 +268,11 @@
   color: #66666d;
 
   font-size: 10px;
+
   font-weight: 700;
 
   letter-spacing: 0.14em;
+
   text-transform: uppercase;
 }
 
@@ -470,6 +486,7 @@
 }
 
 /* =========================================================
+/* =========================================================
    OVERVIEW
 ========================================================= */
 
@@ -479,6 +496,7 @@
   padding: 27px;
 
   border: 1px solid rgba(255, 255, 255, 0.09);
+
   border-radius: 18px;
 
   background:
@@ -493,7 +511,9 @@
 
 .overview-heading {
   display: flex;
+
   justify-content: space-between;
+
   align-items: flex-start;
 }
 
@@ -501,18 +521,23 @@
   margin: 7px 0 0;
 
   font-size: 24px;
+
+  letter-spacing: -0.025em;
 }
 
 .overview-heading h2 span {
   color: #74747c;
 
   font-size: 14px;
+
   font-weight: 400;
 }
 
 .article-hash {
   display: flex;
+
   flex-direction: column;
+
   gap: 7px;
 
   text-align: right;
@@ -522,18 +547,29 @@
   color: #55555d;
 
   font-size: 9px;
+
   font-weight: 700;
+
   letter-spacing: 0.13em;
 }
 
 .article-hash code {
   color: #777780;
 
+
   font-size: 11px;
+
+  font-family: monospace;
 }
+
+
+/* =========================================================
+   OVERVIEW STATS
+========================================================= */
 
 .overview-stats {
   display: grid;
+
   grid-template-columns: repeat(6, 1fr);
 
   margin-top: 28px;
@@ -557,6 +593,7 @@
   display: block;
 
   font-size: 25px;
+
   font-weight: 700;
 
   letter-spacing: -0.04em;
@@ -570,6 +607,7 @@
   color: #6c6c74;
 
   font-size: 10px;
+
   line-height: 1.4;
 }
 
@@ -586,7 +624,7 @@
 }
 
 .stat.refuted .stat-number {
-  color: #f28e8e;
+  color: #f28f8f;
 }
 
 /* =========================================================
@@ -599,7 +637,9 @@
 
 .section-heading {
   display: flex;
+
   align-items: flex-end;
+
   justify-content: space-between;
 
   margin-bottom: 18px;
@@ -621,36 +661,54 @@
 
 .claims-list {
   display: flex;
+
   flex-direction: column;
+
   gap: 12px;
 }
+
+
+/* =========================================================
+   CLAIM CARD
+========================================================= */
 
 .claim-card {
   overflow: hidden;
 
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   border-radius: 15px;
 
   background: rgba(255, 255, 255, 0.025);
 
   transition:
     border-color 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .claim-card:hover {
   border-color: rgba(255, 255, 255, 0.14);
+
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .claim-card.expanded {
   background: rgba(255, 255, 255, 0.032);
 }
 
+
+/* =========================================================
+   CLAIM HEADER
+========================================================= */
+
 .claim-header {
   width: 100%;
 
   display: grid;
+
   grid-template-columns: 48px 1fr 30px;
+
   gap: 15px;
 
   padding: 20px;
@@ -658,6 +716,7 @@
   border: 0;
 
   background: transparent;
+
   color: inherit;
 
   text-align: left;
@@ -671,6 +730,7 @@
   padding-top: 2px;
 
   font-family: monospace;
+
   font-size: 12px;
 }
 
@@ -690,12 +750,15 @@
   color: #e5e5e8;
 
   font-size: 15px;
+
   font-weight: 600;
+
   line-height: 1.55;
 }
 
 .claim-entities {
   display: flex;
+
   flex-wrap: wrap;
 
   gap: 7px;
@@ -715,9 +778,16 @@
   font-size: 10px;
 }
 
+
+/* =========================================================
+   VERDICT BADGES
+========================================================= */
+
 .verdict-badge {
   display: inline-flex;
+
   align-items: center;
+
   gap: 6px;
 
   padding: 5px 9px;
@@ -725,6 +795,7 @@
   border-radius: 999px;
 
   font-size: 10px;
+
   font-weight: 700;
 
   letter-spacing: 0.03em;
@@ -732,21 +803,25 @@
 
 .verdict-supported {
   background: rgba(120, 255, 165, 0.08);
+
   color: #92f5ad;
 }
 
 .verdict-mixed {
   background: rgba(240, 202, 114, 0.08);
+
   color: #ebcc7c;
 }
 
 .verdict-insufficient {
   background: rgba(255, 255, 255, 0.07);
+
   color: #bdbdc5;
 }
 
 .verdict-refuted {
   background: rgba(255, 110, 110, 0.08);
+
   color: #ff9999;
 }
 
@@ -782,6 +857,7 @@
   color: #9a9aa2;
 
   font-size: 13px;
+
   line-height: 1.75;
 }
 
@@ -815,11 +891,13 @@
 }
 
 /* =========================================================
+/* =========================================================
    CLAIM STRUCTURE
 ========================================================= */
 
 .claim-structure {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
 
   gap: 10px;
@@ -827,6 +905,7 @@
   padding: 15px;
 
   border: 1px solid rgba(255, 255, 255, 0.06);
+
   border-radius: 10px;
 
   background: rgba(0, 0, 0, 0.18);
@@ -844,9 +923,11 @@
   color: #55555d;
 
   font-size: 9px;
+
   font-weight: 700;
 
   text-transform: uppercase;
+
   letter-spacing: 0.12em;
 }
 
@@ -870,7 +951,9 @@
 
 .reference-heading {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
 
   margin-bottom: 10px;
@@ -884,6 +967,7 @@
 
 .references-list {
   display: flex;
+
   flex-direction: column;
 
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -905,7 +989,9 @@
   width: 100%;
 
   display: grid;
+
   grid-template-columns: 42px 1fr 22px;
+
   align-items: center;
 
   gap: 10px;
@@ -915,6 +1001,7 @@
   border: 0;
 
   background: transparent;
+
   color: inherit;
 
   text-align: left;
@@ -944,6 +1031,7 @@
   color: #bdbdc3;
 
   font-size: 12px;
+
   line-height: 1.5;
 }
 
@@ -975,11 +1063,13 @@
   color: #7e7e86;
 
   font-size: 11px;
+
   line-height: 1.7;
 }
 
 .reference-meta {
   display: flex;
+
   flex-wrap: wrap;
 
   gap: 7px;
@@ -1023,17 +1113,21 @@
 }
 
 /* =========================================================
+/* =========================================================
    NO EVIDENCE
 ========================================================= */
 
 .no-evidence {
   display: flex;
+
   gap: 13px;
 
   margin-top: 20px;
+
   padding: 15px;
 
   border: 1px solid rgba(255, 255, 255, 0.07);
+
   border-radius: 10px;
 
   background: rgba(255, 255, 255, 0.025);
@@ -1044,6 +1138,7 @@
   height: 30px;
 
   display: grid;
+
   place-items: center;
 
   flex-shrink: 0;
@@ -1066,9 +1161,10 @@
 .no-evidence p {
   margin: 4px 0 0;
 
-  color: #67676e;
+  color: #67666e;
 
   font-size: 11px;
+
   line-height: 1.5;
 }
 
@@ -1084,6 +1180,7 @@
 
 .source-grid {
   display: grid;
+
   grid-template-columns: repeat(2, 1fr);
 
   gap: 10px;
@@ -1091,7 +1188,9 @@
 
 .source-card {
   display: grid;
+
   grid-template-columns: 38px 1fr 20px;
+
   gap: 10px;
 
   align-items: center;
@@ -1099,11 +1198,13 @@
   padding: 14px;
 
   border: 1px solid rgba(255, 255, 255, 0.07);
+
   border-radius: 11px;
 
   background: rgba(255, 255, 255, 0.02);
 
   color: inherit;
+
   text-decoration: none;
 
   transition:
@@ -1116,6 +1217,8 @@
   transform: translateY(-2px);
 
   border-color: rgba(255, 255, 255, 0.14);
+
+  background: rgba(255, 255, 255, 0.03);
 
   background: rgba(255, 255, 255, 0.03);
 }
@@ -1138,6 +1241,7 @@
   color: #aaaab1;
 
   font-size: 11px;
+
   line-height: 1.45;
 }
 
@@ -1171,6 +1275,7 @@
   text-align: left;
 
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   border-radius: 16px;
 
   background: rgba(255, 255, 255, 0.025);
@@ -1178,6 +1283,7 @@
 
 .field-group {
   display: flex;
+
   flex-direction: column;
 
   gap: 8px;
@@ -1189,6 +1295,7 @@
   color: #c3c3c9;
 
   font-size: 12px;
+
   font-weight: 600;
 }
 
@@ -1199,6 +1306,7 @@ input {
   border-color: rgba(255, 255, 255, 0.09) !important;
 
   background: rgba(0, 0, 0, 0.24) !important;
+
   color: #f5f5f5 !important;
 }
 
@@ -1221,6 +1329,7 @@ textarea {
 
 .analyze-button {
   width: 100%;
+
   height: 44px;
 
   border-radius: 8px;
@@ -1240,6 +1349,7 @@ textarea {
 }
 
 /* =========================================================
+/* =========================================================
    LOADING
 ========================================================= */
 
@@ -1256,6 +1366,7 @@ textarea {
   margin: 0 auto 22px;
 
   border: 3px solid rgba(255, 255, 255, 0.1);
+
   border-top-color: white;
 
   border-radius: 50%;
@@ -1283,6 +1394,7 @@ textarea {
 
 .bottom-action {
   display: flex;
+
   justify-content: center;
 
   margin-top: 42px;
@@ -1296,6 +1408,7 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 
   background: transparent !important;
+
   color: #bcbcc3 !important;
 
   border-radius: 8px;
@@ -1313,11 +1426,13 @@ textarea {
 @keyframes fade-up {
   from {
     opacity: 0;
+
     transform: translateY(16px);
   }
 
   to {
     opacity: 1;
+
     transform: translateY(0);
   }
 }
@@ -1325,7 +1440,21 @@ textarea {
 @keyframes detail-open {
   from {
     opacity: 0;
+
     transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes navbarDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 
   to {
@@ -1362,8 +1491,22 @@ textarea {
   }
 
   .nav-links {
-    display: none;
+    gap: 18px;
+
+    margin-left: 35px;
   }
+
+  .nav-link {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 850px) {
 
   .overview-stats {
     grid-template-columns: repeat(3, 1fr);
@@ -1382,11 +1525,17 @@ textarea {
   }
 }
 
-@media (max-width: 650px) {
-  .review-main {
-    width: min(100% - 24px, 1080px);
 
-    padding-top: 55px;
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+  .navbar {
+    justify-content: space-between;
+
+    padding: 0 16px;
   }
 
   .navbar {
@@ -1457,6 +1606,7 @@ textarea {
 
   .overview-heading {
     flex-direction: column;
+
     gap: 15px;
   }
 
@@ -1483,7 +1633,7 @@ textarea {
   }
 
   .claim-details {
-    padding: 0 16px 20px 16px;
+    padding: 0 16px 20px;
   }
 
   .claim-structure {
@@ -1492,6 +1642,7 @@ textarea {
 
   .reference-body {
     padding-left: 44px;
+
     padding-right: 15px;
   }
 
@@ -1530,12 +1681,57 @@ textarea {
   }
 }
 
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+  .logo-name {
+    display: none;
+  }
+
+  .language-button {
+    padding: 0 9px;
+
+    font-size: 11px;
+  }
+
+  .sign-in-button {
+    padding: 0 10px;
+
+    font-size: 11px;
+  }
+
+  .result-heading h1,
+  .new-review h1 {
+    font-size: 42px;
+  }
+
+  .overview-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .claim-main h3 {
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+
     animation-iteration-count: 1 !important;
+
     transition-duration: 0.01ms !important;
   }
 }
