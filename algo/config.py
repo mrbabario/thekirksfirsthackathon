@@ -21,7 +21,7 @@ class Settings:
     SEMANTIC_TOP_K = 30
     RERANK_TOP_K = 5
 
-    CACHE_DB = "data/cache.db"
+    CACHE_DB = "algo/cache.db"
 
 
 settings = Settings()

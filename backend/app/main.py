@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.db.database import Base, engine
-from app.routes.auth import router as auth_router
+from backend.app.db.database import Base, engine
+from backend.app.routes.auth import router as auth_router
+
+from backend.app.routes.fact_check import router as fact_check_router
 
 # Import models so SQLAlchemy knows about them
-from app.models import user
+from backend.app.models import user
 
 
 # Create database tables
@@ -36,6 +38,10 @@ app.include_router(
     prefix="/api",
 )
 
+app.include_router(
+    fact_check_router,
+    prefix="/api",
+)
 
 @app.get("/")
 def root():
