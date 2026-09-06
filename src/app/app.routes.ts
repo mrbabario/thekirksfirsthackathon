@@ -7,6 +7,7 @@ import { Forum } from './pages/forum/forum';
 import { ForumPost } from './pages/forum-post/forum-post';
 import { CreatePost } from './pages/create-post/create-post';
 import { ReviewPage } from './pages/review/review';
+import { AsdfPost } from './pages/asdf-post/asdf-post';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,9 @@ export const routes: Routes = [
   {
     path: 'forum/:id',
     component: ForumPost,
+  },
+  {
+    path: 'asdf-post',
+    component: AsdfPost,
   },
 ];

@@ -18,15 +18,15 @@ interface ForumPost {
 }
 
 @Component({
-  selector: 'app-forum',
+  selector: 'app-asdf-post',
   standalone: true,
 
   imports: [RouterLink, HlmButtonImports, HlmDropdownMenuImports],
 
-  templateUrl: './forum.html',
-  styleUrl: './forum.css',
+  templateUrl: './asdf-post.html',
+  styleUrl: './asdf-post.css',
 })
-export class Forum {
+export class AsdfPost {
   language = 'Language';
 
   setLanguage(language: 'en' | 'ms' | 'zh'): void {
@@ -75,10 +75,23 @@ export class Forum {
   posts: ForumPost[] = [
     {
       id: 1,
-      title: 'COVID-19 vaccines are causing cancer rates to skyrocket',
+      title: 'asdf',
       category: 'General Discussion',
       description:
-        'I recently read an article claiming that COVID-19 vaccines are linked to a significant increase in cancer rates. I am concerned about the validity of this claim and would like to discuss it with others.',
+        'asdf',
+      author: 'dickson',
+      replies: 0,
+      views: 3,
+      time: '2 sec ago',
+      tag: 'Discussion',
+      pinned: true,
+    },
+    {
+      id: 2,
+      title: 'Covid-19 vaccines are causing cancer rates to skyrocket',
+      category: 'general discussion',
+      description:
+        'I recently read an article claiming that Covid-19 vaccines are linked to a significant increase in cancer rates. I am concerned about the validity of this claim and would like to discuss it with others.',
       author: 'Alex',
       replies: 24,
       views: 318,
@@ -87,7 +100,7 @@ export class Forum {
       pinned: true,
     },
     {
-      id: 2,
+      id: 3,
       title: 'Found an interesting article about AI misinformation',
       category: 'Media & News',
       description:
@@ -99,7 +112,7 @@ export class Forum {
       tag: 'Article',
     },
     {
-      id: 3,
+      id: 4,
       title: 'What sources do you trust the most?',
       category: 'General Discussion',
       description: 'Curious about which sources everyone uses when researching something online.',
@@ -110,7 +123,7 @@ export class Forum {
       tag: 'Discussion',
     },
     {
-      id: 4,
+      id: 5,
       title: 'Suggestion: Add source comparison to reviews',
       category: 'Help & Feedback',
       description:
@@ -122,7 +135,7 @@ export class Forum {
       tag: 'Suggestion',
     },
     {
-      id: 5,
+      id: 6,
       title: 'Is a popular source automatically a reliable source?',
       category: 'Fact Checking',
       description:
@@ -134,7 +147,7 @@ export class Forum {
       tag: 'Discussion',
     },
     {
-      id: 6,
+      id: 7,
       title: 'Share an article you think everyone should read',
       category: 'General Discussion',
       description:

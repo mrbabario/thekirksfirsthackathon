@@ -7,6 +7,7 @@ import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { DecimalPipe } from '@angular/common';
+import { HlmDropdownMenuImports } from '@spartan-ng/helm/dropdown-menu';
 
 type Language = 'en' | 'ms' | 'zh';
 type Verdict = 'SUPPORTED' | 'MIXED' | 'INSUFFICIENT' | 'REFUTED';
@@ -95,6 +96,7 @@ interface Translation {
     HlmInputImports,
     HlmTextareaImports,
     DecimalPipe,
+    HlmDropdownMenuImports,
   ],
   templateUrl: './review.html',
   styleUrl: './review.css',

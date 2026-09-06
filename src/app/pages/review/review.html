@@ -1,56 +1,142 @@
 <div class="review-page">
-  <!-- ================= NAVBAR ================= -->
 
-  <header class="navbar">
-    <div class="navbar-inner">
-      <a routerLink="/" class="logo">
-        <img src="/dr-kirk-icon.png" alt="Dr.Kirk" class="logo-icon" />
+  <!-- ==========================================
+       NAVBAR
+  =========================================== -->
+  <nav class="navbar">
 
-        <span>Dr.Kirk</span>
+    <!-- LEFT: LOGO -->
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">K</span>
+      <span class="logo-name">Dr.Kirk</span>
+    </a>
+
+
+    <!-- CENTER: NAVIGATION LINKS -->
+    <div class="nav-links">
+
+      <a
+        routerLink="/"
+        fragment="home"
+        class="nav-link"
+      >
+        {{ t().home }}
       </a>
 
-      <nav class="nav-links">
-        <a routerLink="/" class="nav-link">
-          {{ t().home }}
-        </a>
+      <a
+        routerLink="/"
+        fragment="how-it-works"
+        class="nav-link"
+      >
+        {{ t().howItWorks }}
+      </a>
 
-        <a routerLink="/" fragment="how-it-works" class="nav-link">
-          {{ t().howItWorks }}
-        </a>
+      <a
+        routerLink="/"
+        fragment="articles"
+        class="nav-link"
+      >
+        Explore articles
+      </a>
 
-        <a routerLink="/" fragment="articles" class="nav-link">
-          {{ t().articles }}
-        </a>
+      <a
+        routerLink="/forum"
+        class="nav-link"
+      >
+        Forum
+      </a>
 
-        <a routerLink="/forum" class="nav-link">
-          {{ t().forum }}
-        </a>
-      </nav>
-
-      <div class="nav-actions">
-        <select
-          class="language-select"
-          [value]="language()"
-          (change)="setLanguage($any($event.target).value)"
-        >
-          <option value="en">English</option>
-          <option value="ms">Bahasa Melayu</option>
-          <option value="zh">中文</option>
-        </select>
-
-        <a routerLink="/signin" class="signin-button">
-          {{ t().signIn }}
-        </a>
-      </div>
     </div>
-  </header>
 
-  <!-- ================= MAIN ================= -->
+
+    <!-- RIGHT: ACTIONS -->
+    <div class="nav-actions">
+
+      <!-- LANGUAGE -->
+      <button
+        hlmBtn
+        variant="outline"
+        [hlmDropdownMenuTrigger]="languageMenu"
+        class="language-button"
+        type="button"
+      >
+        🌐 {{ t().language }}
+      </button>
+
+      <ng-template #languageMenu>
+
+        <hlm-dropdown-menu>
+
+          <hlm-dropdown-menu-group>
+
+            <hlm-dropdown-menu-label>
+              {{ t().language }}
+            </hlm-dropdown-menu-label>
+
+            <button
+              hlmDropdownMenuItem
+              type="button"
+              (click)="setLanguage('en')"
+            >
+              🇬🇧 English
+            </button>
+
+            <button
+              hlmDropdownMenuItem
+              type="button"
+              (click)="setLanguage('ms')"
+            >
+              🇲🇾 Bahasa Melayu
+            </button>
+
+            <button
+              hlmDropdownMenuItem
+              type="button"
+              (click)="setLanguage('zh')"
+            >
+              🇨🇳 中文
+            </button>
+
+          </hlm-dropdown-menu-group>
+
+        </hlm-dropdown-menu>
+
+      </ng-template>
+
+
+      <!-- SIGN IN -->
+      <button
+        hlmBtn
+        variant="default"
+        class="sign-in-button"
+        routerLink="/sign-in"
+        type="button"
+      >
+        Sign in
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
 
   <main class="review-main">
+
+    <!-- ========================================
+         NEW REVIEW
+    ========================================= -->
+
     @if (!hasResult() && !analyzing()) {
+
       <section class="new-review">
-        <div class="badge">✦ {{ t().badge }}</div>
+
+        <div class="badge">
+          ✦ {{ t().badge }}
+        </div>
 
         <h1>
           {{ t().title }}
@@ -60,62 +146,107 @@
           {{ t().subtitle }}
         </p>
 
+
+        <!-- INPUT CARD -->
+
         <div class="input-card">
+
+          <!-- ARTICLE TEXT -->
+
           <div class="field-group">
-            <label>
+
+            <label for="article-text">
               {{ t().articleInput }}
             </label>
 
             <textarea
+              id="article-text"
               hlmTextarea
               [(ngModel)]="articleText"
               [placeholder]="t().articleInputPlaceholder"
               rows="10"
             ></textarea>
+
           </div>
 
+
+          <!-- ARTICLE URL -->
+
           <div class="field-group">
-            <label>
+
+            <label for="article-url">
               {{ t().articleUrl }}
             </label>
 
             <input
+              id="article-url"
               hlmInput
               type="url"
               [(ngModel)]="articleUrl"
               [placeholder]="t().articleUrlPlaceholder"
             />
+
           </div>
+
+
+          <!-- ANALYZE -->
 
           <button
             hlmBtn
             class="analyze-button"
-            [disabled]="!articleText.trim() && !articleUrl.trim()"
+            type="button"
+            [disabled]="
+              !articleText.trim() &&
+              !articleUrl.trim()
+            "
             (click)="runAnalysis()"
           >
             ✦ {{ t().analyze }}
           </button>
+
         </div>
+
       </section>
+
     }
 
+
+    <!-- ========================================
+         LOADING
+    ========================================= -->
+
     @if (analyzing()) {
+
       <section class="loading-state">
+
         <div class="loading-spinner"></div>
 
         <h2>
           {{ t().analyzing }}
         </h2>
 
-        <p>Examining claims and evidence...</p>
+        <p>
+          Examining claims and evidence...
+        </p>
+
       </section>
+
     }
 
+
+    <!-- ========================================
+         RESULTS
+    ========================================= -->
+
     @if (hasResult() && !analyzing()) {
+
       <!-- ================= HEADER ================= -->
 
       <section class="result-heading">
-        <div class="badge">✦ {{ t().badge }}</div>
+
+        <div class="badge">
+          ✦ {{ t().badge }}
+        </div>
 
         <h1>
           {{ t().title }}
@@ -124,31 +255,58 @@
         <p>
           {{ t().subtitle }}
         </p>
+
       </section>
+
 
       <!-- ================= OVERVIEW ================= -->
 
       <section class="overview-card">
+
         <div class="overview-heading">
+
           <div>
+
             <span class="eyebrow">
               {{ t().overall }}
             </span>
 
             <h2>
+
               {{ review().claims.length }}
-              <span>{{ t().claimsAnalyzed }}</span>
+
+              <span>
+                {{ t().claimsAnalyzed }}
+              </span>
+
             </h2>
+
           </div>
+
 
           <div class="article-hash">
-            <span>ARTICLE ID</span>
-            <code> {{ review().article_hash.slice(0, 12) }}... </code>
+
+            <span>
+              ARTICLE ID
+            </span>
+
+            <code>
+              {{ review().article_hash.slice(0, 12) }}...
+            </code>
+
           </div>
+
         </div>
 
+
+        <!-- SUMMARY STATS -->
+
         <div class="overview-stats">
+
+          <!-- CLAIMS -->
+
           <div class="stat">
+
             <span class="stat-number">
               {{ totalClaims() }}
             </span>
@@ -156,9 +314,14 @@
             <span class="stat-label">
               {{ t().claimsAnalyzed }}
             </span>
+
           </div>
 
+
+          <!-- SOURCES -->
+
           <div class="stat">
+
             <span class="stat-number">
               {{ allReferences().length }}
             </span>
@@ -166,9 +329,14 @@
             <span class="stat-label">
               {{ t().sourcesFound }}
             </span>
+
           </div>
 
+
+          <!-- SUPPORTED -->
+
           <div class="stat supported">
+
             <span class="stat-number">
               {{ countVerdict('SUPPORTED') }}
             </span>
@@ -176,9 +344,14 @@
             <span class="stat-label">
               {{ t().supported }}
             </span>
+
           </div>
 
+
+          <!-- MIXED -->
+
           <div class="stat mixed">
+
             <span class="stat-number">
               {{ countVerdict('MIXED') }}
             </span>
@@ -186,9 +359,14 @@
             <span class="stat-label">
               {{ t().mixed }}
             </span>
+
           </div>
 
+
+          <!-- INSUFFICIENT -->
+
           <div class="stat insufficient">
+
             <span class="stat-number">
               {{ countVerdict('INSUFFICIENT') }}
             </span>
@@ -196,9 +374,14 @@
             <span class="stat-label">
               {{ t().insufficient }}
             </span>
+
           </div>
 
+
+          <!-- REFUTED -->
+
           <div class="stat refuted">
+
             <span class="stat-number">
               {{ countVerdict('REFUTED') }}
             </span>
@@ -206,15 +389,22 @@
             <span class="stat-label">
               {{ t().refuted }}
             </span>
+
           </div>
+
         </div>
+
       </section>
 
-      <!-- ================= CLAIMS ================= -->
+
+      <!-- ================= CLAIM ANALYSIS ================= -->
 
       <section class="claims-section">
+
         <div class="section-heading">
+
           <div>
+
             <span class="eyebrow">
               {{ t().evidence }}
             </span>
@@ -222,102 +412,202 @@
             <h2>
               {{ t().claimAnalysis }}
             </h2>
+
           </div>
 
-          <span class="claims-count"> {{ totalClaims() }} claims </span>
+
+          <span class="claims-count">
+            {{ totalClaims() }} claims
+          </span>
+
         </div>
 
+
         <div class="claims-list">
-          @for (item of review().claims; track $index; let i = $index) {
-            <article class="claim-card" [class.expanded]="isClaimExpanded(i)">
+
+          @for (
+            item of review().claims;
+            track $index;
+            let i = $index
+          ) {
+
+            <article
+              class="claim-card"
+              [class.expanded]="isClaimExpanded(i)"
+            >
+
               <!-- CLAIM HEADER -->
 
-              <button class="claim-header" type="button" (click)="toggleClaim(i)">
+              <button
+                class="claim-header"
+                type="button"
+                (click)="toggleClaim(i)"
+              >
+
                 <div class="claim-number">
-                  {{ i + 1 | number: '2.0-0' }}
+
+                  {{ i + 1 | number:'2.0-0' }}
+
                 </div>
 
+
                 <div class="claim-main">
+
                   <div class="claim-top">
+
                     <span
                       class="verdict-badge"
-                      [class.verdict-supported]="item.verdict === 'SUPPORTED'"
-                      [class.verdict-mixed]="item.verdict === 'MIXED'"
-                      [class.verdict-insufficient]="item.verdict === 'INSUFFICIENT'"
-                      [class.verdict-refuted]="item.verdict === 'REFUTED'"
+
+                      [class.verdict-supported]="
+                        item.verdict === 'SUPPORTED'
+                      "
+
+                      [class.verdict-mixed]="
+                        item.verdict === 'MIXED'
+                      "
+
+                      [class.verdict-insufficient]="
+                        item.verdict === 'INSUFFICIENT'
+                      "
+
+                      [class.verdict-refuted]="
+                        item.verdict === 'REFUTED'
+                      "
                     >
+
                       <span>
                         {{ verdictIcon(item.verdict) }}
                       </span>
 
                       {{ verdictLabel(item.verdict) }}
+
                     </span>
+
                   </div>
+
 
                   <h3>
                     {{ item.claim.text }}
                   </h3>
 
+
+                  <!-- ENTITIES -->
+
                   <div class="claim-entities">
-                    @for (entity of item.claim.entities; track entity) {
+
+                    @for (
+                      entity of item.claim.entities;
+                      track entity
+                    ) {
+
                       <span>
                         {{ entity }}
                       </span>
+
                     }
+
                   </div>
+
                 </div>
+
+
+                <!-- EXPAND -->
 
                 <div class="expand-icon">
-                  {{ isClaimExpanded(i) ? '−' : '+' }}
+
+                  {{
+                    isClaimExpanded(i)
+                      ? '−'
+                      : '+'
+                  }}
+
                 </div>
+
               </button>
 
-              <!-- EXPANDED CONTENT -->
+
+              <!-- ================= EXPANDED CLAIM ================= -->
 
               @if (isClaimExpanded(i)) {
+
                 <div class="claim-details">
+
+                  <!-- EXPLANATION -->
+
                   <div class="explanation">
+
                     <span class="eyebrow">
                       {{ t().explanation }}
                     </span>
 
-                    @for (explanation of item.explanation; track $index) {
+
+                    @for (
+                      explanation of item.explanation;
+                      track $index
+                    ) {
+
                       <p>
                         {{ explanation.text }}
                       </p>
+
                     }
+
                   </div>
+
 
                   <!-- CLAIM STRUCTURE -->
 
                   <div class="claim-structure">
+
                     <div>
-                      <span>Subject</span>
+
+                      <span>
+                        Subject
+                      </span>
+
                       <strong>
                         {{ item.claim.subject }}
                       </strong>
+
                     </div>
 
+
                     <div>
-                      <span>Predicate</span>
+
+                      <span>
+                        Predicate
+                      </span>
+
                       <strong>
                         {{ item.claim.predicate }}
                       </strong>
+
                     </div>
 
+
                     <div>
-                      <span>Object</span>
+
+                      <span>
+                        Object
+                      </span>
+
                       <strong>
                         {{ item.claim.object }}
                       </strong>
+
                     </div>
+
                   </div>
+
 
                   <!-- REFERENCES -->
 
                   @if (item.references.length > 0) {
+
                     <div class="references-section">
+
                       <div class="reference-heading">
+
                         <span class="eyebrow">
                           {{ t().references }}
                         </span>
@@ -325,42 +615,90 @@
                         <span>
                           {{ item.references.length }}
                         </span>
+
                       </div>
 
+
                       <div class="references-list">
-                        @for (reference of item.references; track reference.number) {
+
+                        @for (
+                          reference of item.references;
+                          track reference.number
+                        ) {
+
                           <div class="reference">
+
                             <button
                               type="button"
                               class="reference-header"
-                              (click)="toggleReference(i, reference.number)"
+                              (click)="
+                                toggleReference(
+                                  i,
+                                  reference.number
+                                )
+                              "
                             >
-                              <div class="reference-number">[{{ reference.number }}]</div>
+
+                              <div class="reference-number">
+
+                                [{{ reference.number }}]
+
+                              </div>
+
 
                               <div class="reference-title">
+
                                 <strong>
                                   {{ reference.title }}
                                 </strong>
 
                                 <span>
+
                                   {{ reference.journal }}
+
                                   ·
+
                                   {{ reference.year }}
+
                                 </span>
+
                               </div>
 
+
                               <span class="reference-arrow">
-                                {{ isReferenceExpanded(i, reference.number) ? '−' : '+' }}
+
+                                {{
+                                  isReferenceExpanded(
+                                    i,
+                                    reference.number
+                                  )
+                                    ? '−'
+                                    : '+'
+                                }}
+
                               </span>
+
                             </button>
 
-                            @if (isReferenceExpanded(i, reference.number)) {
+
+                            <!-- REFERENCE DETAILS -->
+
+                            @if (
+                              isReferenceExpanded(
+                                i,
+                                reference.number
+                              )
+                            ) {
+
                               <div class="reference-body">
+
                                 <p>
                                   {{ reference.abstract }}
                                 </p>
 
+
                                 <div class="reference-meta">
+
                                   <span>
                                     PMID
                                     {{ reference.pmid }}
@@ -373,38 +711,74 @@
                                   <span>
                                     {{ reference.year }}
                                   </span>
+
                                 </div>
+
                               </div>
+
                             }
+
                           </div>
+
                         }
+
                       </div>
+
                     </div>
-                  } @else {
+
+                  }
+
+
+                  <!-- NO EVIDENCE -->
+
+                  @else {
+
                     <div class="no-evidence">
-                      <span class="no-evidence-icon"> ? </span>
+
+                      <span class="no-evidence-icon">
+                        ?
+                      </span>
+
 
                       <div>
-                        <strong> No supporting references found </strong>
+
+                        <strong>
+                          No supporting references found
+                        </strong>
 
                         <p>
-                          Dr.Kirk could not find enough relevant evidence to evaluate this claim.
+                          Dr.Kirk could not find enough
+                          relevant evidence to evaluate
+                          this claim.
                         </p>
+
                       </div>
+
                     </div>
+
                   }
+
                 </div>
+
               }
+
             </article>
+
           }
+
         </div>
+
       </section>
+
 
       <!-- ================= ALL SOURCES ================= -->
 
       <section class="sources-summary">
+
         <div class="section-heading">
+
           <div>
+
             <span class="eyebrow">
               {{ t().evidence }}
             </span>
@@ -412,48 +786,95 @@
             <h2>
               {{ t().references }}
             </h2>
+
           </div>
+
 
           <span class="claims-count">
             {{ allReferences().length }}
           </span>
+
         </div>
 
+
         <div class="source-grid">
-          @for (reference of allReferences(); track reference.number) {
+
+          @for (
+            reference of allReferences();
+            track reference.number
+          ) {
+
             <a
               class="source-card"
-              [href]="'https://pubmed.ncbi.nlm.nih.gov/' + reference.pmid + '/'"
+
+              [href]="
+                'https://pubmed.ncbi.nlm.nih.gov/' +
+                reference.pmid +
+                '/'
+              "
+
               target="_blank"
+
               rel="noopener noreferrer"
             >
-              <span class="source-number"> [{{ reference.number }}] </span>
+
+              <span class="source-number">
+
+                [{{ reference.number }}]
+
+              </span>
+
 
               <div>
+
                 <strong>
                   {{ reference.title }}
                 </strong>
 
                 <span>
+
                   {{ reference.journal }}
+
                   ·
+
                   {{ reference.year }}
+
                 </span>
+
               </div>
 
-              <span class="source-arrow"> ↗ </span>
+
+              <span class="source-arrow">
+                ↗
+              </span>
+
             </a>
+
           }
+
         </div>
+
       </section>
+
 
       <!-- ================= ACTION ================= -->
 
       <section class="bottom-action">
-        <button hlmBtn class="secondary-button" (click)="startNewReview()">
+
+        <button
+          hlmBtn
+          class="secondary-button"
+          type="button"
+          (click)="startNewReview()"
+        >
           ← {{ t().analyzeAnother }}
         </button>
+
       </section>
+
     }
+
   </main>
 
+
+  
