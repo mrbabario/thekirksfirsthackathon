@@ -134,7 +134,7 @@ export class Homepage {
 
       badge: 'AI-Powered Article Review',
 
-      title: 'Before you trust the article.',
+      title: 'Before you trust an article.',
       titleHighlight: 'Let Dr.Kirk verify it.',
 
       description:
